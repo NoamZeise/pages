@@ -1,6 +1,51 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-02-06T18:50:19+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">NoamZeise</title><subtitle>A collection of programming projects</subtitle><entry><title type="html">Link to Legacy Site</title><link href="http://localhost:4000/2023/02/06/legacy-site.html" rel="alternate" type="text/html" title="Link to Legacy Site" /><published>2023-02-06T00:00:00+00:00</published><updated>2023-02-06T00:00:00+00:00</updated><id>http://localhost:4000/2023/02/06/legacy-site</id><content type="html" xml:base="http://localhost:4000/2023/02/06/legacy-site.html"><![CDATA[<p>If you want to see all of my past project, I will be moving the good ones here, but here I leave a link to that old site.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-02-06T21:40:37+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">NoamZeise</title><subtitle>A collection of programming projects</subtitle><entry><title type="html">Link to Legacy Site</title><link href="http://localhost:4000/2023/02/06/legacy-site.html" rel="alternate" type="text/html" title="Link to Legacy Site" /><published>2023-02-06T00:00:00+00:00</published><updated>2023-02-06T00:00:00+00:00</updated><id>http://localhost:4000/2023/02/06/legacy-site</id><content type="html" xml:base="http://localhost:4000/2023/02/06/legacy-site.html"><![CDATA[<p>If you want to see all of my past project, I will be moving the good ones here, but here I leave a link to that old site.</p>
 
-<p><a href="https://noamzeise.wordpress.com/">My old site</a></p>]]></content><author><name></name></author><summary type="html"><![CDATA[If you want to see all of my past project, I will be moving the good ones here, but here I leave a link to that old site.]]></summary></entry><entry><title type="html">Raspberry Pi Pico Temperature Sensor</title><link href="http://localhost:4000/microcontroller/2022/04/13/temp-humidity.html" rel="alternate" type="text/html" title="Raspberry Pi Pico Temperature Sensor" /><published>2022-04-13T00:00:00+01:00</published><updated>2022-04-13T00:00:00+01:00</updated><id>http://localhost:4000/microcontroller/2022/04/13/temp-humidity</id><content type="html" xml:base="http://localhost:4000/microcontroller/2022/04/13/temp-humidity.html"><![CDATA[<p>Using the raspberry pi pico microcontroller board with a DHT11 sensor, it tracks the temperature and relative humidity throughout the day. The Pico code is written in C++ and the cli is written in Rust.</p>
+<p><a href="https://noamzeise.wordpress.com/">My old site</a></p>]]></content><author><name></name></author><summary type="html"><![CDATA[If you want to see all of my past project, I will be moving the good ones here, but here I leave a link to that old site.]]></summary></entry><entry><title type="html">Bunny Patch - a simulation game about protecting a carrot patch</title><link href="http://localhost:4000/gamejam/2023/02/05/BunnyPatch.html" rel="alternate" type="text/html" title="Bunny Patch - a simulation game about protecting a carrot patch" /><published>2023-02-05T00:00:00+00:00</published><updated>2023-02-05T00:00:00+00:00</updated><id>http://localhost:4000/gamejam/2023/02/05/BunnyPatch</id><content type="html" xml:base="http://localhost:4000/gamejam/2023/02/05/BunnyPatch.html"><![CDATA[<iframe width="560" height="315" src="https://www.youtube.com/embed/fmegaXGNcH4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe>
+
+<p>Protect your carrot patch from encroaching weeds.</p>
+
+<p>Made with my <a href="https://github.com/NoamZeise/sdl2-rs-game-template">rust game library</a> in 48 hours for <a href="https://globalgamejam.org/2023/games/bunnypatch-0">global game jam 2023</a>.</p>
+
+<p>Click next turn to advance time by a few step, and you can watch as the game world changes. When the carrots sparkle, it means they have been harvested and added to your carrot bank in the top right. You can click on the button in the top left to open the shop and buy tiles that interact with the world in some way.</p>
+
+<p><a href="https://noamzeise.itch.io/bunnypatch">download on itch.io</a></p>
+
+<p><a href="https://github.com/NoamZeise/BunnyPatch">view source code on github</a></p>
+
+<h4 id="credits">Credits:</h4>
+<ul>
+  <li>
+    <p><a href="https://gerbzies.itch.io/">Laura King</a> - Art and Game Design</p>
+  </li>
+  <li>
+    <p>Noam Zeise - Programming and Game Design</p>
+  </li>
+  <li>
+    <p><a href="https://youtube.com/channel/UCs75GjfGdtTS-CekMJOGICA">Mick Cooke – MakeFire Music</a> - Music and Sound Effects</p>
+  </li>
+</ul>]]></content><author><name></name></author><category term="GameJam" /><summary type="html"><![CDATA[Protect your carrot patch from encroaching weeds. Made with my rust game library in 48 hours for global game jam 2023. Click next turn to advance time by a few step, and you can watch as the game world changes. When the carrots sparkle, it means they have been harvested and added to your carrot bank in the top right. You can click on the button in the top left to open the shop and buy tiles that interact with the world in some way. download on itch.io view source code on github Credits: Laura King - Art and Game Design Noam Zeise - Programming and Game Design Mick Cooke – MakeFire Music - Music and Sound Effects]]></summary></entry><entry><title type="html">Robyn Hood - on rails stealth card game</title><link href="http://localhost:4000/gamejam/2022/09/28/Robyn-Hood.html" rel="alternate" type="text/html" title="Robyn Hood - on rails stealth card game" /><published>2022-09-28T00:00:00+01:00</published><updated>2022-09-28T00:00:00+01:00</updated><id>http://localhost:4000/gamejam/2022/09/28/Robyn-Hood</id><content type="html" xml:base="http://localhost:4000/gamejam/2022/09/28/Robyn-Hood.html"><![CDATA[<iframe width="560" height="315" src="https://www.youtube.com/embed/Vgt7zBQWTyE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe>
+<p><br />
+An on-rails stealth game with spell cards, made over the course of 2 months for OGAM-16 with my C++ graphics, audio and map loading libraries. This was the work of a team of 3.</p>
+
+<p>The game reimagines the legendary Robin Hood as a woman, and the player is her spirit guardian. It is the player’s task to cast spells to assit Robyn with her thievery. The player always has access to three basic spells: Go, Wait, and Retry. As the player goes through the level, the player can pick up stone spells for destroying obstacles and distracting enemies, a gust spell that can be used to displace the player and enemies, and a smoke spell for blinding enemies. The player must use these spells to help Robyn sneak past enemies.</p>
+
+<p><a href="https://noamzeise.itch.io/robyn-hood">download on itch.io</a></p>
+
+<p><a href="https://github.com/NoamZeise/Robyn-Hood">view source code on github</a></p>
+
+<h4 id="credits">Credits:</h4>
+
+<ul>
+  <li>
+    <p><a href="https://youtube.com/channel/UCs75GjfGdtTS-CekMJOGICA">Mick Cooke – MakeFire Music</a> - Music and Sound Effects</p>
+  </li>
+  <li>
+    <p><a href="https://www.artstation.com/tha-com-nos">Thanos Gramosis</a> - Art</p>
+  </li>
+  <li>
+    <p>Noam Zeise - Programming</p>
+  </li>
+</ul>]]></content><author><name></name></author><category term="GameJam" /><summary type="html"><![CDATA[An on-rails stealth game with spell cards, made over the course of 2 months for OGAM-16 with my C++ graphics, audio and map loading libraries. This was the work of a team of 3. The game reimagines the legendary Robin Hood as a woman, and the player is her spirit guardian. It is the player’s task to cast spells to assit Robyn with her thievery. The player always has access to three basic spells: Go, Wait, and Retry. As the player goes through the level, the player can pick up stone spells for destroying obstacles and distracting enemies, a gust spell that can be used to displace the player and enemies, and a smoke spell for blinding enemies. The player must use these spells to help Robyn sneak past enemies. download on itch.io view source code on github Credits: Mick Cooke – MakeFire Music - Music and Sound Effects Thanos Gramosis - Art Noam Zeise - Programming]]></summary></entry><entry><title type="html">Raspberry Pi Pico Temperature Sensor</title><link href="http://localhost:4000/microcontroller/2022/04/13/temp-humidity.html" rel="alternate" type="text/html" title="Raspberry Pi Pico Temperature Sensor" /><published>2022-04-13T00:00:00+01:00</published><updated>2022-04-13T00:00:00+01:00</updated><id>http://localhost:4000/microcontroller/2022/04/13/temp-humidity</id><content type="html" xml:base="http://localhost:4000/microcontroller/2022/04/13/temp-humidity.html"><![CDATA[<p>Using the raspberry pi pico microcontroller board with a DHT11 sensor, it tracks the temperature and relative humidity throughout the day. The Pico code is written in C++ and the cli is written in Rust.</p>
 
 <p>The pico stores data into a buffer after a time interval, the buffer can be emptied to a computer using the command line tool, which sends a request to the pico over uart, then saves the data recieved as comma separated values.</p>
 
