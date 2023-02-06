@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Raspberry Pi Pico Temperature Sensor | NoamZeise</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Raspberry Pi Pico Temperature Sensor" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Using the raspberry pi pico microcontroller board with a DHT11 sensor, it tracks the temperature and relative humidity throughout the day. The Pico code is written in C++ and the cli is written in Rust." />
+<meta property="og:description" content="Using the raspberry pi pico microcontroller board with a DHT11 sensor, it tracks the temperature and relative humidity throughout the day. The Pico code is written in C++ and the cli is written in Rust." />
+<link rel="canonical" href="http://localhost:4000/microcontroller/2022/04/13/temp-humidity.html" />
+<meta property="og:url" content="http://localhost:4000/microcontroller/2022/04/13/temp-humidity.html" />
+<meta property="og:site_name" content="NoamZeise" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-04-13T00:00:00+01:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Raspberry Pi Pico Temperature Sensor" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-04-13T00:00:00+01:00","datePublished":"2022-04-13T00:00:00+01:00","description":"Using the raspberry pi pico microcontroller board with a DHT11 sensor, it tracks the temperature and relative humidity throughout the day. The Pico code is written in C++ and the cli is written in Rust.","headline":"Raspberry Pi Pico Temperature Sensor","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/microcontroller/2022/04/13/temp-humidity.html"},"url":"http://localhost:4000/microcontroller/2022/04/13/temp-humidity.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="NoamZeise" /></head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">NoamZeise</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Raspberry Pi Pico Temperature Sensor</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2022-04-13T00:00:00+01:00" itemprop="datePublished">Apr 13, 2022
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Using the raspberry pi pico microcontroller board with a DHT11 sensor, it tracks the temperature and relative humidity throughout the day. The Pico code is written in C++ and the cli is written in Rust.</p>
+
+<p>The pico stores data into a buffer after a time interval, the buffer can be emptied to a computer using the command line tool, which sends a request to the pico over uart, then saves the data recieved as comma separated values.</p>
+
+<p><a href="https://github.com/NoamZeise/pico-th-collector">source code</a></p>
+
+<p>here’s data from the project recorded between 1:00am and 4:30pm:</p>
+
+<p><img src="/assets/img/posts/pico-humidity/readings-temp.png" style="width:100%" />
+<img src="/assets/img/posts/pico-humidity/readings-humidity.png" style="width:100%" /></p>
+
+<p>The resolution of the humidity sensor is less than the temperature sensor.</p>
+
+<p><br />
+<br /></p>
+<h2 id="how-it-works">How it works</h2>
+
+<hr />
+
+<p><br /></p>
+<h4 id="pico-code">Pico Code</h4>
+
+<p>The pico runs on a loop where it sleeps for the delay period, then requests a sensor reading from the DHT11, which stores temperature, humidity and a timestamp in an array of 7 byte records.</p>
+
+<p>The pico has a number of general purpose input output (GPIO) pins that detect whether the voltage across it is high or low. So by connecting the DHT11 to one of the GPIO pins the pico and send and recieve data from the sensor. The specifics of how the data is sent can be read about <a href="https://components101.com/sites/default/files/component_datasheet/DHT11-Temperature-Sensor.pdf">here</a>.</p>
+
+<p>The DHT11 outputs 2 bytes for both temperature and humidity (but humidity only has 1 bytes of precision, it outputs two so it’s compatible with the DHT22), as well as a check byte. This data is stored as bytes, the conversion to floats happens with the command line tool. I also have the pico store the time as 3 bytes, so it can store up to 190 days of timestamps. An interrupt occurs when the pico recieves data to the uart1 port, which is stored as a char array. A command is finished with a CRLF, which tells the pico to check the given command and execute it, as well as clear the command char array.</p>
+
+<p>The pico returns a 1 byte response code to the given command: 1 meaing a confirmation, 2 meaing an empty buffer, 3 meaning an unknown command. In the case of a get command, the pico send 8 bytes for each recorded sensor reading. 7 bytes are for the data, and 1 byte is for syncing. This make sure missed bytes only affect two records, instead of offseting every byte afterwards.</p>
+
+<p>The pico then resets it’s time, clears it’s buffer and continues getting sensor readings. The buffer size is 30,000 (this is 210kB, pico has 256kB ram total), so at the default reading of every 30 seconds, it should be able to run for 10 days without needing to be emptied.</p>
+
+<p>The reading interval can be checked and changed with a delay command, which uses the same codes as the first command, then recieves a 1 byte number representing the delay in seconds, and returns the byte for checking.</p>
+
+<p><img src="/assets/img/posts/pico-humidity/top-down-view.jpg" style="width:100%;" /></p>
+
+<p><br /></p>
+<h4 id="command-line-code">Command Line Code</h4>
+
+<p>This is my first time working with Rust for something relatively low level like uart, and I found it a pleasant experience. The language made handling buffers very flexible, and the error handling was easy to implement.</p>
+
+<p>The command line code uses the specifics of how the pico software sends it’s data/recieves commands. When asked to by the user, it sends a get command to the pico and reads 8 bytes per record, checking that the sync byte is correct. The user can get the current reading delay, or change it to something else (limted to the range of 1-255 seconds)</p>
+
+<p>I wrote the tool to being very careful to check the user command is correct before getting the data, but once the program gets it from the device, it will rarely run into a stopping condition, this is to ensure that the data is usually preserved when an error occurs, even if it turns out to be a bit mangled.</p>
+
+<p>The tool uses the <a href="https://crates.io/crates/serialport">serial port crate</a> which exposes a cross-platform serial port api for connecting to and using ports.</p>
+
+<p><img src="/assets/img/posts/pico-humidity/file-output.png" style="width:100%;" /></p>
+
+<p><br /></p>
+<hr />
+
+<p><br /></p>
+
+<h2 id="setup">Setup</h2>
+
+<p>If you want to use the software to run a cheap temperature recorder, these are the steps to follow. The components ended up costing me around £12.</p>
+
+<p><img src="/assets/img/posts/pico-humidity/debug-view-setup.webp" /></p>
+
+<p>You’ll need:</p>
+
+<ul>
+  <li>
+    <p>A <a href="https://www.raspberrypi.com/products/raspberry-pi-pico/">Raspberry Pi Pico</a></p>
+  </li>
+  <li>
+    <p>A <a href="https://components101.com/sensors/dht11-temperature-sensor">DHT11</a> or <a href="https://components101.com/sensors/dht22-pinout-specs-datasheet">DHT22</a>(untested) sensor</p>
+  </li>
+  <li>
+    <p>Some sort of uart device with a baud rate set to 9600, such as the <a href="https://components101.com/wireless/hc-05-bluetooth-module">HC-05 bluetooth module</a></p>
+  </li>
+  <li>
+    <p>A 5V power supply (can use batteries), or you can power over usb.</p>
+  </li>
+  <li>
+    <p>Some wires for connecting the pins to the components, I used a breadboard and dupont wires.</p>
+  </li>
+  <li>
+    <p>A micro usb to flash the software onto the pico.</p>
+  </li>
+  <li>
+    <p>A windows or linux computer for running the command line tool to grab the data from the pico</p>
+  </li>
+</ul>
+
+<p>Download the binaries from the <a href="https://github.com/NoamZeise/pico-th-collector/releases">release section of the github page</a>. You’ll need pico-th-collector.uf2  and either the <a href="https://github.com/NoamZeise/pico-th-collector/releases/download/0.1.0/pico_th_collector.exe">windows cli</a> or the <a href="https://github.com/NoamZeise/pico-th-collector/releases/download/0.1.0/pico_th_collector">linux cli</a>. First install the software by holding the BOOTSEL button and plugging the pico into a computer. The pico should open as an external flash drive, now drag the .uf2 file onto the pico. The pico is now flashed with the software.</p>
+
+<p>Next wire up the pico as shown below:</p>
+
+<p><img src="/assets/img/posts/pico-humidity/setup-diagram.webp" /></p>
+
+<p>This is the information show in the image, with the pins named:</p>
+
+<p><strong>Pico -&gt; DHT11</strong></p>
+
+<ul>
+  <li>
+    <p>pin 21 GPI16 -&gt; Data</p>
+  </li>
+  <li>
+    <p>VSYS -&gt; VCC</p>
+  </li>
+  <li>
+    <p>GND -&gt; GND</p>
+  </li>
+</ul>
+
+<p><strong>Pico -&gt; HC-05</strong></p>
+
+<ul>
+  <li>
+    <p>pin 6 UART1 TX -&gt;  RXD</p>
+  </li>
+  <li>
+    <p>pin 7 UART1 RX -&gt; TXD</p>
+  </li>
+  <li>
+    <p>VSYS -&gt; VCC</p>
+  </li>
+  <li>
+    <p>GND  -&gt; GND</p>
+  </li>
+</ul>
+
+<p><strong>Power Supply</strong></p>
+
+<ul>
+  <li>
+    <p>VSYS -&gt; positive terminal</p>
+  </li>
+  <li>
+    <p>GND  -&gt; negative terminal</p>
+  </li>
+</ul>
+
+<p>Note that the power supply doesn’t have to be connected to the VSYS and GND pins, plugging a usb into the micro-usb plug will also work.</p>
+
+<p>Powering through USB:</p>
+
+<p><img src="/assets/img/posts/pico-humidity/usb-powering.jpg" /></p>
+
+<p>Powering through battery:</p>
+
+<p><img src="/assets/img/posts/pico-humidity/battery-powering.jpg" /></p>
+
+<p>Now the pico can be left to collect data, the LED on the pico should flash every time it collects a reading.
+<br />
+<br /></p>
+<h2 id="using-the-command-line-tool">Using the Command Line Tool</h2>
+
+<p>The pico can send you it’s collected readings over uart. You’ll need either a Window or Linux computer (and bluetooth if using uart bluetooth). If you have a mac, or the binaries don’t work on your architecture, you will need to build the command line tool yourself using Rust (See <em>Building the Command Line Tool</em> at the end of this article).</p>
+
+<h4 id="get-command">get command</h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">get</code> command is used to get the data from the pico and save it to a file. It is used as</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    get [port] [file] [optional args]
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">[port]</code> is the name of the port that the pico’s uart1 is connected to. If you are using bluetooth uart, you will first need to pair your device with the bluetooth module before you can use the port.</p>
+
+<p>If you are on windows, the <em>device manager</em> will show your available ports under <em>Ports</em> (the format is <code class="language-plaintext highlighter-rouge">COM[X]</code>), you can either try them all with the command line tool, or connect and disconnect the pico to see which port appears and disappears.</p>
+
+<p>On linux the <code class="language-plaintext highlighter-rouge">dmesg | grep tty</code> command will output a history of usb devices connecting, the port will be in the /<code class="language-plaintext highlighter-rouge">dev/tty[device]</code> format. If you are using bluetooth you can pair with the device using <em>bluez</em>, then link it’s MAC address to an rfcomm port, so the port format would be <code class="language-plaintext highlighter-rouge">/dev/rfcomm[x]</code>.</p>
+
+<p><img src="/assets/img/posts/pico-humidity/request-data-cli.webp" /></p>
+
+<p>If the specified file already exists and is full of previous pico data, the user can specify the <code class="language-plaintext highlighter-rouge">-useprev</code> tag with the get command to use the last record in the file as an offset for the current data. This is used if you fetch data from the pico a second time after allowing it to continue to collect data.</p>
+
+<p><img src="/assets/img/posts/pico-humidity/askforinfo-append.webp" /></p>
+
+<p>The <code class="language-plaintext highlighter-rouge">-useoffset [offset in seconds]</code> tag will add the specified offset to the data (this can be used in conjunction with other args). This is useful if you want to append to preexisting data but the pico was off for a known time.</p>
+
+<h4 id="delay-command">delay command</h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">delay</code> command is used to get and set the reading delay of the pico. It is used as:
+```
+    delay [port] [optional args]
+``
+Running the command without optinal args gets the current delay. The argument <code class="language-plaintext highlighter-rouge">--set [delay]</code> sets the pico’s delay to the given value in seconds.</p>
+
+<p><img src="/assets/img/posts/pico-humidity/delay-cmd.webp" /></p>
+
+<p><br /><br /><br /></p>
+<hr />
+
+<p><br /><br /></p>
+<h2 id="pico-development-setup">Pico Development Setup</h2>
+
+<p>If you want to modify the software, if you would like to change the GPIO pins or the uart port or anything else, or build the binaries for yourself, these next sections will help.</p>
+
+<h3 id="pico-debugging-setup">Pico Debugging Setup</h3>
+
+<p>The pico is designed to be used with a raspberry pi computer, which acts as a debugger for the board. As an alternative for those without a pi pc, raspberry pi offer software called picoprobe which, when flashed onto a pico, allows that pico to act as the debugger.</p>
+
+<p><img src="/assets/img/posts/pico-humidity/debug-setup.webp" /></p>
+
+<p>The three debug pins at the bottom need to be hooked up to the debugger pico and ground. It can also share power with the slave pico. The debugger lets you flash new software on the pico, set breakpoints, and see a log of any errors.</p>
+
+<p><img src="/assets/img/posts/pico-humidity/debug-pins.jpg" /></p>
+
+<p>For debugging, the debugger pico’s pins 4-GP2 (pin-label) and 5-GP3 are connected to the target’s SWCLK and SWDIO pins respectively. Wiring 39-VSYS and 38-GND to each other let the picos share power. You can also connect the debugger’s 6-UART1_TX and 7-UART2_RX to the target’s 2-UART0_RX and 1-UART0_TX respectively to pass the target pico’s uart0 through the debugger. Illustrated below (without the components connected):</p>
+
+<p><img src="/assets/img/posts/pico-humidity/debug-diagram.png" /></p>
+
+<p>For debugging software setup see <a href="https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf">Getting Started with Raspberry Pi Pico</a> under Appendix A: Using Picoprobe. The dependancies section on the github repo also indicate which tools are needed for building the pico software.</p>
+
+<h3 id="building-the-command-line-tool">Building the Command Line Tool</h3>
+
+<p>The command line tool uses Rust, which you will need to <a href="https://www.rust-lang.org/tools/install">install</a>. This comes with the package manager cargo, which will make building the binaries simpler by managing it’s dependancies for you.</p>
+
+<p>Once you have Rust, download the source code for the command line tool and navigate to it. Run <code class="language-plaintext highlighter-rouge">cargo build --release</code> to build the binaries in release mode. The binary will now be in <code class="language-plaintext highlighter-rouge">target\relase\</code> in the code directory.</p>
+
+  </div><a class="u-url" href="/microcontroller/2022/04/13/temp-humidity.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+
+</footer>
+</body>
+
+</html>
