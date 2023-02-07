@@ -23,3 +23,61 @@ Click next turn to advance time by a few step, and you can watch as the game wor
 * Noam Zeise - Programming and Game Design
 
 * [Mick Cooke – MakeFire Music](https://youtube.com/channel/UCs75GjfGdtTS-CekMJOGICA) - Music and Sound Effects  
+
+
+## Implementation Details
+
+I added many new features to my Rust game library since I had last used it for a jam, now it hides 
+all of the details of SDL. Controls are also much easier to add, and a lot of unrelated systems that were previously connected have been more seperated (ie render, input, camera, map, etc...). 
+
+The Board is implimented as an array of Boxed objects that impliment the 'Tile' trait. This trait
+defines the behavior of a tile type, what it looks like, how it affects other tiles, and how other tiles affect it. Here is the trait 
+
+```Rust
+pub trait Tile {
+    fn tile(&self) -> Tiles {
+        Tiles::None
+    }
+
+    fn pos(&self) -> (usize, usize);
+
+    fn removed(&mut self) -> bool {
+        false
+	}
+
+    fn update(&mut self, _map: &mut Tilemap) {}
+
+    fn draw(&self, _cam: &mut Camera) {}
+
+    fn interact(&mut self, _tile:Tiles) {}
+}
+```
+
+When the simulation steps forward, the update function is called on each tile. Each tile can
+add a `Choice` to the tilemap, which is a request for affecting a certain tile. Each of these
+choices are looped through and applied to their targets. The choice has two affects, it can
+either cause the target to be replaced, or will cause a change in the state of the target.
+
+```Rust
+ fn step(&mut self, ui: &mut Ui) {
+ 
+        for t in self.obj_map.iter_mut() {
+            t.update(&mut self.board);
+        }
+
+        for c in self.board.map_updates.drain(..) {
+            if self.obj_map[c.i].tile() == Tiles::Grass {
+                    self.set(c);
+                } else  {
+                    self.obj_map[c.i].interact(c.dst);
+                    if self.obj_map[c.i].removed() {
+                        self.set(c);
+                    }
+                }
+            }
+        }
+    }
+```
+
+The choice of implimenting tiles like this made it really easy to add new ones, and change
+the way they react with each other to change the way the simulation plays out.
