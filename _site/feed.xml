@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-02-06T22:23:30+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">NoamZeise</title><subtitle>A collection of programming projects</subtitle><entry><title type="html">Link to Legacy Site</title><link href="http://localhost:4000/2023/02/06/legacy-site.html" rel="alternate" type="text/html" title="Link to Legacy Site" /><published>2023-02-06T00:00:00+00:00</published><updated>2023-02-06T00:00:00+00:00</updated><id>http://localhost:4000/2023/02/06/legacy-site</id><content type="html" xml:base="http://localhost:4000/2023/02/06/legacy-site.html"><![CDATA[<p>If you want to see all of my past project, I will be moving the good ones here, but here I leave a link to that old site.</p>
-
-<p><a href="https://noamzeise.wordpress.com/">My old site</a></p>]]></content><author><name></name></author><summary type="html"><![CDATA[If you want to see all of my past project, I will be moving the good ones here, but here I leave a link to that old site.]]></summary></entry><entry><title type="html">Bunny Patch - a simulation game about protecting a carrot patch</title><link href="http://localhost:4000/gamejam/2023/02/05/BunnyPatch.html" rel="alternate" type="text/html" title="Bunny Patch - a simulation game about protecting a carrot patch" /><published>2023-02-05T00:00:00+00:00</published><updated>2023-02-05T00:00:00+00:00</updated><id>http://localhost:4000/gamejam/2023/02/05/BunnyPatch</id><content type="html" xml:base="http://localhost:4000/gamejam/2023/02/05/BunnyPatch.html"><![CDATA[<iframe width="560" height="315" src="https://www.youtube.com/embed/fmegaXGNcH4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-02-07T00:24:56+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">NoamZeise</title><subtitle>A collection of programming projects</subtitle><entry><title type="html">Bunny Patch - a simulation game about protecting a carrot patch</title><link href="http://localhost:4000/gamejam/2023/02/05/BunnyPatch.html" rel="alternate" type="text/html" title="Bunny Patch - a simulation game about protecting a carrot patch" /><published>2023-02-05T00:00:00+00:00</published><updated>2023-02-05T00:00:00+00:00</updated><id>http://localhost:4000/gamejam/2023/02/05/BunnyPatch</id><content type="html" xml:base="http://localhost:4000/gamejam/2023/02/05/BunnyPatch.html"><![CDATA[<iframe width="560" height="315" src="https://www.youtube.com/embed/fmegaXGNcH4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe>
 
 <p>Protect your carrot patch from encroaching weeds.</p>
 
@@ -45,7 +43,185 @@ An on-rails stealth game with spell cards, made over the course of 2 months for 
   <li>
     <p>Noam Zeise - Programming</p>
   </li>
-</ul>]]></content><author><name></name></author><category term="GameJam" /><summary type="html"><![CDATA[An on-rails stealth game with spell cards, made over the course of 2 months for OGAM-16 with my C++ graphics, audio and map loading libraries. This was the work of a team of 3. The game reimagines the legendary Robin Hood as a woman, and the player is her spirit guardian. It is the player’s task to cast spells to assit Robyn with her thievery. The player always has access to three basic spells: Go, Wait, and Retry. As the player goes through the level, the player can pick up stone spells for destroying obstacles and distracting enemies, a gust spell that can be used to displace the player and enemies, and a smoke spell for blinding enemies. The player must use these spells to help Robyn sneak past enemies. download on itch.io view source code on github Credits: Mick Cooke – MakeFire Music - Music and Sound Effects Thanos Gramosis - Art Noam Zeise - Programming]]></summary></entry><entry><title type="html">Raspberry Pi Pico Temperature Sensor</title><link href="http://localhost:4000/microcontroller/2022/04/13/temp-humidity.html" rel="alternate" type="text/html" title="Raspberry Pi Pico Temperature Sensor" /><published>2022-04-13T00:00:00+01:00</published><updated>2022-04-13T00:00:00+01:00</updated><id>http://localhost:4000/microcontroller/2022/04/13/temp-humidity</id><content type="html" xml:base="http://localhost:4000/microcontroller/2022/04/13/temp-humidity.html"><![CDATA[<p>Using the raspberry pi pico microcontroller board with a DHT11 sensor, it tracks the temperature and relative humidity throughout the day. The Pico code is written in C++ and the cli is written in Rust.</p>
+</ul>]]></content><author><name></name></author><category term="GameJam" /><summary type="html"><![CDATA[An on-rails stealth game with spell cards, made over the course of 2 months for OGAM-16 with my C++ graphics, audio and map loading libraries. This was the work of a team of 3. The game reimagines the legendary Robin Hood as a woman, and the player is her spirit guardian. It is the player’s task to cast spells to assit Robyn with her thievery. The player always has access to three basic spells: Go, Wait, and Retry. As the player goes through the level, the player can pick up stone spells for destroying obstacles and distracting enemies, a gust spell that can be used to displace the player and enemies, and a smoke spell for blinding enemies. The player must use these spells to help Robyn sneak past enemies. download on itch.io view source code on github Credits: Mick Cooke – MakeFire Music - Music and Sound Effects Thanos Gramosis - Art Noam Zeise - Programming]]></summary></entry><entry><title type="html">3D Skeletal Animation With Vulkan</title><link href="http://localhost:4000/technical/2022/06/28/3D-Skeletal-Animation.html" rel="alternate" type="text/html" title="3D Skeletal Animation With Vulkan" /><published>2022-06-28T00:00:00+01:00</published><updated>2022-06-28T00:00:00+01:00</updated><id>http://localhost:4000/technical/2022/06/28/3D-Skeletal-Animation</id><content type="html" xml:base="http://localhost:4000/technical/2022/06/28/3D-Skeletal-Animation.html"><![CDATA[<iframe width="560" height="315" src="https://www.youtube.com/embed/kic2IAvDSM8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe>
+
+<p>I’ve added Skeletal animation to my Vulkan game framwork. I already use assimp to load in 3D models,
+but the library also loads animations if the model has them.
+I’ve revamped the model loading system to be able to load animated and non-animated 
+models auutomically, and the renderer can take a model and an animation 
+and render the current state of the animation to the screen.</p>
+
+<p><a href="https://github.com/NoamZeise/Vulkan-Environment">Vulkan Framwork Source Code</a></p>
+
+<p><a href="https://free3d.com/3d-model/wolf-rigged-and-game-ready-42808.html">Model I used: Wolf by 3D Haupt</a></p>
+
+<h2 id="how-it-works">How it works</h2>
+
+<p>The Animation is stored as a hierarchy of bones, where each bone has a number of keyframes for scale, position and rotation, and a parent bone.</p>
+
+<p>Each bone corresponds to a 4×4 transform matrix that transforms the verticies from local to bone space. These transform matricies are calculated each frame and applied in the shader. In my implementation I send a uniform that holds and array of bone transform matricies that can be accessed by the animated verticies.</p>
+<div class="language-glsl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="kt">int</span> <span class="n">MAX_BONES</span> <span class="o">=</span> <span class="mi">50</span><span class="p">;</span>
+<span class="k">layout</span><span class="p">(</span><span class="n">set</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">binding</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">uniform</span> <span class="n">boneView</span>
+<span class="p">{</span>
+   <span class="kt">mat4</span> <span class="n">mat</span><span class="p">[</span><span class="n">MAX_BONES</span><span class="p">];</span>
+<span class="p">}</span> <span class="n">bones</span><span class="p">;</span>
+</code></pre></div></div>
+<p>As the animation plays, the current frame’s bone matricies are calculated using the keyframes of each bone. When an animation timing lands between two keyframes, the state is linearly interpreted using the two surrounding frames and the time the animation is at. Furthermore each matrix is multiplied by it’s parent’s matrix so that, say, a hand will move if an arm moves, without having to specifically move the hand too.</p>
+
+<p>Each vertex on the model has a number of bone IDs and weights, which represent which bone transforms affect the matrix, and by how much. The weights add up to 1.0 per vertex.</p>
+
+<p>So that the weights and IDs can be sent more easily to the shader as a vec4 and an ivec4, models usually limit the number of bones that affect a vertex to 4. So that the shader’s vertex inputs look like this:</p>
+<div class="language-glsl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">layout</span><span class="p">(</span><span class="n">location</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">in</span> <span class="kt">vec3</span> <span class="n">inPos</span><span class="p">;</span>
+<span class="k">layout</span><span class="p">(</span><span class="n">location</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="k">in</span> <span class="kt">vec3</span> <span class="n">inNormal</span><span class="p">;</span>
+<span class="k">layout</span><span class="p">(</span><span class="n">location</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span> <span class="k">in</span> <span class="kt">vec2</span> <span class="n">inTexCoord</span><span class="p">;</span>
+<span class="k">layout</span><span class="p">(</span><span class="n">location</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span> <span class="k">in</span> <span class="kt">ivec4</span> <span class="n">inBoneIDs</span><span class="p">;</span> <span class="c1">//which bone matricies to use</span>
+<span class="k">layout</span><span class="p">(</span><span class="n">location</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span> <span class="k">in</span> <span class="kt">vec4</span> <span class="n">inWeights</span><span class="p">;</span> <span class="c1">//how much it affects</span>
+</code></pre></div></div>
+<p>I add up each bone matrix into one big ‘skin’ matrix and apply it to the vertex to get it into bone space. This is also applied to the normal to ensure lighting calculations account for the animation.</p>
+<div class="language-glsl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">mat4</span> <span class="n">skin</span> <span class="o">=</span> <span class="kt">mat4</span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span><span class="p">);</span>
+<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+   <span class="k">if</span><span class="p">(</span><span class="n">inBoneIDs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="o">||</span> <span class="n">inBoneIDs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">MAX_BONES</span><span class="p">)</span>
+      <span class="k">break</span><span class="p">;</span>
+   <span class="n">skin</span> <span class="o">+=</span> <span class="n">inWeights</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">bones</span><span class="p">.</span><span class="n">mat</span><span class="p">[</span><span class="n">inBoneIDs</span><span class="p">[</span><span class="n">i</span><span class="p">]];</span>
+<span class="p">}</span>
+
+<span class="c1">// final_pos = projection * view * model * skin * position</span>
+<span class="c1">// final_normal = normal_matrix * skin * normal</span>
+</code></pre></div></div>
+<p>If the animation is updated each frame by the game loop to get new bone matricies, 
+then the model will be animated by the shader.</p>]]></content><author><name></name></author><category term="Technical" /><summary type="html"><![CDATA[I’ve added Skeletal animation to my Vulkan game framwork. I already use assimp to load in 3D models, but the library also loads animations if the model has them. I’ve revamped the model loading system to be able to load animated and non-animated models auutomically, and the renderer can take a model and an animation and render the current state of the animation to the screen. Vulkan Framwork Source Code Model I used: Wolf by 3D Haupt How it works The Animation is stored as a hierarchy of bones, where each bone has a number of keyframes for scale, position and rotation, and a parent bone. Each bone corresponds to a 4×4 transform matrix that transforms the verticies from local to bone space. These transform matricies are calculated each frame and applied in the shader. In my implementation I send a uniform that holds and array of bone transform matricies that can be accessed by the animated verticies. const int MAX_BONES = 50; layout(set = 2, binding = 0) uniform boneView { mat4 mat[MAX_BONES]; } bones; As the animation plays, the current frame’s bone matricies are calculated using the keyframes of each bone. When an animation timing lands between two keyframes, the state is linearly interpreted using the two surrounding frames and the time the animation is at. Furthermore each matrix is multiplied by it’s parent’s matrix so that, say, a hand will move if an arm moves, without having to specifically move the hand too. Each vertex on the model has a number of bone IDs and weights, which represent which bone transforms affect the matrix, and by how much. The weights add up to 1.0 per vertex. So that the weights and IDs can be sent more easily to the shader as a vec4 and an ivec4, models usually limit the number of bones that affect a vertex to 4. So that the shader’s vertex inputs look like this: layout(location = 0) in vec3 inPos; layout(location = 1) in vec3 inNormal; layout(location = 2) in vec2 inTexCoord; layout(location = 3) in ivec4 inBoneIDs; //which bone matricies to use layout(location = 4) in vec4 inWeights; //how much it affects I add up each bone matrix into one big ‘skin’ matrix and apply it to the vertex to get it into bone space. This is also applied to the normal to ensure lighting calculations account for the animation. mat4 skin = mat4(0.0f); for(int i = 0; i &lt; 4; i++) { if(inBoneIDs[i] == -1 || inBoneIDs[i] &gt;= MAX_BONES) break; skin += inWeights[i] * bones.mat[inBoneIDs[i]]; } // final_pos = projection * view * model * skin * position // final_normal = normal_matrix * skin * normal If the animation is updated each frame by the game loop to get new bone matricies, then the model will be animated by the shader.]]></summary></entry><entry><title type="html">Trials Of The Pharaoh - Light Ray Puzzle Game</title><link href="http://localhost:4000/gamejam/2022/05/30/TrialsOfThePharaoh.html" rel="alternate" type="text/html" title="Trials Of The Pharaoh - Light Ray Puzzle Game" /><published>2022-05-30T00:00:00+01:00</published><updated>2022-05-30T00:00:00+01:00</updated><id>http://localhost:4000/gamejam/2022/05/30/TrialsOfThePharaoh</id><content type="html" xml:base="http://localhost:4000/gamejam/2022/05/30/TrialsOfThePharaoh.html"><![CDATA[<iframe width="560" height="315" src="https://www.youtube.com/embed/fsNIisWhVz8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe>
+
+<p>An Egyptian light ray puzzle game, made in 10 days for GDTV Jam 2022 with my Vulkan and OpenGL graphics libraries. I worked together with the same people that made The Last Dodo with me.</p>
+
+<p>This is the first project where I have both a Vulkan and an OpenGL executable, this ensures that those with older gpus or outdated drivers will still be able to play (before I had a few people complaing about the game not working for them).</p>
+
+<p>Out of 950 submissions, we managed to get 1st place in both the “fun” and “music” categories, 4th in “Mechanics” and “Sound”, and 5th in “Aesthetics”. Which I am very happy with.</p>
+
+<p><a href="https://noamzeise.itch.io/pharaoh-trials">download on itch.io</a></p>
+
+<p><a href="https://github.com/NoamZeise/TrailsOfThePharaoh">view source code on github</a></p>
+
+<h4 id="credits">Credits:</h4>
+
+<ul>
+  <li>
+    <p><a href="https://youtube.com/channel/UCs75GjfGdtTS-CekMJOGICA">Mick Cooke – MakeFire Music</a> - Music</p>
+  </li>
+  <li>
+    <p><a href="https://www.artstation.com/tha-com-nos">Thanos Gramosis</a> - Art</p>
+  </li>
+  <li>
+    <p>Paul James – Wafer Audio - Sound</p>
+  </li>
+  <li>
+    <p>Paulina Ramirez –  Lady Yami #3939 - Voice Over/Writing</p>
+  </li>
+  <li>
+    <p>Noam Zeise - Programming</p>
+  </li>
+</ul>
+
+<h2 id="technical-details">Technical Details:</h2>
+
+<p><strong>2D Light Ray Shader</strong></p>
+
+<p>Shaders played a big role in this game, the light ray effect is generated 
+by the fragment shader.</p>
+
+<p>The rays begin from an emitter, and shoot out into the game map. The map is stored as a series of lines, so a square will have 4 lines for example.
+I step forward by a large amount of units and check each surface to see if the ray intersected any lines, 
+if it did, I roll back the ray to half the previous step and check again. If there was still a collision I go half again back, if not,
+I go half again forward. This is repeat until the ray is at the desired detail level. 
+If the surface is a mirror, the ray is reflected based on the laws of reflection and I repeat the above steps, 
+until I have a series of start and end points for rays. There is a cutoff of reflections to prevent an infinite loop, and to ensure the shader buffer isn’t exceeded.</p>
+
+<p>The array of start and end points are converted from game coords to screen coords, then sent to a storage buffer 
+on the gpu at the start of the frame. these points are accessed from the fragment shader, 
+which modify the brightness of a pixel based on how close each fragment is to a line. 
+The intensity is also modified by time with a sine function to give the rays a “pulsing” effect in the direction of travel.</p>
+
+<p><img src="/assets/img/posts/trialspharaoh/light-anim.webp" /></p>
+
+<p>The light ray shader takes in an array of pairs of points and a distance 
+that I store in a shader buffer. 
+I calculate the distance on the cpu so that iit does not need to be recalculate for each fragment.</p>
+<div class="language-glsl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="kt">int</span> <span class="n">RAY_COUNT</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+<span class="k">layout</span><span class="p">(</span><span class="n">set</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">binding</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="n">readonly</span> <span class="n">buffer</span> <span class="n">PerFrameLightPoints</span><span class="p">{</span>
+  <span class="kt">vec2</span> <span class="n">p1</span><span class="p">;</span>
+  <span class="kt">vec2</span> <span class="n">p2</span><span class="p">;</span>
+  <span class="kt">float</span> <span class="n">distance</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">rays</span><span class="p">[</span><span class="n">RAY_COUNT</span><span class="p">];</span>
+</code></pre></div></div>
+<p>I also send in a time value that I use to produce the wave effect the light has.</p>
+<div class="language-glsl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">layout</span><span class="p">(</span><span class="n">location</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span> <span class="k">in</span> <span class="kt">float</span> <span class="n">time</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>I calculate the value of the fragment by summing the effect of each ray into 
+an attenuation value that I use to modify the colour towards yellow. The closer the fragment
+is to the line between the two points, the brighter it is.</p>
+<div class="language-glsl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">vec4</span> <span class="n">col</span> <span class="o">=</span> <span class="n">texture</span><span class="p">(</span><span class="kt">sampler2D</span><span class="p">(</span><span class="n">textures</span><span class="p">[</span><span class="n">texID</span><span class="p">],</span> <span class="n">texSamp</span><span class="p">),</span> <span class="n">coord</span><span class="p">)</span> <span class="o">*</span> <span class="n">colour</span><span class="p">;</span>
+
+<span class="kt">float</span> <span class="n">attenuation</span> <span class="o">=</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span><span class="p">;</span>
+<span class="c1">// add to the attenuation the effects of each ray on the fragment</span>
+<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">RAY_COUNT</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="c1">//  I set the last ray distance to zero to break the loop early</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">rays</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">distance</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+		<span class="k">break</span><span class="p">;</span>
+	
+	<span class="kt">float</span> <span class="n">dist</span> <span class="o">=</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span><span class="p">;</span>
+	<span class="c1">// Get the square distance from the start point to the end point</span>
+	<span class="kt">vec2</span> <span class="n">lineVec</span> <span class="o">=</span> <span class="p">(</span><span class="n">rays</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">p2</span> <span class="o">-</span> <span class="n">rays</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">p1</span><span class="p">);</span>
+	<span class="kt">float</span> <span class="n">l2</span> <span class="o">=</span> <span class="p">(</span><span class="n">lineVec</span><span class="p">.</span><span class="n">x</span><span class="o">*</span> <span class="n">lineVec</span><span class="p">.</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">lineVec</span><span class="p">.</span><span class="n">y</span><span class="o">*</span><span class="n">lineVec</span><span class="p">.</span><span class="n">y</span><span class="p">);</span>
+	<span class="c1">// If the ray has no length, we calculate the distance </span>
+	<span class="c1">// from the start point to the fragment</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">l2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span><span class="p">)</span>
+		<span class="n">dist</span> <span class="o">=</span> <span class="n">distance</span><span class="p">(</span><span class="n">rays</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">p1</span><span class="p">,</span> <span class="nb">gl_FragCoord</span><span class="p">.</span><span class="n">xy</span><span class="p">);</span>
+	<span class="c1">// Otherwise we calc the distance from the fragment </span>
+	<span class="c1">// and the line between the two points by projecting the</span>
+	<span class="c1">// fragment onto the line and getting the distance between</span>
+	<span class="c1">// that point and the fragment pos</span>
+	<span class="k">else</span>
+	<span class="p">{</span>
+		<span class="kt">float</span> <span class="n">t</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">min</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">dot</span><span class="p">(</span><span class="nb">gl_FragCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">-</span> <span class="n">rays</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">p1</span><span class="p">,</span> 
+			<span class="n">rays</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">p2</span> <span class="o">-</span> <span class="n">rays</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">p1</span><span class="p">)</span> <span class="o">/</span> <span class="n">l2</span><span class="p">));</span>
+		<span class="kt">vec2</span> <span class="n">projection</span> <span class="o">=</span> <span class="n">rays</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">p1</span> <span class="o">+</span> <span class="p">(</span><span class="n">rays</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">p2</span> <span class="o">-</span> <span class="n">rays</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">p1</span><span class="p">)</span><span class="o">*</span><span class="n">t</span><span class="p">;</span>
+		<span class="kt">float</span> <span class="n">fromStart</span> <span class="o">=</span> <span class="n">distance</span><span class="p">(</span><span class="n">rays</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">p1</span><span class="p">,</span> <span class="nb">gl_FragCoord</span><span class="p">.</span><span class="n">xy</span><span class="p">);</span>
+		<span class="c1">// add a sinusoidal wave effect to the light over time</span>
+		<span class="kt">float</span> <span class="n">correction</span> <span class="o">=</span> <span class="n">abs</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">fromStart</span> <span class="o">*</span> <span class="mi">0</span><span class="p">.</span><span class="mo">01</span><span class="n">f</span> <span class="o">-</span> <span class="n">time</span><span class="p">))</span><span class="o">*</span><span class="mi">0</span><span class="p">.</span><span class="mi">5</span><span class="n">f</span> <span class="o">+</span> <span class="mi">0</span><span class="p">.</span><span class="mi">3</span><span class="n">f</span><span class="p">;</span>
+		<span class="n">dist</span> <span class="o">=</span> <span class="n">distance</span><span class="p">(</span><span class="nb">gl_FragCoord</span><span class="p">.</span><span class="n">xy</span><span class="p">,</span> <span class="n">projection</span><span class="p">)</span> <span class="o">/</span> <span class="n">correction</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="n">attenuation</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span> <span class="o">+</span> <span class="mi">0</span><span class="p">.</span><span class="mi">3</span><span class="n">f</span> <span class="o">*</span> <span class="n">dist</span> <span class="o">+</span> <span class="mi">0</span><span class="p">.</span><span class="mo">05</span><span class="n">f</span> <span class="o">*</span> <span class="n">dist</span> <span class="o">*</span> <span class="n">dist</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">// add yellow to the colour based on the effect of the light rays</span>
+<span class="n">col</span> <span class="o">+=</span> <span class="kt">vec4</span><span class="p">(</span><span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span><span class="p">,</span> <span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span><span class="p">,</span> <span class="mi">0</span><span class="p">.</span><span class="mi">7882352941</span><span class="n">f</span><span class="p">,</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span><span class="p">)</span> <span class="o">*</span> <span class="n">attenuation</span><span class="p">;</span>
+</code></pre></div></div>
+<p><br /><br />
+<strong>Vulkan and OpenGL differences</strong></p>
+
+<p>I used preprocessor directives to include either version of the graphics libraries (which have identical outward-facing APIs) 
+(Now I am using volk which means I don’t statically link to vulkan, so I only have 1 binary).
+This builds two versions of the game, which isn’t ideal in terms of file size, as it adds 1.8MB to the download. 
+The binaries can use the same folders for textures, audio, and other resources (but they both need their own shaders as OpenGL glsl is a little different from Vulkan glsl).</p>
+
+<p>Both versions look almost identical on my hardware:</p>
+
+<p>Vulkan:</p>
+
+<p><img src="/assets/img/posts/trialspharaoh/comparisonv1-1.webp" style="width:48%" />
+<img src="/assets/img/posts/trialspharaoh/comparisonv2.webp" style="width:48%" /></p>
+
+<p>OpenGL:</p>
+
+<p><img src="/assets/img/posts/trialspharaoh/comparisono1-1.webp" style="width:48%" />
+<img src="/assets/img/posts/trialspharaoh/comparisono2.webp" style="width:48%" /></p>
+
+<p>The major difference can be seem in the text, it looks sharper and blockier to me in OpenGL, 
+I expect this is down to the difference in how each rendering pipeline is set up. 
+My Vulkan library draws it’s rendered image to a quad which is then scaled to fit the screen backbuffer. 
+The OpenGL implimentation just directly draws on the screen buffer, modifying the draws to account for the backbuffer size.</p>]]></content><author><name></name></author><category term="GameJam" /><summary type="html"><![CDATA[An Egyptian light ray puzzle game, made in 10 days for GDTV Jam 2022 with my Vulkan and OpenGL graphics libraries. I worked together with the same people that made The Last Dodo with me. This is the first project where I have both a Vulkan and an OpenGL executable, this ensures that those with older gpus or outdated drivers will still be able to play (before I had a few people complaing about the game not working for them). Out of 950 submissions, we managed to get 1st place in both the “fun” and “music” categories, 4th in “Mechanics” and “Sound”, and 5th in “Aesthetics”. Which I am very happy with. download on itch.io view source code on github Credits: Mick Cooke – MakeFire Music - Music Thanos Gramosis - Art Paul James – Wafer Audio - Sound Paulina Ramirez – Lady Yami #3939 - Voice Over/Writing Noam Zeise - Programming Technical Details: 2D Light Ray Shader Shaders played a big role in this game, the light ray effect is generated by the fragment shader. The rays begin from an emitter, and shoot out into the game map. The map is stored as a series of lines, so a square will have 4 lines for example. I step forward by a large amount of units and check each surface to see if the ray intersected any lines, if it did, I roll back the ray to half the previous step and check again. If there was still a collision I go half again back, if not, I go half again forward. This is repeat until the ray is at the desired detail level. If the surface is a mirror, the ray is reflected based on the laws of reflection and I repeat the above steps, until I have a series of start and end points for rays. There is a cutoff of reflections to prevent an infinite loop, and to ensure the shader buffer isn’t exceeded. The array of start and end points are converted from game coords to screen coords, then sent to a storage buffer on the gpu at the start of the frame. these points are accessed from the fragment shader, which modify the brightness of a pixel based on how close each fragment is to a line. The intensity is also modified by time with a sine function to give the rays a “pulsing” effect in the direction of travel. The light ray shader takes in an array of pairs of points and a distance that I store in a shader buffer. I calculate the distance on the cpu so that iit does not need to be recalculate for each fragment. const int RAY_COUNT = 100; layout(set = 4, binding = 0) readonly buffer PerFrameLightPoints{ vec2 p1; vec2 p2; float distance; } rays[RAY_COUNT]; I also send in a time value that I use to produce the wave effect the light has. layout(location = 2) in float time; I calculate the value of the fragment by summing the effect of each ray into an attenuation value that I use to modify the colour towards yellow. The closer the fragment is to the line between the two points, the brighter it is. vec4 col = texture(sampler2D(textures[texID], texSamp), coord) * colour; float attenuation = 0.0f; // add to the attenuation the effects of each ray on the fragment for(int i = 0; i &lt; RAY_COUNT; i++) { // I set the last ray distance to zero to break the loop early if(rays[i].distance == 0) break; float dist = 0.0f; // Get the square distance from the start point to the end point vec2 lineVec = (rays[i].p2 - rays[i].p1); float l2 = (lineVec.x* lineVec.x) + (lineVec.y*lineVec.y); // If the ray has no length, we calculate the distance // from the start point to the fragment if(l2 == 0.0f) dist = distance(rays[i].p1, gl_FragCoord.xy); // Otherwise we calc the distance from the fragment // and the line between the two points by projecting the // fragment onto the line and getting the distance between // that point and the fragment pos else { float t = max(0, min(1, dot(gl_FragCoord.xy - rays[i].p1, rays[i].p2 - rays[i].p1) / l2)); vec2 projection = rays[i].p1 + (rays[i].p2 - rays[i].p1)*t; float fromStart = distance(rays[i].p1, gl_FragCoord.xy); // add a sinusoidal wave effect to the light over time float correction = abs(sin(fromStart * 0.01f - time))*0.5f + 0.3f; dist = distance(gl_FragCoord.xy, projection) / correction; } attenuation += 1.0f / (1.0f + 0.3f * dist + 0.05f * dist * dist); } // add yellow to the colour based on the effect of the light rays col += vec4(1.0f, 1.0f, 0.7882352941f, 0.0f) * attenuation; Vulkan and OpenGL differences I used preprocessor directives to include either version of the graphics libraries (which have identical outward-facing APIs) (Now I am using volk which means I don’t statically link to vulkan, so I only have 1 binary). This builds two versions of the game, which isn’t ideal in terms of file size, as it adds 1.8MB to the download. The binaries can use the same folders for textures, audio, and other resources (but they both need their own shaders as OpenGL glsl is a little different from Vulkan glsl). Both versions look almost identical on my hardware: Vulkan: OpenGL: The major difference can be seem in the text, it looks sharper and blockier to me in OpenGL, I expect this is down to the difference in how each rendering pipeline is set up. My Vulkan library draws it’s rendered image to a quad which is then scaled to fit the screen backbuffer. The OpenGL implimentation just directly draws on the screen buffer, modifying the draws to account for the backbuffer size.]]></summary></entry><entry><title type="html">Raspberry Pi Pico Temperature Sensor</title><link href="http://localhost:4000/microcontroller/2022/04/13/temp-humidity.html" rel="alternate" type="text/html" title="Raspberry Pi Pico Temperature Sensor" /><published>2022-04-13T00:00:00+01:00</published><updated>2022-04-13T00:00:00+01:00</updated><id>http://localhost:4000/microcontroller/2022/04/13/temp-humidity</id><content type="html" xml:base="http://localhost:4000/microcontroller/2022/04/13/temp-humidity.html"><![CDATA[<p>Using the raspberry pi pico microcontroller board with a DHT11 sensor, it tracks the temperature and relative humidity throughout the day. The Pico code is written in C++ and the cli is written in Rust.</p>
 
 <p>The pico stores data into a buffer after a time interval, the buffer can be emptied to a computer using the command line tool, which sends a request to the pico over uart, then saves the data recieved as comma separated values.</p>
 
