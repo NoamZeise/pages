@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-02-07T00:24:56+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">NoamZeise</title><subtitle>A collection of programming projects</subtitle><entry><title type="html">Bunny Patch - a simulation game about protecting a carrot patch</title><link href="http://localhost:4000/gamejam/2023/02/05/BunnyPatch.html" rel="alternate" type="text/html" title="Bunny Patch - a simulation game about protecting a carrot patch" /><published>2023-02-05T00:00:00+00:00</published><updated>2023-02-05T00:00:00+00:00</updated><id>http://localhost:4000/gamejam/2023/02/05/BunnyPatch</id><content type="html" xml:base="http://localhost:4000/gamejam/2023/02/05/BunnyPatch.html"><![CDATA[<iframe width="560" height="315" src="https://www.youtube.com/embed/fmegaXGNcH4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-02-07T00:30:13+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">NoamZeise</title><subtitle>A collection of programming projects</subtitle><entry><title type="html">Bunny Patch - a simulation game about protecting a carrot patch</title><link href="http://localhost:4000/gamejam/2023/02/05/BunnyPatch.html" rel="alternate" type="text/html" title="Bunny Patch - a simulation game about protecting a carrot patch" /><published>2023-02-05T00:00:00+00:00</published><updated>2023-02-05T00:00:00+00:00</updated><id>http://localhost:4000/gamejam/2023/02/05/BunnyPatch</id><content type="html" xml:base="http://localhost:4000/gamejam/2023/02/05/BunnyPatch.html"><![CDATA[<iframe width="560" height="315" src="https://www.youtube.com/embed/fmegaXGNcH4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe>
 
 <p>Protect your carrot patch from encroaching weeds.</p>
 
@@ -229,10 +229,10 @@ The OpenGL implimentation just directly draws on the screen buffer, modifying th
 
 <p>here’s data from the project recorded between 1:00am and 4:30pm:</p>
 
-<p><img src="/assets/img/posts/pico-humidity/readings-temp.png" style="width:100%" />
-<img src="/assets/img/posts/pico-humidity/readings-humidity.png" style="width:100%" /></p>
+<p><img src="/assets/img/posts/pico-humidity/readings-temp.png" style="width:49%" />
+<img src="/assets/img/posts/pico-humidity/readings-humidity.png" style="width:49%" /></p>
 
-<p>The resolution of the humidity sensor is less than the temperature sensor.</p>
+<p>The resolution of the humidity sensor is less than the temperature sensor, which is why the temperature graph is more detailed.</p>
 
 <p><br />
 <br /></p>
