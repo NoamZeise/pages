@@ -55,7 +55,7 @@ The intensity is also modified by time with a sine function to give the rays a â
 
 The light ray shader takes in an array of pairs of points and a distance 
 that I store in a shader buffer. 
-I calculate the distance on the cpu so that iit does not need to be recalculate for each fragment.
+I calculate the distance on the cpu so that it does not need to be recalculated for each fragment.
 ```glsl
 const int RAY_COUNT = 100;
 layout(set = 4, binding = 0) readonly buffer PerFrameLightPoints{

@@ -20,8 +20,22 @@ permalink: /
       padding-right: 10px;
       font-size: 15px;
   }
+
+  @media screen and (min-width: 601px) {
+      div.img_text {
+	  font-size: 15px;
+      }
+  }
+  
+  /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+  @media screen and (max-width: 600px) {
+      div.img_text {
+	  font-size: 1.5vw;
+      }
+  }
+
   .img_text h3 {
-      color: #AAAAFF;
+      color: white;
   }
   .img_row {
       display: flex;
@@ -72,7 +86,7 @@ permalink: /
 	<img src="assets/img/posts/thumbnails/pico-temp.webp">
 	<div class="img_text">
 	  <h3>Temperature Collector</h3>
-	  <p>Using the Pico Pi with some sensors and a CLI (C++/Rust)</p>
+	  <p>Pico Pi (C++/Rust)</p>
 	</div>
       </a>
     </div>
@@ -81,7 +95,7 @@ permalink: /
       <div class="img_column" >
 	<div class="img_container">
 	  <a href="/gamejam/2022/05/30/TrialsOfThePharaoh.html">
-	    <img src="/assets/img/posts/thumbnails/trialsofthepharaoh.jpeg" style="width:100%">
+	    <img src="/assets/img/posts/thumbnails/trialsofthepharaoh.jpeg">
 	    <div class="img_text">
 	      <p>Light Ray Puzzle Game (C++/Vulkan/OpenGL)</p>
 	    </div>
@@ -93,9 +107,10 @@ permalink: /
       <div class="img_column" >
 	<div class="img_container">
 	  <a href="/technical/2022/06/28/3D-Skeletal-Animation.html">
-	    <img src="/assets/img/posts/thumbnails/wolf-anim.png" style="width:100%">
+	    <img src="/assets/img/posts/thumbnails/wolf-anim.png">
 	    <div class="img_text">
-	      <p>3D Skeletal Animation (C++/Vulkan)</p>
+	      <h3>3D Skeletal Animation</h3>
+	      <p>(C++/Vulkan)</p>
 	    </div>
 	  </a>
 	</div>

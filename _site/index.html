@@ -9,16 +9,16 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="A collection of programming projects" />
 <meta property="og:description" content="A collection of programming projects" />
-<link rel="canonical" href="http://localhost:4000/" />
-<meta property="og:url" content="http://localhost:4000/" />
+<link rel="canonical" href="http://0.0.0.0:4000/" />
+<meta property="og:url" content="http://0.0.0.0:4000/" />
 <meta property="og:site_name" content="NoamZeise" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="NoamZeise" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","description":"A collection of programming projects","headline":"NoamZeise","name":"NoamZeise","url":"http://localhost:4000/"}</script>
+{"@context":"https://schema.org","@type":"WebSite","description":"A collection of programming projects","headline":"NoamZeise","name":"NoamZeise","url":"http://0.0.0.0:4000/"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="NoamZeise" />
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://0.0.0.0:4000/feed.xml" title="NoamZeise" />
 </head>
 <body><header class="site-header">
 
@@ -53,8 +53,22 @@
       padding-right: 10px;
       font-size: 15px;
   }
+
+  @media screen and (min-width: 601px) {
+      div.img_text {
+	  font-size: 15px;
+      }
+  }
+  
+  /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+  @media screen and (max-width: 600px) {
+      div.img_text {
+	  font-size: 1.5vw;
+      }
+  }
+
   .img_text h3 {
-      color: #AAAAFF;
+      color: white;
   }
   .img_row {
       display: flex;
@@ -105,7 +119,7 @@
 	<img src="assets/img/posts/thumbnails/pico-temp.webp">
 	<div class="img_text">
 	  <h3>Temperature Collector</h3>
-	  <p>Using the Pico Pi with some sensors and a CLI (C++/Rust)</p>
+	  <p>Pico Pi (C++/Rust)</p>
 	</div>
       </a>
     </div>
@@ -114,7 +128,7 @@
       <div class="img_column" >
 	<div class="img_container">
 	  <a href="/gamejam/2022/05/30/TrialsOfThePharaoh.html">
-	    <img src="/assets/img/posts/thumbnails/trialsofthepharaoh.jpeg" style="width:100%">
+	    <img src="/assets/img/posts/thumbnails/trialsofthepharaoh.jpeg">
 	    <div class="img_text">
 	      <p>Light Ray Puzzle Game (C++/Vulkan/OpenGL)</p>
 	    </div>
@@ -126,9 +140,10 @@
       <div class="img_column" >
 	<div class="img_container">
 	  <a href="/technical/2022/06/28/3D-Skeletal-Animation.html">
-	    <img src="/assets/img/posts/thumbnails/wolf-anim.png" style="width:100%">
+	    <img src="/assets/img/posts/thumbnails/wolf-anim.png">
 	    <div class="img_text">
-	      <p>3D Skeletal Animation (C++/Vulkan)</p>
+	      <h3>3D Skeletal Animation</h3>
+	      <p>(C++/Vulkan)</p>
 	    </div>
 	  </a>
 	</div>
