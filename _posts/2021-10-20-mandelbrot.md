@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Generating A Mandelbrot BMP with C"
-category: "Technical"
+category: "Demo"
 ---
 
 <img src="/assets/img/posts/mandelbrotwithgrad.webp">

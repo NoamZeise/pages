@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "QValue Reinforcement Learning with C#"
-category: "Technical"
+category: "Demo"
 ---
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/P1P63p1N3G4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
