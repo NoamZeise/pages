@@ -1,9 +1,49 @@
-.side-img {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    column-gap: 5px;
-}
-
 body {
     font-family: 'IBM Plex Mono', monospace;
 }
+
+.side-img {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 5px;
+}
+
+img {
+    display: block;
+    width: 50%;
+    margin: auto;
+    padding: 2%;
+ }
+
+ .side-img img {
+    width: 100%;
+};
+
+ iframe {
+    display: block;
+    margin: 0 auto;
+    padding: 2%;
+    width: 50%;
+    height: auto;
+    aspect-ratio: 1.4;
+    text-align: center;
+ }
+
+ pre {
+     white-space: pre-wrap;
+ }
+
+ .container img {
+    display: inline;
+    width: 100%;
+    margin: auto;
+    padding: 0%;
+ }
+ 
+ .container {
+     display: grid;
+     grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+ }
+ .container .item {
+     padding: 4%;
+ }

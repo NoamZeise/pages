@@ -1,0 +1,6 @@
+- name: Billhead Armada
+  link: /assets/browser_games/billhead_armada/index.html
+  img: /assets/img/posts/thumbnails/billhead.png
+- name: Pico MasterMind
+  link: /assets/browser_games/mastermind/mastermind.html
+  img: /assets/img/posts/thumbnails/pico-mastermind.png

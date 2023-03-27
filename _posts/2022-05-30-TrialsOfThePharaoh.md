@@ -123,15 +123,18 @@ The binaries can use the same folders for textures, audio, and other resources (
 
 Both versions look almost identical on my hardware:
 
-Vulkan:
+### Vulkan:
 
-<img src="/assets/img/posts/trialspharaoh/comparisonv1-1.webp" style="width:48%">
-<img src="/assets/img/posts/trialspharaoh/comparisonv2.webp" style="width:48%">
+<div class="side-img">
+<img src="/assets/img/posts/trialspharaoh/comparisonv1-1.webp">
+<img src="/assets/img/posts/trialspharaoh/comparisonv2.webp" style="float: right;">
+</div>
+### OpenGL:
 
-OpenGL:
-
-<img src="/assets/img/posts/trialspharaoh/comparisono1-1.webp" style="width:48%">
-<img src="/assets/img/posts/trialspharaoh/comparisono2.webp" style="width:48%">
+<div class="side-img">
+<img src="/assets/img/posts/trialspharaoh/comparisono1-1.webp">
+<img src="/assets/img/posts/trialspharaoh/comparisono2.webp" style="float: right;">
+</div>
 
 The major difference can be seem in the text, it looks sharper and blockier to me in OpenGL, 
 I expect this is down to the difference in how each rendering pipeline is set up. 
