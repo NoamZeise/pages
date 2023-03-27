@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Raspberry Pi Pico Temperature Sensor"
-category: "microcontroller"
+title: Raspberry Pi Pico Temperature Sensor
+category: microcontroller
 ---
 
 Using the raspberry pi pico microcontroller board with a DHT11 sensor, it tracks the temperature and relative humidity throughout the day. The Pico code is written in C++ and the cli is written in Rust.

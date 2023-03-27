@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "A* and Djikstra Shortest Path in C#"
-category: "Demo"
+title: A* and Djikstra Shortest Path in C#
+category: Demo
 ---
 
 [Source Code](https://github.com/NoamZeise/A-Djikstra-PathfindingAlgorithms/tree/master/PathfindingAlgorithms)

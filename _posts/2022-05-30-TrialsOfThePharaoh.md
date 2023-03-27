@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Trials Of The Pharaoh - Light Ray Puzzle Game"
-category: "GameJam"
+title: Trials Of The Pharaoh - Light Ray Puzzle Game
+category: GameJam
 ---
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/fsNIisWhVz8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>

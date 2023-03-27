@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Global Touch - DYHTG 2022 Winner"
-category: "Hackathon"
+title: Global Touch - DYHTG 2022 Winner
+category: Hackathon
 ---
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/QOnx-5Gtw9k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
