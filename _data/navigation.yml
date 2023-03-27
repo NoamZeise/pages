@@ -1,4 +1,6 @@
 - name: Home
   link: /
+- name: Pico
+  link: /pico/
 - name: About
   link: /about/
