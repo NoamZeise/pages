@@ -1,18 +1,6 @@
 ---
-layout: content
+layout: grid
 permalink: /pico/
+title: Browser Games
+datalist: browser_game_list.html
 ---
-<div class="content-title">
-  <h1>Browser Games</h1>
-</div>
-
-<div class="container">
-{% for g in site.data.browser-games %}
-<div class="browser-game item">
-<a href="{{ g.link }}">
-  <img src="{{ g.img }}">
-  <h3>{{ g.name }}</h3>
-</a>
-</div>
-{% endfor %}
-</div>

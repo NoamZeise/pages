@@ -1,0 +1,20 @@
+---
+layout: content
+title: Test
+---
+{% include {{ page.datalist }} %}
+
+<div class="content-title">
+  <h1>{{ page.title }}</h1>
+</div>
+
+<div class="container">
+{% for g in datalist %}
+<div class="item">
+<a href="{{ g.link }}">
+  <img src="{{ g.img }}">
+  <h3>{{ g.name }}</h3>
+</a>
+</div>
+{% endfor %}
+</div>

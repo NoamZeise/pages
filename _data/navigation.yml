@@ -1,6 +1,12 @@
 - name: Home
   link: /
+- name: Best	
+  link: /best/
 - name: Pico
   link: /pico/
 - name: About
   link: /about/
+- name: GitHub
+  link: https://github.com/NoamZeise
+- name: Itch
+  link: https://noamzeise.itch.io/
