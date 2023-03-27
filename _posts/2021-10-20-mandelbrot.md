@@ -6,6 +6,10 @@ category: "Demo"
 
 <img src="/assets/img/posts/mandelbrotwithgrad.webp">
 
+To learn about how images are made and to practice C, I tried writing a program to generate
+mandelbrot images and output them as `.bmp` files.
+
+<!-- more -->
 
 [Source Code on github](https://github.com/NoamZeise/bmp-read-write)
 

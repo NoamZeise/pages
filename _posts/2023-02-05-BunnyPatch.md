@@ -5,10 +5,11 @@ category: "GameJam"
 ---
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/fmegaXGNcH4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
 Protect your carrot patch from encroaching weeds.
 
 Made with my [rust game library](https://github.com/NoamZeise/sdl2-rs-game-template) in 48 hours for [global game jam 2023](https://globalgamejam.org/2023/games/bunnypatch-0).
+
+<!-- more -->
 
 Click next turn to advance time by a few step, and you can watch as the game world changes. When the carrots sparkle, it means they have been harvested and added to your carrot bank in the top right. You can click on the button in the top left to open the shop and buy tiles that interact with the world in some way.
 
@@ -30,7 +31,7 @@ Click next turn to advance time by a few step, and you can watch as the game wor
 I added many new features to my Rust game library since I had last used it for a jam, now it hides 
 all of the details of SDL. Controls are also much easier to add, and a lot of unrelated systems that were previously connected have been more seperated (ie render, input, camera, map, etc...). 
 
-The Board is implimented as an array of Boxed objects that impliment the 'Tile' trait. This trait
+The Board is implemented as an array of Boxed objects that impliment the 'Tile' trait. This trait
 defines the behavior of a tile type, what it looks like, how it affects other tiles, and how other tiles affect it. Here is the trait 
 
 ```Rust

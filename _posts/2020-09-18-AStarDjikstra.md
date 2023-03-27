@@ -13,6 +13,8 @@ bring you closer to the end goal.
 This implimentation uses Djikstra to get the shortest path between two nodes, 
 so that it can be compared to A*.
 
+<!-- more -->
+
 A square board is randomly generated and a few blocks are places to add complexity to the paths. 
 Two random places on the grid are marked as start and end points for the algorithms to navigate.
 

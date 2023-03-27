@@ -1,0 +1,11 @@
+<nav class="navbar">
+  <div>
+    <i style="float: left; padding-left: 2%;">Noam Zeise</i>
+    {% for item in site.data.navigation %}
+    <a href="{{ item.link }}" {%  if page.url == item.link %}class="current"{% endif %}
+       >{{ item.name }}</a>
+    {% endfor %}
+    <a style="padding-right:12%;"></a>
+    </div>
+    <hr>
+</nav>

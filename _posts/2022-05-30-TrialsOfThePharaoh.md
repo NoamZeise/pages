@@ -8,6 +8,8 @@ category: "GameJam"
 
 An Egyptian light ray puzzle game, made in 10 days for GDTV Jam 2022 with my Vulkan and OpenGL graphics libraries. I worked together with the same people that made The Last Dodo with me.
 
+<!-- more -->
+
 This is the first project where I have both a Vulkan and an OpenGL executable, this ensures that those with older gpus or outdated drivers will still be able to play (before I had a few people complaing about the game not working for them).
 
 Out of 950 submissions, we managed to get 1st place in both the “fun” and “music” categories, 4th in “Mechanics” and “Sound”, and 5th in “Aesthetics”. Which I am very happy with.

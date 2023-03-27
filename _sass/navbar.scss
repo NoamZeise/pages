@@ -1,0 +1,31 @@
+.navbar {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    font-size: x-large;
+}
+
+.navbar .current {
+    color: #222222;
+}
+
+.navbar a {
+    padding-left: 0.5em;
+    color: #888888;
+}
+
+.navbar a:link {
+    text-decoration: none;
+}
+
+.navbar a:visited {
+  text-decoration: none;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+.navbar a:active {
+  text-decoration: underline;
+}

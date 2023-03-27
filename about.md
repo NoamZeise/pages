@@ -1,11 +1,11 @@
 ---
-layout: post
+layout: content
 title: About
 permalink: /about/
 ---
 
-I'm Noam Zeise, a student studying Maths and Computer Science. 
-My interests are mainly in graphics and engineless games programming. 
+I am a student studying Maths and Computer Science. 
+My interests are mainly in graphics and game/engine programming.
 
 To get in touch email me at: [enquire@noamzeise.com](mailto:enquire@noamzeise.com)
 

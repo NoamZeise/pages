@@ -5,8 +5,9 @@ category: "GameJam"
 ---
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/3-gcNAaqQVM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
 Made with my [rust game library](https://github.com/NoamZeise/sdl2-rs-game-template) in 48 hours for [Duck Sauce Games Jam 2023](https://www.ducksauce.games/duck-sauce-jam-2023), where it earned  2nd  place.
+
+<!-- more -->
 
 [download on itch.io](https://noamzeise.itch.io/deli-cat-essen)
 

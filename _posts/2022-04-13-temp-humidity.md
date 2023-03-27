@@ -12,8 +12,11 @@ The pico stores data into a buffer after a time interval, the buffer can be empt
 
 here’s data from the project recorded between 1:00am and 4:30pm:
 
-<img src="/assets/img/posts/pico-humidity/readings-temp.png" style="width:49%">
-<img src="/assets/img/posts/pico-humidity/readings-humidity.png" style="width:49%">
+<div class="side-img">
+<img src="/assets/img/posts/pico-humidity/readings-temp.png" style="">
+<img src="/assets/img/posts/pico-humidity/readings-humidity.png" style="float: right;">
+</div>
+<!-- more -->
 
 The resolution of the humidity sensor is less than the temperature sensor, which is why the temperature graph is more detailed.
 

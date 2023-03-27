@@ -8,6 +8,9 @@ category: "Demo"
 
 I’ve added Skeletal animation to my Vulkan game framwork. I already use assimp to load in 3D models,
 but the library also loads animations if the model has them.
+
+<!-- more -->
+
 I’ve revamped the model loading system to be able to load animated and non-animated 
 models auutomically, and the renderer can take a model and an animation 
 and render the current state of the animation to the screen.
