@@ -1,12 +1,12 @@
 ---
 layout: post
-title: A* and Djikstra Shortest Path in C#
+title: A* and Dijkstra Shortest Path in C#
 category: Demo
 ---
 
 [Source Code](https://github.com/NoamZeise/A-Djikstra-PathfindingAlgorithms/tree/master/PathfindingAlgorithms)
 
-Djikstra is a common algorithm used to find the shortest paths from one node to all others, 
+Dijkstra is a common algorithm used to find the shortest paths from one node to all others, 
 A* (A star) is a modification of djikstra that considers going from one node to one other.
 A* considers how close a node is from the goal and prefers nodes that 
 bring you closer to the end goal. 
