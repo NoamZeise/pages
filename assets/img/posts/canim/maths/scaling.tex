@@ -1,0 +1,41 @@
+\documentclass[preview]{standalone}
+\usepackage{amsmath}
+\begin{document}
+Let $n$ be the number of frames in the animation.
+Let $s$ be the starting scale and $e$ the ending scale of the
+animation.
+Let $x_i$ for $i \in \{ 1, 2, ... , n \} $ be the scale of each frame
+of animation. Let $c$ be some constant we want to find, which is the
+ratio between consecutive frames.
+We want these values to have the following relationships,
+\begin{align*}
+   \frac{x_{i+1}}{x_i} & = c \; \; \; \; \forall \: i \in \{ 1, ..., n -
+   1 \} && \mbox{constant ratio between consecutive frames} \\
+   x_1 & = s  && \mbox{first frame equals starting scale} \\
+  x_n & = e && \mbox{last frame equals ending scale}
+.\end{align*}
+
+Using these properties we get
+
+\begin{align*}
+  \frac{x_2}{x_1} & = \frac{x_2}{s} =  c \\
+  x_2 & = c s \\
+  \frac{x_3}{x_2} & = c \\
+  x_3 & = x_2 c = c^2 s \\
+  x_4 & = x_3 c = c^3 s \\
+                  \vdots \\
+  x_i & = c^{i-1} s \\
+                  \vdots \\
+  x_{n} & = e = c^{n-1} s
+\end{align*}
+Leading us to a formula for c.
+\begin{align*}
+  c^{n-1} &= \frac{e}{s} \\
+  c &= \left( \frac{e}{s} \right) ^{\frac{1}{n-1}}
+\end{align*}
+So that using $x_i = c^{i-1} s$ we get the equation for the scale of a
+frame
+\[
+  x_i = s \left( \frac{e}{s} \right)^{\frac{i - 1}{n - 1}}
+.\]
+\end{document}
