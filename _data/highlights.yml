@@ -1,18 +1,18 @@
-- name: DeliCatEssen (Latest)
-  link: /gamejam/2023/02/20/deli-cat-essen.html
-  img: /assets/img/posts/thumbnails/Delicatessen.png
-- name: Temperature Collector
+- name: Complex Function Animation (Latest) (Common Lisp)
+  link: /demo/2023/03/27/Complex-Function-Animations.html
+  img: https://github.com/NoamZeise/complex-fn-anim/blob/master/demos/videos/recursive.gif?raw=true
+- name: Temperature Collector (C++ / Rust)
   link: /microcontroller/2022/04/13/temp-humidity.html
   img: /assets/img/posts/thumbnails/pico-temp.webp
-- name: Light Ray Puzzle Game
+- name: Light Ray Puzzle Game (C++ / Vulkan / OpenGL)
   link: /gamejam/2022/05/30/TrialsOfThePharaoh.html
   img: /assets/img/posts/thumbnails/trialsofthepharaoh.jpeg
-- name: 3D Skeletal Animation
-  link: /demo/2022/06/28/3D-Skeletal-Animation.html
-  img: /assets/img/posts/thumbnails/wolf-anim.png
-- name: Mandelbrot BMP
-  link: /demo/2021/10/20/mandelbrot.html
-  img: /assets/img/posts/thumbnails/mandelbrotwithgrad.webp
-- name: Assembly Programming Game
+- name: Assembly Programming Game (Rust / SDL2)
   link: /demo/2022/07/31/ZL100.html
   img: /assets/img/posts/ZL001Old/zlo001-ss2.png
+- name: 3D Skeletal Animation (C++ / Vulkan)
+  link: /demo/2022/06/28/3D-Skeletal-Animation.html
+  img: /assets/img/posts/thumbnails/wolf-anim.png
+- name: Switch Block (C# / MonoGame)
+  link: /gamejam/2021/02/08/Switch-Block.html
+  img: /assets/img/posts/thumbnails/SwitchBlock.webp
