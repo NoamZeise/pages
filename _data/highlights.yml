@@ -16,3 +16,6 @@
 - name: Switch Block (C# / MonoGame)
   link: /gamejam/2021/02/08/Switch-Block.html
   img: /assets/img/posts/thumbnails/SwitchBlock.webp
+- name: OpenGL Graphing Application (C++ / OpenGL)
+  link: /demo/2021/08/14/OpenGL-Graphing-Application.html
+  img: /assets/img/posts/thumbnails/OpenGL-Graphing-Application.webp

@@ -1,7 +1,7 @@
-- name: Home
-  link: /
 - name: Best	
-  link: /best/
+  link: /
+- name: Posts
+  link: /posts/
 - name: Pico
   link: /pico/
 - name: About
