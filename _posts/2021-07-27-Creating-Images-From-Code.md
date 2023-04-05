@@ -10,6 +10,8 @@ This is a simple C++ program that outputs a Bitmap file based on user input.
 I limited the bit depth of the generated images to a fixed 24 bits, so
 each pixel could be represented in three bytes. 
 
+<!-- more -->
+
 [Source Code on GitHub](https://github.com/NoamZeise/Creating-A-BMP-Programatically)
 
 
