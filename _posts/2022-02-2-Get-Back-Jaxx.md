@@ -69,3 +69,10 @@ col *= attenuation;
 I used gl_FragCoord to get the screen coordinate of the pixel, but as the game is dynamically scaled I needed to calculate for each light being sent to the fragment shader it’s screen space coordinate.
 
 The linear and quadratic parameters were sent with a uniform buffer and decide how wide / harsh the lighting is, so the lighting feel can be changed per frame. This is seen in the last part of the game when the player returns to the past and the lighting is far more bright.
+
+
+
+![ss1](/assets/img/posts/get-back-jaxx/ss1.webp)
+![ss2](/assets/img/posts/get-back-jaxx/ss2.webp)
+![ss3](/assets/img/posts/get-back-jaxx/ss3.webp)
+![ss4](/assets/img/posts/get-back-jaxx/ss4.webp)

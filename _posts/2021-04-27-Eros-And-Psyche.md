@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Eros And Psyche
+title: Eros And Psyche - LD48
 category: GameJam
 ---
 

@@ -57,9 +57,3 @@ pub trait Phys {
 ```
 
 The sand-like blocks that fall apart in very small strips were initially quite inefficent, so I broke them up into two seperate blocks. Initially they are ‘Nested’ blocks, when something collides with them the block is split into three sections. The left and right sections are new Nested blocks, but the middle section (where the object collided with the Nested object) is turned into ‘Brittle’ blocks that fall down and out of the level. So that as you run across the sand it seems to fall out from under you. This way of handling the blocks ensures they affect the speed of the game very little until they are collided with.
-
-
-![ss1](/assets/img/posts/get-back-jaxx/ss1.png)
-![ss2](/assets/img/posts/get-back-jaxx/ss2.png)
-![ss3](/assets/img/posts/get-back-jaxx/ss3.png)
-![ss4](/assets/img/posts/get-back-jaxx/ss4.png)
