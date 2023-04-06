@@ -53,7 +53,7 @@ to change much more evenly. The method I use works by ensuring the ratio of scal
 current scale is identical between each consecutive frames. The derivation of the formula that
 gives this property is show below.
 
-![derivation of scale formula](/assets/img/posts/canim/maths/scaling.png)
+<img src="/assets/img/posts/canim/maths/scaling.png" style="outline-style: none;">
 
 In the code frames are indexed from 0, and this isn't completely recalculated each frame. 
 The following is constant for every iteration.

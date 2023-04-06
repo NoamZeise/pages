@@ -1,5 +1,19 @@
 body {
     font-family: 'IBM Plex Mono', monospace;
+    background-color: #f5efe1;
+    color: #333333;
+}
+
+a:link {
+    color: #000000;
+}
+
+a:visited {
+    color: #555555;
+}
+
+a:hover {
+    color: #777777;
 }
 
 .side-img {
@@ -12,7 +26,11 @@ img {
     display: block;
     width: 50%;
     margin: auto;
-    padding: 2%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    outline-style: solid;
+    outline-color: black;
+    outline-width: 3px;
  }
 
  .side-img img {

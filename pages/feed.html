@@ -3,12 +3,11 @@ layout: default
 title: posts
 permalink: /posts/
 ---
-  {% for post in site.posts %}
-  <a href="{{ post.url }}">
-  <div class="post-item">
-    <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
-    <br>
-    <p>{{  post.excerpt }}</p>
-    <a href="{{ post.url }}">Read more...</a>
-  </div>
- {% endfor %}
+{% for post in site.posts %}
+<div onclick="location.href='{{ post.url }}'" class="post-item subtle-link">
+  <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+  <br>
+  <p>{{  post.excerpt }}</p>
+  <a href="{{ post.url }}">Read more...</a>
+</div>
+{% endfor %}
