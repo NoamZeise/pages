@@ -155,5 +155,3 @@ Then converted to a gif using imagemagick:
 ```
 $ convert --delay 2 build/myanim/*.png redgrad.gif
 ```
-
-![Mandelbrot gif](https://github.com/NoamZeise/complex-fn-anim/blob/master/demos/videos/mandelbrot-1.gif?raw=true)
