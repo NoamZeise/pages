@@ -1,6 +1,6 @@
 - name: Complex Function Animation (Latest) (Common Lisp)
   link: /demo/2023/03/27/Complex-Function-Animations.html
-  img: https://github.com/NoamZeise/complex-fn-anim/blob/master/demos/videos/recursive.gif?raw=true
+  img: /assets/img/posts/canim/recursive.gif
 - name: Temperature Collector (C++ / Rust)
   link: /microcontroller/2022/04/13/temp-humidity.html
   img: /assets/img/posts/thumbnails/pico-temp.webp

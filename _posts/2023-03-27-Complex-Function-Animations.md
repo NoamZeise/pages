@@ -4,7 +4,7 @@ title: Complex Function Animations
 category: Demo
 ---
 
-![Mandelbrot recursive](https://github.com/NoamZeise/complex-fn-anim/blob/master/demos/videos/recursive.gif?raw=true)
+![Mandelbrot recursive](/assets/img/posts/canim/recursive.gif)
 
 Draw Functions as images and create an animation between points and scales on the graph. This is my first project working with common lisp.
 
@@ -78,7 +78,10 @@ All of the frames are saved to the supplied folder with numbers apended to show 
 of the animation that image represents. An animation can then be created with a command line tool
 such as ffmpeg or image-magick.
 
-![Mandelbrot gif](https://github.com/NoamZeise/complex-fn-anim/blob/master/demos/videos/right-hq.gif?raw=true)
+<div class="side-img" style="width: 75%">
+<img src="https://github.com/NoamZeise/complex-fn-anim/blob/master/demos/videos/right-hq.gif?raw=true">
+<img src="https://github.com/NoamZeise/complex-fn-anim/blob/master/demos/videos/julia-swirl-zoom.gif?raw=true" style="float:right;">
+</div>
 
 # Usage
 
@@ -102,17 +105,10 @@ Now you can use the library
 ![alone Mandelbrot](https://github.com/NoamZeise/complex-fn-anim/blob/master/demos/images/alone.png?raw=true)
 
 
-By default images are created using Mandelbrot, supply your own functions with the `:pixel-fn` arg.
+By default images are created using Mandelbrot, supply your own functions with the `:pixel-fn` arg. 
+Julia set functions are also supplied.
 Supplied functions must take an x and y value for a point on the complex plane, 
-as well as the scale of the image. They return a color
-Here is what the default function roughly looks like.
-
-```lisp
-(defun mandelbrot-pixel (x y scale)
-  (let ((p (floor (* 255 (mandelbrot (complex x y)
-				     (iter-fn scale))))))
-    (make-colour p p p 255)))
-```
+as well as the scale of the image, and return a colour. 
 
 To make an image you can call
 
@@ -155,3 +151,30 @@ Then converted to a gif using imagemagick:
 ```
 $ convert --delay 2 build/myanim/*.png redgrad.gif
 ```
+
+### Using a Pixel Meta Function
+
+Animations also support passing a `pixel-meta-fn`. This allows you to change the pixel function per frame. The meta function must take in a number from `0-1` representing the progress of the animation, and return a valid pixel function.
+
+
+For example, included in the package is a function called `julia-pixel-dynamic` 
+which you can supply as a meta function.
+You give this function start and end parameters for the julia set, pass the result as 
+the meta function, and the animation will interpolate between them.
+
+
+Here is an example of using the julia pixel meta function.
+
+```lisp
+(canim:make-anim "../build/" 1000 1000 20
+		 (canim:make-pos :x -1.5 :y -1.5 :scale 3)
+		 (canim:make-pos :x -1.5 :y -1.5 :scale 3)
+		 :pixel-meta-fn
+		 (canim:julia-pixel-dynamic
+		  (canim:make-julia-params :c (complex 0 0.65))
+		  (canim:make-julia-params :c (complex 0 0.635))))
+```
+
+Which produces the following animation:
+
+![julia set animation](/assets/img/posts/canim/julia-transition.gif)
