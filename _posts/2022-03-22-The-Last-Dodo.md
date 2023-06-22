@@ -1,6 +1,6 @@
 ---
 layout: post
-title: The Last Dodo
+title: The Last Dodo - Fast Paced Platformer
 category: GameJam
 ---
 

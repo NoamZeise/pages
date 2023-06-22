@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Look After The Pennies
+title: Look After The Pennies - Physics Toy Game
 category: GameJam
 ---
 

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Battle Island
+title: Battle Island - GameBoy Strategy
 category: GameJam
 ---
 

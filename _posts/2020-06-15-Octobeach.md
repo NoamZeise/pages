@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Octobeach
+title: Octobeach - Battle Story
 category: GameJam
 ---
 

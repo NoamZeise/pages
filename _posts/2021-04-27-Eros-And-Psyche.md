@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Eros And Psyche - LD48
+title: Eros And Psyche - LD48 - Greek Myth Minigames
 category: GameJam
 ---
 

@@ -3,7 +3,6 @@ layout: post
 title: About
 permalink: /about/
 ---
-
 I'm an undergraduate student studying Maths and Computer Science.
 Programming is my main hobby, specifically in the areas of graphics, games and game engines. 
 I like making libraries and using them during game jams. I also like playing games,

@@ -43,7 +43,7 @@ vector will be adding the same scale amount each frame. A scale change of 0.1 lo
 you are at a scale of 1 compared to a scale of 0.001. Shown below is an animation that uses a 
 step vector approach for scaling on the left, and the approach I used on the right. 
 
-<div class="side-img" style="width: 25%">
+<div class="side-img" style="width: 50vmin;">
 	<img src="/assets/img/posts/canim/bad-scaling.gif">
 	<img src="/assets/img/posts/canim/good-scaling.gif" style="float:right;">
 </div>
@@ -53,7 +53,7 @@ to change much more evenly. The method I use works by ensuring the ratio of scal
 current scale is identical between each consecutive frames. The derivation of the formula that
 gives this property is show below.
 
-<img src="/assets/img/posts/canim/maths/scaling.png" style="outline-style: none;">
+<img src="/assets/img/posts/canim/maths/scaling.png" style="outline-style: none; width: 90vmin;">
 
 In the code frames are indexed from 0, and this isn't completely recalculated each frame. 
 The following is constant for every iteration.

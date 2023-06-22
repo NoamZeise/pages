@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Get Back Jaxx
+title: Get Back Jaxx - Time Travelling Adventure
 category: GameJam
 ---
 

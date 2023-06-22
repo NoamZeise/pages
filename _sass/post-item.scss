@@ -1,12 +1,18 @@
 .post-item {
-    width: 60%;
+    width: 90vmin;
     margin: auto;
-    padding: 2%;
+    padding: 1%;
     outline-style: solid;
     outline-color: #551133;
-    margin-top: 4%;
+    margin-bottom: 5vmin;
 }
 
 .post-item h2 {
     text-align: center;
 }
+
+.post-item img {
+    width: 70%;
+}
+
+

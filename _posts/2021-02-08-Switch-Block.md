@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Switch Block
+title: Switch Block - Tight Nokia 3310 Platformer
 category: GameJam
 ---
 
