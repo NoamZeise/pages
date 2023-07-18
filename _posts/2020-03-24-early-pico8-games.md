@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Early Pico-8 Games
+title: Learning Pico-8 With Three Games
 category: demo
 ---
 
@@ -18,6 +18,8 @@ My first pico-8 game. A simple, endless high-score game about collecting pellets
 <img src="/assets/img/posts/thumbnails/heart-score.png">
 </a>
 
+[Source Code](https://github.com/NoamZeise/assorted-pico8-projects/blob/master/heartscore.p8)
+
 2. Cake Jump 2020-03-25
 
 A platforming game. pico-8 has a very limited amount of space for levels, so this platformer only has one. The game times your progress and keeps track of a high score.
@@ -26,6 +28,8 @@ A platforming game. pico-8 has a very limited amount of space for levels, so thi
 <img src="/assets/img/posts/thumbnails/cake-jump.png">
 </a>
 
+[Source Code](https://github.com/NoamZeise/assorted-pico8-projects/blob/master/cakejump.p8)
+
 3. Space Shoot 2020-03-31
 
 A bullet hell. Spaceship with a gun, you have three lives and three bombs to manage enemies with. Enemies physically degrade as they take damage.
@@ -33,3 +37,5 @@ A bullet hell. Spaceship with a gun, you have three lives and three bombs to man
 <a href="/assets/browser_games/pico-8-space-shoot/space_shoot.html">
 <img src="/assets/img/posts/thumbnails/space-shoot.png">
 </a>
+
+[Source Code](https://github.com/NoamZeise/assorted-pico8-projects/blob/master/shooter.p8)
