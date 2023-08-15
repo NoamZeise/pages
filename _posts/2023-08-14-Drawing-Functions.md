@@ -43,7 +43,13 @@ With a little fiddling, making a better use of cutoffs and scaling, we can have 
 ![next attempt x squared](https://github.com/NoamZeise/complex-fn-anim/blob/f89a6d630f93a00c374b70f94fae5fdbdb1890b7/demos/images/fn-drawing-progress/img5.png?raw=true)
 
 But already you can see an issue with having a fixed scaling/cutoff for each pixel. as x squared gets bigger, the line thins out. This happens because the cutoff, which
-determines the line thickness, is the same no matter the behaviour of the function in that area. x squared near 0 gets much smaller than x.
+determines the line thickness, is the same no matter the behaviour of the function in that area. Here is an explaination of why this occurs.
+
+<img src="/assets/img/posts/graphing-images/maths/explainer.png" style="outline-style: none; width: 90vmin;">
+
+This is the graph of the cutoff value for x cubed with different values for y. The straight line is the value for the cutoff, the curvy line is the actual range that x gets.
+
+![cutoff graph](/assets/img/posts/graphing-images/x-cubed-cutoff.png)
 
 The next type of graphs I tried to draw were of the form `f(x, y) = c` for some constant c. Below we see the equation of a circle.
 
