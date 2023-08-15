@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Billhead Armada - pico-8 shmup for a 24h jam
+title: Billhead Armada - pico-8 shmup for a 24h jam (DSG2022)
 category: GameJam
 ---
 

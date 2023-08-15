@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Get Back Jaxx - Time Travelling Adventure
+title: Get Back Jaxx - Time Travelling Adventure (GGJ2022)
 category: GameJam
 ---
 

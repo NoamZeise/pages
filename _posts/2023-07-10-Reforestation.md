@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Reforestation - Board Game in 3D (GMTK2023)
+title: Reforestation - 3D Board Game (Raycasting, GMTK2023)
 category: GameJam
 ---
 
@@ -18,38 +18,39 @@ I used raycasting to get the position on the box that the cursor was hovering ov
 Here is the raycasting function:
 
 ```
-// mouse position on the screen ([-1, 1], [-1, 1])
-glm::vec4 rayClip(xPos, yPos, -1.0f, 1.0f);
+// mouse position on the screen 
+// has the range ([-1, 1], [-1, 1])
+vec4 rayClip(xPos, yPos, -1.0f, 1.0f);
     
 // using the inverse of the projection matrix gets
 // the mouse position in camera space
-glm::vec4 rayCam = projInverse * rayClip;
+vec4 rayCam = projInverse * rayClip;
 rayCam.z = -1.0f;
 rayCam.w = 0.0f;
     
 // we can then use the inverse of the view matrix
 // to go from camera space to world space
 // this means the ray's origin is the camera position.
-glm::vec4 rayWorld4 = viewInverse * rayCam;
-glm::vec3 rayWorld(rayWorld4.x, rayWorld4.y, rayWorld4.z);
+vec4 rayWorld4 = viewInverse * rayCam;
+vec3 rayWorld(rayWorld4.x, rayWorld4.y, rayWorld4.z);
 rayWorld = glm::normalize(rayWorld);
 	
-glm::vec3 planeNormal(0.0f, 0.0f, 1.0f); //facing up
+vec3 planeNormal(0.0f, 0.0f, 1.0f); //facing up
 float denom = glm::dot(rayWorld, planeNormal);
 if(denom != 0) { //ray is not orthogonal to the plane
 	
     // solve for the intersection distance from the ray origin
    	// (camera position) to the plan.e 
 	// + 0.0f, this is the distance of the plane along it's normal
-	float t = -(glm::dot(cam.getPos(), planeNormal) + 0.0f) / denom; 
+	float t = -(dot(cam.getPos(), planeNormal) + 0.0f) / denom; 
 		
 	// get the hit position by substituting the parameter
 	// for the the equation of a ray with t
-	glm::vec3 hit = cam.getPos() + rayWorld * t;
+	vec3 hit = cam.getPos() + rayWorld * t;
 	return hit;
 }
 // return nonsense if the ray is orthogonal to the plane
-return glm::vec3(10000.0f);
+return vec3(10000.0f);
 ```
 
 Then it was a simple matter of passing the intersection position to the board renderer

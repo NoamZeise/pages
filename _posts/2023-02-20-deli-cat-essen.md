@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Deli-Cat-Essen - Make sandwiches for cats!
+title: Deli-Cat-Essen - Make sandwiches for cats! (DSG2023)
 category: GameJam
 ---
 

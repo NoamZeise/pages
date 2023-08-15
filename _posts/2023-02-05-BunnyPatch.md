@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Bunny Patch - a simulation game about protecting a carrot patch
+title: Bunny Patch - protect a carrot patch from weeds (GGJ2023)
 category: GameJam
 ---
 

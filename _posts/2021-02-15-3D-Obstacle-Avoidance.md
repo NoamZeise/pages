@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 3D Obstalce Avoidance Game - OpenGL
+title: 3D Obstacle Avoidance Game - OpenGL
 category: Demo
 ---
 
