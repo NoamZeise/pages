@@ -10,6 +10,10 @@ My first game in 3D, this was made in 48 hours for GMTK Jam 2023 using my [graph
 
 <!-- more -->
 
+[Check out the souce code on GitHub](https://github.com/NoamZeise/GMTK2023)
+
+[Download a build on itch](https://noamzeise.itch.io/reforestation)
+
 I used this jam as an excuse to do a game in 3D. This was a very different experience to previous games, and I underestimated the challenges I would face. I had to change the complexity of the game significantly due to time constraints, and could only make a few levels. Overall I'm happy with the result, and look forward to doing more 3D games in the future.
 
 
