@@ -4,9 +4,7 @@ title: Making A 3D Space Sim (GBJam11)
 category: GameJam
 ---
 
-![Screenshot](/assets/img/posts/SpaceFlight/title.png)
-
-## Unfinished Post
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qJSZGmeCxVg?si=aNNL3S1dxg86xzKK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 This is a 3D flight sim set in a solar system. Lost ship logs litter the system, rewarding exploration. The game uses Vulkan or OpenGL for rendering.
 
@@ -25,26 +23,30 @@ and I feel I've learned a lot over the past week.
 
 GBJam (GameBoy jam) is a week-long game jam with the restriction of having the same resolution as a Gameboy (160×144) and using only 4 colours at once. The game must also use the same input system (dpad + A + B + start + select). 
 
-To illustrate what that looks like when playing on a gameboy, and to show the button layout, here is an image of a gameboy advance playing a gameboy game.
+<div class="captioned">
+<img src="/assets/img/posts/SpaceFlight/gba.jpg">
+<h4>GameBoy Advance Playing a GameBoy Game</h4>
+</div>
 
-![Pic of Gameboy advance playing a gameboy game](/assets/img/posts/SpaceFlight/gba.jpg)
-
-Because The game is made for playing on the computer, we are affored much more freedom as compared to developing for the original hardware. 
+Because The game is made for playing on the computer, we are afforded much more freedom as compared to developing for the original hardware. 
 Firstly the   screen is much larger, and secondly we must map the computer's input to the limited input of a gameboy.
 
 The jam itself had a secondary theme of space. I really played into this, making a 3D space flight sim taking place in a large solar system.
 
 # Palettes
 
-The rules of the gamejam allow 4 colours to be used on screen at once, but they don't have to match the actual colours of a Gameboy. The game's palette is the specific colours being used to draw the game. A goal of mine was to implement an easy palette swapping system. This would allow the look of the game to be changed at runtime, and for new palettes to be added without recompiling. Below you can see the results of this, The gif shows some of the game's preloaded palettes with the same scene in the background.
+The rules of the gamejam allow 4 colours to be used on screen at once, but they don't have to match the actual colours of a Gameboy. The game's palette is the specific colours being used to draw the game. A goal of mine was to implement an easy palette swapping system. This would allow the look of the game to be changed at runtime, and for new palettes to be added without recompiling.
 
-![Palettes swapping gif](/assets/img/posts/SpaceFlight/palettes.gif)
-
-### 2D Vs. 3D
+<div class="captioned">
+  <img src="/assets/img/posts/SpaceFlight/palettes.gif">
+  <h4>Palette Swapping in Action</h4>
+</div>
 
 Because of the differences in the shaders for 2D and 3D rendering, I decided to limit the colours in different ways for each pipeline.
 
-In 2D I limited all of the game's textures to 4 gray-scale colours, I could then render the textures as normal. The current palette is sent to the fragment shader and whichever of the 4 gray shades the fragment is, the colour can be swapped with the corresponding palette colour.
+### 2D
+
+I limited all of the game's 2D textures to 4 gray-scale colours, I could then render the textures as normal. The current palette is sent to the fragment shader and whichever of the 4 gray shades the fragment is, the colour can be swapped with the corresponding palette colour.
 
 ```glsl
 int col = int(outColour.r * 100);
@@ -66,7 +68,9 @@ case COLOUR3:
 
 ![2d palette shading](/assets/img/posts/SpaceFlight/2d-palette-swap.png)
 
-In 3D I didn't want to limit the textures to four colours, and I wanted to use lighting, which usally produces many different shades. The approach I took here was to do everything as normal, then at the end of the fragment shader I calculate the intensity of the final colour. I use the intensity as a threshold value to choose one of the 4 colours from the palette.
+### 3D
+
+In 3D I didn't want to limit the textures to four colours, and I wanted to use lighting, which usually produces many different shades. The approach I took here was to do everything as normal, then at the end of the fragment shader I calculate the intensity of the final colour. I use the intensity as a threshold value to choose one of the 4 colours from the palette.
 
 ```glsl
 float intensity = (outColour.x + outColour.y + outColour.z) * 33;
@@ -83,34 +87,72 @@ else
 ![3d palette shading](/assets/img/posts/SpaceFlight/3d-palette-swap.png)
 
 
-# Solar System
+# The Solar System
 
-The planets are shaded using blinn-phong shading, which is then limited to 4 colours.
-The source of the light for everything is the sun, which I placed at the origin of the world to make the maths easier.
-The planets are a 3D sphere with the model's texture swapped out to make different planets look distinct. Planets also have a custom rotation speed,
-so that they slowly spin as you look at them, but the effect can be subtle. See below a very sped up gif of a planet and it's moon spiining.
+The planets are hand placed around the sun, which is source of the light for everything. I placed it at the origin of the world to make the maths behind shading the planets easier.
+The planets are a 3D sphere with the model's texture swapped out to make different ones look distinct. Planets also have a custom rotation speed, so that they slowly spin as you look at them, but the effect can be subtle.
 
-![spinning planet](/assets/img/posts/SpaceFlight/planet-spin.gif)
+<div class="captioned">
+  <img src="/assets/img/posts/SpaceFlight/planet-spin.gif">
+  <h4>A planet's spin sped up</h4>
+</div>
+
+Logs that tell the story of the game are scattered around key locations, this gives the player an incentive to explore. Their text guides you to other locations to get the next piece of the story. Logs are just defined as text files with coordinates, a title, and some text. The logs themselves are a cylinder with a sphere which get a random rotational axis when the game starts. When the ship gets close to a log the player gets a popup and the log is automatically targeted for them. When the player is within pickup range of the log it disappears and text is added to the player's log menu on the ship.
+
 
 
 # Ship Camera Controls Using Quaternions
 
-Quaternions are mathematical objects that make combining 3D rotations easier.
+Quaternions are mathematical objects that can be thought of as a 4D extension to the complex numbers. In this case they are useful because they make combining 3D rotations easier, and avoid a lot of the complexity when dealing with the simpler to conceptualise Euler angles. I still use Euler angles in some parts of the code, but I convert them to quaternions to perform the rotation of the camera. The three directions of rotation usually go by pitch (for up/down), yaw (for left/right), and roll (for clockwise/anticlockwise). In the game the player can change their pitch and roll velocities with the dpad. These velocities are used to rotate the ship each frame. The code also has roll component, but that is unused in the actual game.
 
-The ship needed to be able to move along three rotational axes to be realistic. These directions are called pitch, yaw, and roll.
+The 3D camera has three vectors that form it's basis, the up, left and right vectors. These vectors are used to calculate the view matrix of the camera. Rotating these vectors changes the pitch, yaw, and roll of the camera. For example, thinking of pitch, we have the up and down motion, which would be around the left pointing vector. So given the angle of rotation, and the left vector, we can build a quaternion for that motion. Doing the same for each of the axis of rotation and multiplying them together results in a rotation that encapsulates the whole motion for that frame. Quaternions are applied by left-multiplying the vector to be rotated by the quaternion, and right-multiplying by that quaternion's conjugate. We do this operation to each of the basis vectors for the camera resulting in the camera getting all of the rotations for that frame.
 
-[Pic of pitch, yaw, roll diagram]
+<div class="container">
 
+<!-- each img -->
+<div class="item">
+  <img src="/assets/img/posts/SpaceFlight/pitch.gif">
+  <h3>Pitch</h3>
+</div>
 
- The ship class inherits from my camera class. Previously my cameras have used Euler angles for pitch and yaw, which wouldn't work well with roll too. I needed to use quaternions (which are 4D vectors that help with rotation in 3D) to do pitch, yaw and roll without issues.
+<div class="item">
+  <img src="/assets/img/posts/SpaceFlight/yaw.gif">
+  <h3>Yaw</h3>
+</div>
+
+<div class="item">
+  <img src="/assets/img/posts/SpaceFlight/roll.gif">
+  <h3>Roll</h3>
+</div>
+
+</div>
+
+The code that handles the rotations is actually quite short compared to the explanation of what is happening and why it works.
+
+```C++
+// calculate the quaternion for each axis of rotation
+quat pitch(pitchVel * frameTime, leftVec );
+quat yaw  (yawVel   * frameTime, upVec   );
+quat roll (rollVel  * frameTime,  frontVec);
+
+// combined rotation
+quat rot  = pitch * yaw * roll;
+quat conj = conjugate(rot);
+
+// rotate the axis of rotation 
+// by the combined quaternion
+leftVec  = rot * leftVec  * conj;
+upVec    = rot * upVec    * conj;
+frontVec = rot * frontVec * conj;
+```
  
 # Targeting 3D Objects in 2D
 
-The game features a targeting system that makes navigating easier. The ship can target 3D poisitions in the world, which are shown in the ship's 2D overlay with circles around where that position is in the world. When that object is offscreen, there is an arrow pointing in the closest direction. 
+The game features a targeting system that makes navigating easier. The ship can target 3D positions in the world, which are shown in the ship's 2D overlay with circles around where that position is in the world. When that object is offscreen, there is an arrow pointing in the closest direction. 
 
-[clip of targeting in action]
+![Shows targeting system in action](/assets/img/posts/SpaceFlight/targeting.gif)
 
-Because the ship is really just a 3D camera, the ship has access to the game's view and projection matricies. These matricies work by transforming points from our 3D world, first into a position relative to the camera (the view matrix), then a position when that point is 'projected' onto a 2D screen (the projection matrix). These matricies are normally used by the vertex shader to render the 3D models, but given that it can get use from a target in 3D space to a point on the screen, we can use this for the targeting system. So given a view-projection matrix and a target, we can get the distance of the target from the camera, and the screen coordinates of the target.
+Because the ship is really just a 3D camera, the ship has access to the game's view and projection matrices. These matrices work by transforming points from our 3D world, first into a position relative to the camera (the view matrix), then a position when that point is 'projected' onto a 2D screen (the projection matrix). These matrices are normally used by the vertex shader to render the 3D models, but given that it can get use from a target in 3D space to a point on the screen, we can use this for the targeting system. So given a view-projection matrix and a target, we can get the distance of the target from the camera, and the screen coordinates of the target.
 
 ```C++
 vec4 clip = viewProj * vec4(target.x, target.y, target.z, 1); // target with w-component 1 (as it is a position and not a vector)

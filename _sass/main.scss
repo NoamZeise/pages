@@ -16,13 +16,6 @@ a:hover {
     color: #777777;
 }
 
-.side-img {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 5px;
-    margin: auto;
-}
-
 img {
     display: block;
     width: 60vmin;
@@ -33,10 +26,6 @@ img {
     outline-color: black;
     outline-width: 3px;
  }
-
- .side-img img {
-    width: 100%;
-};
 
  iframe {
     display: block;
@@ -50,9 +39,4 @@ img {
 
  pre {
      white-space: pre-wrap;
- }
-
- .post-title {
-     text-align: center;
-     padding-top: 1%;
  }

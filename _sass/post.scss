@@ -3,3 +3,28 @@
     font-size: 1.5em;
     text-align: right;
 }
+
+.post-title {
+    text-align: center;
+    padding-top: 1%;
+}
+
+.side-img {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 5px;
+    margin: auto;
+}
+
+.side-img img {
+    width: 100%;
+}
+
+.captioned {
+    padding: 1%;
+    text-align: center;
+}
+
+.captioned img {
+    margin-bottom: 0%
+}
