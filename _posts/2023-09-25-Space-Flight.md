@@ -42,7 +42,7 @@ The rules of the gamejam allow 4 colours to be used on screen at once, but they 
 
 ### 2D Vs. 3D
 
-Because of the differences in the shaders for 2D and 3D rendering, I decided to limit the colours of the pipelines in two different ways.
+Because of the differences in the shaders for 2D and 3D rendering, I decided to limit the colours in different ways for each pipeline.
 
 In 2D I limited all of the game's textures to 4 gray-scale colours, I could then render the textures as normal. The current palette is sent to the fragment shader and whichever of the 4 gray shades the fragment is, the colour can be swapped with the corresponding palette colour.
 
@@ -106,4 +106,73 @@ The ship needed to be able to move along three rotational axes to be realistic. 
  
 # Targeting 3D Objects in 2D
 
-The game features a targeting system that makes navigating easier. Targets are shown in 2D with circles around the 3D object. When that object is offscreen, there is an arrow pointing in the direction that will get it onscreen fastest. 
+The game features a targeting system that makes navigating easier. The ship can target 3D poisitions in the world, which are shown in the ship's 2D overlay with circles around where that position is in the world. When that object is offscreen, there is an arrow pointing in the closest direction. 
+
+[clip of targeting in action]
+
+Because the ship is really just a 3D camera, the ship has access to the game's view and projection matricies. These matricies work by transforming points from our 3D world, first into a position relative to the camera (the view matrix), then a position when that point is 'projected' onto a 2D screen (the projection matrix). These matricies are normally used by the vertex shader to render the 3D models, but given that it can get use from a target in 3D space to a point on the screen, we can use this for the targeting system. So given a view-projection matrix and a target, we can get the distance of the target from the camera, and the screen coordinates of the target.
+
+```C++
+vec4 clip = viewProj * vec4(target.x, target.y, target.z, 1); // target with w-component 1 (as it is a position and not a vector)
+vec2 screen(clip.x / clip.w, -clip.y / clip.w); // x, y screen coords of the target in the range [-1, 1]
+float dist = clip.z; // distance from the camera
+```
+
+This gives us x and y values in the range of [-1, 1] for the position of that point on the screen. values above that indicate an offscreen target. Currently, if we were looking directly away from the target it would give us screen coordinates within [-1, 1] as well. This is because that point would be projected on the 'other side' of the screen. To fix this we can use the distance from the camera to the target, which we get for free with the z component of the target in projection space. With a negative distance we know that the target is behind the camera. We know that if the target is behind us, then it is definitely offscreen, even if the screen coords indicate otherwise. For this reason we can split the rendering of the target into two state, onscreen and offscreen. The onscreen rendering is simple.
+
+```C++
+if(fabs(screen.x) <= 1 && fabs(screen.y) <= 1 && dist > 0) { //if onscreen
+	// use the onscreen circle sprite
+	setTex(onscreen);
+	// convert to range [0, 1]
+	vec2 screenPos = vec2(screen.x + 1, screen.y + 1) / 2;
+	// multiply by screen dimension
+	screenPos *= vec2(GB_WIDTH, GB_HEIGHT);
+	// then offset tex by half of it's dimensions to center it
+	screenPos -= offscreen.tex.dim / 2;
+	setPos(screenPos);
+}
+```
+
+With the offscreen rendering we need to treat negative distance differently, and to keep the target cursor at the border of the screen even if the screen position is within [-1, 1]. We also need to rotate the sprite so the arrow points in the right direction. When the camera is pointing around 90 degrees away from the target, values for the screen clip coordinates get very large. This can lead to visual issues with the target when the camera is moving around. To fix, we can clamp the larger coordinate to a magnitude of 1 and correct the other coordinate based off this, making it much smoother. Because one of the clip coordinates are clamped to -1 or 1, we automatically have the target at the edge of the screen at all times. We can think of corrected coordinate gives a vector pointing from the middle of the screen out to the edge. Working out the angle of this vector in relation to a vector pointing up from the middle gives us a rotation value to use for the arrow sprite.
+
+```C++
+else {
+	//use the offscreen arrow sprite (pointing up)
+	setTex(offscreen); 
+	
+	// fix the magnitude of the larger position to 1 or -1
+	// and correct the other direction accordingly
+	float* fixed = &screen.y;
+	float *variable = &screen.x;
+	if(fabs(screen.x) > fabs(screen.y)) {
+		fixed = &screen.x;
+		variable = &screen.y;
+	}
+	if(*fixed != 0) {
+		*variable /= fabs(*fixed); 
+		*fixed = sign(fixed); 
+	}
+	
+	// get the angle of the vector pointing towards the target
+	// from the center of the screen
+	vec2 norm = normalize(screen);
+	// offset angle by 90, as the texture is pointing up
+	float angle = atan2(norm.y, norm.x) + (PI / 2);
+	
+	// set texture rotation
+	setBaseRot(angle * 180 / PI); //convert to degrees
+	// limit screen pos to [0, 1] then multiply by screen dimensions
+	vec2 texPos(
+		((screen.x + 1) / 2) * GB_WIDTH,
+		((screen.y + 1) / 2) * GB_HEIGHT);
+	// clamp to the border of the screen
+	if(texPos.x > GB_WIDTH - offscreen.dim.x)
+	    texPos.x = GB_WIDTH - offscreen.dim.x;
+	if(texPos.y > GB_HEIGHT - offscreen.dim.y)
+	    texPos.y = GB_HEIGHT - offscreen.dim.y;
+	setPos(texPos);
+}
+```
+
+With that working for a single target, it becomes trivial to add for multiple targets when it is abstracted properly.
