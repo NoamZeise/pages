@@ -1,8 +1,8 @@
 - name: Best	
   link: /
-- name: New
+- name: Latest
   link: /posts/
-- name: Old
+- name: Archive
   link: /archive/
 - name: About
   link: /about/

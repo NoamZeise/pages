@@ -6,7 +6,8 @@ category: GameJam
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/has_7hJQwrI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-My first game in 3D, this was made in 48 hours for GMTK Jam 2023 using my [graphics framework](https://github.com/NoamZeise/Graphics-Environment)
+My first game in 3D, this was made in 48 hours for GMTK Jam 2023 using my [graphics framework](https://github.com/NoamZeise/Graphics-Environment). I used raycasting to convert from a mouse position to a square on the board that is warped because of the camera's perspective projection.
+
 
 <!-- more -->
 
@@ -14,18 +15,25 @@ My first game in 3D, this was made in 48 hours for GMTK Jam 2023 using my [graph
 
 [Download a build on itch](https://noamzeise.itch.io/reforestation)
 
-I used this jam as an excuse to do a game in 3D. This was a very different experience to previous games, and I underestimated the challenges I would face. I had to change the complexity of the game significantly due to time constraints, and could only make a few levels. Overall I'm happy with the result, and look forward to doing more 3D games in the future.
+This jam was an opportunity to do a game in 3D to test some of my graphics library's functionality. It was a very different experience to previous games. I had to change the complexity of the game significantly due to time constraints, and could only make a few levels. Overall I'm happy with the result, and look forward to doing more 3D games in the future.
 
+I didn't use any text or audio, so I could remove some of the heavy dependencies of the graphics library (freetype, libsndfile, portaudio). I only used .obj models, so I could build assimp with only one model type. These saves reduced the final size of the game. The game is 2mb, not including the windows C/C++ runtime dlls I package with the game that will already be present on most user's systems. 
 
-I used raycasting to get the position on the box that the cursor was hovering over to let the user place things on the board. After correcting for scaling and resolution that the graphics framework does to keep the game in the target resolution, I had values for the mouse position between -1 and 1 in the x and y direction. Using this we can calculate an outward facing ray and check at what position it would intersect a plane with a certain normal. I had the board facing up at a height of zero. I also precalculated the view and projection matrix inverses, and only changes these when the matrices changed.
+# Raycasting
 
-Here is the raycasting function:
+Getting the position on the board that the cursor is hovering over lets us know where place things. To do this we send out an imaginary vector from where the mouse is on the camera. Where this vector would intersect with the plane of the board, is where the mouse is hovering over in 3D. 
 
-```
+We get values for the mouse position between -1 and 1 in the x and y direction, which is called normalised device coordinates(NDC), by corrected for scaling and resolution changes between the rendered scene and the game's window. Using this we can contruct an outward facing vector by adding a Z component of -1. 
+
+```C++
 // mouse position on the screen 
-// has the range ([-1, 1], [-1, 1])
+// xPos, yPos are within [-1, 1]
 vec4 rayClip(xPos, yPos, -1.0f, 1.0f);
-    
+```
+
+With the inverse of the game's view and projection matrices we can transform this vector into world space. 
+
+```C++
 // using the inverse of the projection matrix gets
 // the mouse position in camera space
 vec4 rayCam = projInverse * rayClip;
@@ -38,27 +46,28 @@ rayCam.w = 0.0f;
 vec4 rayWorld4 = viewInverse * rayCam;
 vec3 rayWorld(rayWorld4.x, rayWorld4.y, rayWorld4.z);
 rayWorld = glm::normalize(rayWorld);
-	
+```
+
+Now we just need to check at what position the mouse vector would intersect the board. It's facing up at a height of zero, so the normal is `(0, 0, 1)`. We project the mouse vector onto the board's normal using the dot product. 0 here means that these vectors are perpendicular and there are no intersections. Otherwise we can solve for the hit position on the board using the camera's position as the origin of the ray.
+
+```C++
 vec3 planeNormal(0.0f, 0.0f, 1.0f); //facing up
-float denom = glm::dot(rayWorld, planeNormal);
-if(denom != 0) { //ray is not orthogonal to the plane
+float denom = dot(rayWorld, planeNormal);
+if(denom != 0) { //ray strikes the plane
 	
     // solve for the intersection distance from the ray origin
-   	// (camera position) to the plan.e 
-	// + 0.0f, this is the distance of the plane along it's normal
-	float t = -(dot(cam.getPos(), planeNormal) + 0.0f) / denom; 
+   	// (camera position) to the plane
+	// + 0 is for the distance of the plane along it's normal
+	float t = -(dot(cam.getPos(), planeNormal) + 0) / denom; 
 		
 	// get the hit position by substituting the parameter
 	// for the the equation of a ray with t
 	vec3 hit = cam.getPos() + rayWorld * t;
 	return hit;
 }
-// return nonsense if the ray is orthogonal to the plane
+// return nonsense if the ray is perpendicular to the plane
 return vec3(10000.0f);
 ```
 
-Then it was a simple matter of passing the intersection position to the board renderer
-and checking which tile it struck, so that the tile's colour could be changed to red.
-
-
-I didn't use any text or audio, so I could remove some of the heavy dependencies of the game (freetype, libsndfile, portaudio). I only used .obj models, so I could build assimp with only one model type. These saves reduced the final size of the game. The game is 2mb, not including the windows C/C++ runtime dlls I package with the game that will already be present on most user's systems. 
+Then it is a simple matter of passing the intersection position to the board
+and checking which tile it struck.

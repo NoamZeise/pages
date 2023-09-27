@@ -1,12 +1,12 @@
 ---
 layout: post
-title: Making A 3D Space Sim (GBJam11)
+title: Making a 3D Space Sim (GBJam11)
 category: GameJam
 ---
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/qJSZGmeCxVg?si=aNNL3S1dxg86xzKK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-This is a 3D flight sim set in a solar system. Lost ship logs litter the system, rewarding exploration. The game uses Vulkan or OpenGL for rendering.
+Set in a solar system full of planets. Lost ship logs litter key areas, rewarding exploration. The game uses Vulkan or OpenGL for rendering. Written in C++.
 
 Here I go over a lot of the 3D maths involved in creating a space sim.
 This includes getting directions from world space to screen space and 
