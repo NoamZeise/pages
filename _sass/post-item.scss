@@ -1,10 +1,12 @@
 .post-item {
     width: 90vmin;
     margin: auto;
-    padding: 1%;
     outline-style: solid;
-    outline-color: #551133;
-    margin-bottom: 5vmin;
+    outline-width: 0.1em;
+    outline-color: #441133;
+    margin-bottom: 70px;
+    padding: 2%;
+    padding-top: 0.1%;
 }
 
 .post-item h2 {
@@ -15,4 +17,13 @@
     width: 70%;
 }
 
+.post-item p {
+    width: 90%;
+    margin: auto;
+    margin-bottom: 2%;
+}
 
+.read-more {
+    text-align: end;
+    margin: auto;
+}
