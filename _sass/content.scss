@@ -5,6 +5,12 @@
     padding-top: 3%;
 }
 
+@media (orientation: landscape) {
+    .content {
+	width: 60%
+    }
+}
+
 .content-title {
     padding-bottom: 5%;
     text-align: center;

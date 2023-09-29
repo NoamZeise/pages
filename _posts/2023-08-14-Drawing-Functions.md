@@ -51,6 +51,8 @@ This is the graph of the cutoff value for x cubed with different values for y. T
 
 ![cutoff graph](/assets/img/posts/graphing-images/x-cubed-cutoff.png)
 
+### `f(x, y) = c`
+
 The next type of graphs I tried to draw were of the form `f(x, y) = c` for some constant c. Below we see the equation of a circle.
 
 ![circle](https://github.com/NoamZeise/complex-fn-anim/blob/f89a6d630f93a00c374b70f94fae5fdbdb1890b7/demos/images/fn-drawing-progress/img3.png?raw=true)
@@ -62,6 +64,8 @@ I added the ability to send a list of functions to be drawn, so they are overlai
 ![multiple radii](https://github.com/NoamZeise/complex-fn-anim/blob/f89a6d630f93a00c374b70f94fae5fdbdb1890b7/demos/images/fn-drawing-progress/img7.png?raw=true)
 
 Initially it looked as if the circle's thickness worked well, but, as with the 2nd x squared image, we see how the thickness of the line changes as we use different values for the radius.
+
+### Fixed Thickness Lines
 
 To fix these thickness issues, I needed to modify the cutoff and scaling values based on the function's behaviour in that region. Here are some images showing progression towards a working system.
 
@@ -95,6 +99,8 @@ I also added a parameter to the graphing functions to allow the image to be inve
 
 The graphing code is generalized so each type of graph goes through the same function. This function is for graphs of the form `f(x, y) = g(x, y)`. Functions such as `f(x) = y` or `f(x, y) = c` can be written in that form, so the graph generator for these just transform the passed functions and call the single graphing function behind the scenes.
 
+### Animation
+
 I also added a function that can help with animating these graphs. That function works by taking as an argument a function that accepts an animation progress and returns a list of graphing functions to plot for that frame. Here is an example animation of circles.
 
 ```
@@ -116,13 +122,16 @@ I also added a function that can help with animating these graphs. That function
 (canim:make-anim "build/circles/" 100 100 100
 		 (canim:make-pos :scale 2 :x -1 :y -1)
 		 (canim:make-pos :scale 2 :x -1 :y -1)
-		 :pixel-meta-fn (canim:graph-anim #'gen-circle-anim))
+
+
+
+:pixel-meta-fn (canim:graph-anim #'gen-circle-anim))
 ```
 
 ![circles animated](https://github.com/NoamZeise/complex-fn-anim/blob/f89a6d630f93a00c374b70f94fae5fdbdb1890b7/demos/videos/circles.gif?raw=true)
 
 
-## Gallery of Generated Images
+# Gallery of Generated Images
 
 The code to generate these images can be found in the `demo/images` folder of the [source code](https://github.com/NoamZeise/complex-fn-anim/tree/master/demos/images) for this project.
 
