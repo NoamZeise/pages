@@ -11,7 +11,7 @@ Extending my complex function animation library to work with graphing functions 
 
 <!-- more -->
 
-This is a continuation of my previous project where I outputted complex functions as images and animations, [see the post here](/demo/2023/03/27/Complex-Function-Animations.html). 
+This is a continuation of my previous project where I outputted complex functions as images and animations, [see the post here]({% post_url 2023-03-27-Complex-Function-Animations %}). 
 
 My goal is to be able to draw the graphs of functions and animate them using the functionality developed previously.
 
