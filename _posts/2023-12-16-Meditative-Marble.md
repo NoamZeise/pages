@@ -23,7 +23,9 @@ This game was made using my
 <hr>
 
 
-Here's a high level description of the game before I dive into the techinical details. 
+I saw a trailer for a game called [Exo One](https://www.youtube.com/watch?v=BDWNDdmwzAs) a while ago and the concept stuck in my head, so I've always wanted to try to implement ball physics in a wide open world to roll around. As this was a longer game jam, I thought it was the perfect opportunity to explore the kinds of maths involved and try and come up with my own solutions. 
+
+First, a high level description of the game before I dive into the technical details. 
 
 The game describes the map with a function of the form `f(x, y) = z`. 
 Using this function I generate a 3D mesh based on the player's position and load it while they are playing. Once the mesh is loaded I swap the current one for the new one so the player sees the world as one continous mesh without noticing the swap.
@@ -37,6 +39,84 @@ Below are the details of the above overview.
 ### AREA UNDER CONSTRUCTION
 
 # 3rd Person Camera
+
+[Link to the code file that this section discusses](https://github.com/NoamZeise/MeditativeMarble/blob/master/src/third_person_cam.cpp)
+
+The first part of this project I worked on was the third person camera. The goal is a camera that keeps a subject in frame and can rotate around it to view it from various angles. First I will describe the view matrix in general, then I will apply this to a 3rd person camera.
+
+We can define a camera's view matrix using a set of basis vectors (axes). We need a vector pointing towards the target (`F`), a vector pointing up (`U`), and one pointing to the side (`S`). We also need a camera's position (`P`) in the world.
+
+![Camera Axes Image](/assets/img/posts/Meditative-Marble/camera-axes.png)
+
+Our goal is a matrix which transforms a vector from it's position in the world, to it's position in relation to the camera. This is a change of basis (we want a vector in terms of the camera's axes), which can be represented by matrix multiplication with the new basis vectors as the rows of a 3x3 matrix, which we expand to 4x4 so that we can translate the view by the position of the camera. The translation ensures moving the position of camera without it's basis chaning will move a vertex in relation to the camera. This kind of matrix is called a view matrix, and it is the result of the following calculation.
+
+```
+| S.x S.y S.z 0 |   | 1  0  0  -P.x |
+| U.x U.y U.z 0 |   | 0  1  0  -P.y |
+| F.x F.y F.z 0 | * | 0  0  1  -P.z |
+| 0   0   0   1 |   | 0  0  0    1  |
+```
+Note that we can simplify this to a single matrix, as the transform matrix on the right of the multiplication will only affect the last column of the view matrix. Each entry in the last column is given by the dot product of the position (`P`) and each basis vector along that row. If we do the full matrix multiplication, the result is clear.
+
+```
+| 1*S.x | 1*S.y | 1*S.z | -P.x*S.x + -P.y*S.y + -P.z*S.z |   | S.x S.y S.z -P*S | 
+| 1*S.x | 1*S.y | 1*S.z | -P.x*S.x + -P.y*S.y + -P.z*S.z |   | U.x U.y U.z -P*U |
+| 1*S.x | 1*S.y | 1*S.z | -P.x*S.x + -P.y*S.y + -P.z*S.z | = | F.x F.y F.z -P*F |
+|   0   |   0   |   0   |               1                |   |  0   0   0    1  |
+```
+
+Now that we know how to represent a camera's state in 3D, we have to restrict the axes and positions to be consistently pointing towards a moving target as we rotate around it. To make this simpler I store the camera's position as a unit vector from the origin (I will call this local space) and only consider the target's position when I build the view matrix.
+
+By considering a sphere around a target and a single point on the sphere's surface, we can treat that point as the position of a camera that points towards the centre of the sphere to look at the target. 
+
+We start with a position representing a point on the sphere's surface in local space, so the centre being observed is at position `(0, 0, 0)`, as well as a radius for how far away from the target the camera should be. We also need a world up direction, this is because a third person camera doesn't have any roll, it is always horizontal to the world, so we must have a consistent up facing direction (this is an arbitrary choice, but should probably be one of the world space's basis vectors e.g `(0, 0, 1)`).  We can now calculate the camera's basis vectors. 
+
+Forward is just our position vector, as the target is at `(0, 0, 0)`. We can then get a side-facing vector by doing the cross product of the world up vector and our target vector. Recall that the cross product gives a new vector perpendicular to the other two, but becauase world up and forward will usually not themselves be perpendicular, we need to normalize this new vector to ensure it has unit length. If this isn't done, the camera would look like it was getting further away as the camera neared the top or bottom of the sphere. We can then recalculate our ideal perpendicular up with the cross product of the forward and left vectors. This gives us our three basis vectors.
+
+![The axes of our camera](/assets/img/posts/Meditative-Marble/camera-rot.png)
+
+Finally we use the position of the target to get the last column's values. The position of the camera is our position in local space multiplied by the radius (the distance of the camera away from the target), plus the position of the target. So that the final matrix can be built with the following code. 
+
+```
+    forward = pos;
+    vec3 worldpos = pos * radius + target;
+    left = normalize(cross(worldUp, forward));
+    up = cross(forward, left);
+	
+    view = mat4(1); //start with 4x4 identity matrix
+    view[0][0] = left.x;
+    view[1][0] = left.y;
+    view[2][0] = left.z;
+    view[3][0] = -dot(left, worldpos);
+    view[0][1] = up.x;
+    view[1][1] = up.y;
+    view[2][1] = up.z;
+    view[3][1] = -dot(up, worldpos);
+    view[0][2] = forward.x;
+    view[1][2] = forward.y;
+    view[2][2] = forward.z;
+    view[3][2] = -dot(forward, worldpos);
+```
+
+Now the only thing to do is to be able to rotate around the sphere. As we start with a position in local space, we can just normalize any vector to get a point on the sphere, but with a third person camera one usually uses the mouse to manipulate viewing angles. This means we need to track 2d mouse movement to 3d rotations around the sphere. As we have a fixed world up direction (ie no roll) we can simply track Y input to up/down the sphere, and X input to side-to-side on the sphere. 
+
+Up and down motion is exactly rotation around the camera's side axis, side-to-side motion is rotation around the up axis. We can build a quaterion for each of these and a given angle from the X and Y inputs, then conjugate our position with that quaternion to rotate the position around the sphere in the way we want. For a given frame we get a 2D vector for the input, then build a quaternion that encompasses rotation around these axes, then update the camera's position with this quaterions.
+
+```
+quat qx = quat( cos(input.x), sin(input.x) * up);
+quat qy = quat( cos(input.y), sin(input.y) * left);
+quat q = qx * qy;
+pos = q * pos * conjugate(q);
+```
+
+Note that at extreme angles, when the camera is at the very top or bottom of the sphere, the cross product of forward and world up will be 0, which cannot be normalized. This means we must limit our rotation to some cutoff value at the extremes so the camera does not flip around at the extremes. I do this before I update the position.
+
+```
+float updot = dot(forward, worldUp); // == 1 if parallel
+// if above lim and moving up, or below -lim and moving down, don't move that way
+if(updot > lim && input.y < 0 || -updot > lim && input.y > 0)
+	input.y = 0;
+```
 
 # Generating 3D Models With Code
 
@@ -160,8 +240,15 @@ genSurface([](float x, float y){
 	</div>
 </div>
 
-# Collisions with Surface Functions
-
 # Noise Functions
 
+[Link to the code file that this section discusses](https://github.com/NoamZeise/MeditativeMarble/blob/master/src/noise.cpp)
+
+# Collisions with Surface Functions
+
+- [physics code file](https://github.com/NoamZeise/MeditativeMarble/blob/master/src/third_person_cam.cpp)
+- [surface fn collision](https://github.com/NoamZeise/MeditativeMarble/blob/master/src/world.cpp#L238)
+
 # Loading the World as the Player Moves
+
+[link to the code that this section discusses](https://github.com/NoamZeise/MeditativeMarble/blob/master/src/world.cpp#L173)
