@@ -1,0 +1,20 @@
+\documentclass[preview]{standalone}
+\usepackage{amsmath}
+\begin{document}
+
+\[
+  \begin{bmatrix}
+    S_x & S_y & S_z & -P_xS_x - P_yS_y -P_zS_z \\
+    U_x & U_y & U_z & -P_xU_x - P_yU_y -P_zU_z \\
+    F_x & F_y & F_z & -P_xF_x - P_yF_y -P_zF_z \\
+    0 & 0 & 0 & 1 
+  \end{bmatrix} =
+  \begin{bmatrix}
+    S_x & S_y & S_z & -P \cdot S \\
+    U_x & U_y & U_z & -P \cdot U\\
+    F_x & F_y & F_z & -P \cdot F\\
+    0 & 0 & 0 & 1 
+  \end{bmatrix}
+\]
+
+\end{document}

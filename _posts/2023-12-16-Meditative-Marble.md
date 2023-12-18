@@ -36,8 +36,6 @@ The camera follows the player without clipping through the map, pulling back whe
 
 Below are the details of the above overview.
 
-### AREA UNDER CONSTRUCTION
-
 # 3rd Person Camera
 
 [Link to the code file that this section discusses](https://github.com/NoamZeise/MeditativeMarble/blob/master/src/third_person_cam.cpp)
@@ -50,20 +48,11 @@ We can define a camera's view matrix using a set of basis vectors (axes). We nee
 
 Our goal is a matrix which transforms a vector from it's position in the world, to it's position in relation to the camera. This is a change of basis (we want a vector in terms of the camera's axes), which can be represented by matrix multiplication with the new basis vectors as the rows of a 3x3 matrix, which we expand to 4x4 so that we can translate the view by the position of the camera. The translation ensures moving the position of camera without it's basis chaning will move a vertex in relation to the camera. This kind of matrix is called a view matrix, and it is the result of the following calculation.
 
-```
-| S.x S.y S.z 0 |   | 1  0  0  -P.x |
-| U.x U.y U.z 0 |   | 0  1  0  -P.y |
-| F.x F.y F.z 0 | * | 0  0  1  -P.z |
-| 0   0   0   1 |   | 0  0  0    1  |
-```
+<img alt="Matrix Multiplication for view matrix" src="/assets/img/posts/Meditative-Marble/mat-mul/mat.png" style="outline-style: none; width: 90vmin;">
+
 Note that we can simplify this to a single matrix, as the transform matrix on the right of the multiplication will only affect the last column of the view matrix. Each entry in the last column is given by the dot product of the position (`P`) and each basis vector along that row. If we do the full matrix multiplication, the result is clear.
 
-```
-| 1*S.x | 1*S.y | 1*S.z | -P.x*S.x + -P.y*S.y + -P.z*S.z |   | S.x S.y S.z -P*S | 
-| 1*S.x | 1*S.y | 1*S.z | -P.x*S.x + -P.y*S.y + -P.z*S.z |   | U.x U.y U.z -P*U |
-| 1*S.x | 1*S.y | 1*S.z | -P.x*S.x + -P.y*S.y + -P.z*S.z | = | F.x F.y F.z -P*F |
-|   0   |   0   |   0   |               1                |   |  0   0   0    1  |
-```
+<img alt="Show matrix multiplication leads to dot products on rightmost column" src="/assets/img/posts/Meditative-Marble/mat/mat.png" style="outline-style: none; width: 90vmin;">
 
 Now that we know how to represent a camera's state in 3D, we have to restrict the axes and positions to be consistently pointing towards a moving target as we rotate around it. To make this simpler I store the camera's position as a unit vector from the origin (I will call this local space) and only consider the target's position when I build the view matrix.
 
@@ -71,15 +60,15 @@ By considering a sphere around a target and a single point on the sphere's surfa
 
 We start with a position representing a point on the sphere's surface in local space, so the centre being observed is at position `(0, 0, 0)`, as well as a radius for how far away from the target the camera should be. We also need a world up direction, this is because a third person camera doesn't have any roll, it is always horizontal to the world, so we must have a consistent up facing direction (this is an arbitrary choice, but should probably be one of the world space's basis vectors e.g `(0, 0, 1)`).  We can now calculate the camera's basis vectors. 
 
-Forward is just our position vector, as the target is at `(0, 0, 0)`. We can then get a side-facing vector by doing the cross product of the world up vector and our target vector. Recall that the cross product gives a new vector perpendicular to the other two, but becauase world up and forward will usually not themselves be perpendicular, we need to normalize this new vector to ensure it has unit length. If this isn't done, the camera would look like it was getting further away as the camera neared the top or bottom of the sphere. We can then recalculate our ideal perpendicular up with the cross product of the forward and left vectors. This gives us our three basis vectors.
+Forward is just our position vector, as the target is at `(0, 0, 0)`. We can then get a side-facing vector by doing the cross product of the world up vector and our target vector. Recall that the cross product gives a new vector perpendicular to the other two, but becauase world up and forward will usually not themselves be perpendicular, we need to normalize the side vector to ensure it has unit length. If this isn't done, the camera would look like it was getting further away as the camera neared the top or bottom of the sphere. We can then recalculate our ideal perpendicular up vector with the cross product of the forward and side vectors. This gives us our three basis vectors for view space.
 
 ![The axes of our camera](/assets/img/posts/Meditative-Marble/camera-rot.png)
 
-Finally we use the position of the target to get the last column's values. The position of the camera is our position in local space multiplied by the radius (the distance of the camera away from the target), plus the position of the target. So that the final matrix can be built with the following code. 
+Finally we use the position of the target to get the last column's values. The position of the camera is our position in local space times a distance value plus the position of the target. The distance value allows us to change the size of the sphere the camera is on. Putting it all together, the final view matrix can be built with the following code. 
 
 ```
-    forward = pos;
-    vec3 worldpos = pos * radius + target;
+    forward = localpos;
+    vec3 worldpos = localpos * radius + target;
     left = normalize(cross(worldUp, forward));
     up = cross(forward, left);
 	
@@ -98,9 +87,9 @@ Finally we use the position of the target to get the last column's values. The p
     view[3][2] = -dot(forward, worldpos);
 ```
 
-Now the only thing to do is to be able to rotate around the sphere. As we start with a position in local space, we can just normalize any vector to get a point on the sphere, but with a third person camera one usually uses the mouse to manipulate viewing angles. This means we need to track 2d mouse movement to 3d rotations around the sphere. As we have a fixed world up direction (ie no roll) we can simply track Y input to up/down the sphere, and X input to side-to-side on the sphere. 
+Now the only thing left is moving the camera around the sphere. With a third person camera one usually uses the input to manipulate it's position around a subject. This means we need to track 2d input to 3d rotations around the sphere's surface. As we have a fixed world up direction (ie no roll) we can simply track Y input to up and down motion and X input to sideways motion on the sphere. 
 
-Up and down motion is exactly rotation around the camera's side axis, side-to-side motion is rotation around the up axis. We can build a quaterion for each of these and a given angle from the X and Y inputs, then conjugate our position with that quaternion to rotate the position around the sphere in the way we want. For a given frame we get a 2D vector for the input, then build a quaternion that encompasses rotation around these axes, then update the camera's position with this quaterions.
+Up and down motion is exactly rotation around the camera's side axis, side-to-side motion is rotation around the up axis. Quaternions can be built using a rotation axis and an angle, then we can conjugate our camera's position with that quaternion to rotate it around the sphere. For a given frame we get a 2D vector for the input direction, build a quaternion that encompasses rotation around the two axes by the input amount, then update the camera's position using the quaternion.
 
 ```
 quat qx = quat( cos(input.x), sin(input.x) * up);
@@ -109,10 +98,10 @@ quat q = qx * qy;
 pos = q * pos * conjugate(q);
 ```
 
-Note that at extreme angles, when the camera is at the very top or bottom of the sphere, the cross product of forward and world up will be 0, which cannot be normalized. This means we must limit our rotation to some cutoff value at the extremes so the camera does not flip around at the extremes. I do this before I update the position.
+Note that at extreme angles, when the camera is at the very top or bottom of the sphere, the cross product of forward and world up will be 0, which cannot be normalized, leading to some jittery behaviour. This means we must limit our angle to some cutoff value at the extremes. I do this before I update the position.
 
 ```
-float updot = dot(forward, worldUp); // == 1 if parallel
+float updot = dot(forward, worldUp); // == 1 if parallel, as these are unit vectors
 // if above lim and moving up, or below -lim and moving down, don't move that way
 if(updot > lim && input.y < 0 || -updot > lim && input.y > 0)
 	input.y = 0;
@@ -244,11 +233,17 @@ genSurface([](float x, float y){
 
 [Link to the code file that this section discusses](https://github.com/NoamZeise/MeditativeMarble/blob/master/src/noise.cpp)
 
+TODO
+
 # Collisions with Surface Functions
 
-- [physics code file](https://github.com/NoamZeise/MeditativeMarble/blob/master/src/third_person_cam.cpp)
+- [physics code file](https://github.com/NoamZeise/MeditativeMarble/blob/master/src/physics.cpp)
 - [surface fn collision](https://github.com/NoamZeise/MeditativeMarble/blob/master/src/world.cpp#L238)
+
+TODO
 
 # Loading the World as the Player Moves
 
 [link to the code that this section discusses](https://github.com/NoamZeise/MeditativeMarble/blob/master/src/world.cpp#L173)
+
+TODO
