@@ -233,7 +233,34 @@ genSurface([](float x, float y){
 
 [Link to the code file that this section discusses](https://github.com/NoamZeise/MeditativeMarble/blob/master/src/noise.cpp)
 
-TODO
+I wanted to use this game as an opportunity to explore methods of procedural generation. After I got the mesh generation part working, I wanted to generate a map for the world. To make collision easier, the function to generate the map should take in an x and y coordinate and output a z coordinate for the height at that point. The drawback is that there can be no caves or overhanging terrain, but I think this simplification makes the code easier. 
+
+I decided to go with simplex noise to generate the height at each point. The final map uses multiple calls to a 3D simplex noise function added together. The first two inputs are the x and y coordinates for that point, and the third input is a random value that is fixed for the runtime of the program. This means there is a unique map each time the game is run. 
+
+Simplex noise is a smooth noise generating algorithm designed by ken perlin, which is an improvement on perlin noise that works with any number of dimensions. 
+[Here is the original description, and my main resource for this implementation](https://www.csee.umbc.edu/~olano/s2002c36/ch02.pdf). 
+There are a few open source implementations, but I felt wrong to use this code without having any understanding for how it worked. As well as this, the implementations I could find had a unique function with different code for each dimension, for the sake of efficiency. I wanted to have function that would work for any arbitrary number of dimensions. The implementation I referenced the most is one for 1-4 dimensions by Stefan Gustavon, found [here](https://web.archive.org/web/20221112031018/https://weber.itn.liu.se/~stegu/aqsis/aqsis-newnoise/). I also used [a hash array found here](https://mrl.cs.nyu.edu/~perlin/noise/), by Ken Perlin. This is an array of 256 randomly distributed ints for use when generating the final random output.
+
+The explainations below will omit the skewing and unskewing steps for finding the correct hypercube the input lies in and obtaining the unskewed simplex verticies.
+
+## Simplifed 2D Simplex Noise Explaination
+
+Consider a grid of squares with whole number coordinates for each vertex. Our two inputs `x, y` define a point in this space.
+
+![2D grid with point](/assets/img/posts/Meditative-Marble/grid.png)
+
+We then look at the grid square that the point falls into. If we start at the vertex on the top right, we can reach the bottom left corner by travelling through one other vertex (either `(1, 0)` or `(0, 1)`). These two paths each represent a different triangle. We then choose the triangle that our scaled point is lying in.
+
+![2D Simplex square](/assets/img/posts/Meditative-Marble/2d-simplex.png)
+
+We then calculate the distance between our point and each of the vertices of the triangle. We input the resulting distances into a function with some pseudo-randomness and outputting a new number. Adding up all these outputs with some factor gives the final result of the noise function.
+
+![2D Simplex result](/assets/img/posts/Meditative-Marble/2d-simple-ans.png)
+
+## In N-Dimensions
+
+Try to keep the 2D example in mind and consider what this means in 3D as we go over simplex noise with an arbitrary number of dimensions. We take our space and partition it into a grid (honeycomb) of hypercubes (n-dimensional squares) with integer vertices. We take n reals as input `(x1, x2, ..., xn)` and work out which hypercube it lies in. A simplex is an n-dimensional triangle, and we can partition a hypercube into distinct simplices ([more details](https://en.wikipedia.org/wiki/Schl%C3%A4fli_orthoscheme)). We want to get the simplex that our input lies in, say our input is in hypercube with smallest coordinate `(i1, i2, i3, ..., in)`. We consider a hypercube at the origin with vertex `v1 = (0, 0, ..., 0)`. We sort our input by size, `[x3, x2, xn, ..., x1]`, then we can get the vertices of the simplex by taking the next smallest of our inputs and adding 1 to the coordinate it corresponds to. Our input ordering  would give `v2 = (0, 0, 1, ..., 0)`, `v3 = (0, 1, 1, ..., 0)`, `v4 = (0, 1, 1, ..., 1)`, and so on until we get the last one will all 1s, `vn+1 = (1, 1, 1, ..., 1)`. These vertices are then guarenteed to be for the simplex our point lies in within the hypercube. Finally for each simplex vertex we calculate the vector from the vertex to our input, for example for v3 we get `d3 = <x1 - i1 + 0, x2 - i2 + 1, x3 - i3 + 1, ..., xn - in + 0>`. We then take some randomness function (ie `f`) and input this vector `o3 = f(d3)`. The final result is given by `out = o1 + o2 + o3 + .. + on` 
+
 
 # Collisions with Surface Functions
 
