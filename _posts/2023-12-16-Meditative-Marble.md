@@ -259,7 +259,7 @@ We then calculate the distance between our point and each of the vertices of the
 
 ## In N-Dimensions
 
-Try to keep the 2D example in mind and consider what this means in 3D as we go over simplex noise with an arbitrary number of dimensions. We take our space and partition it into a grid (honeycomb) of hypercubes (n-dimensional squares) with integer vertices. We take n reals as input `(x1, x2, ..., xn)` and work out which hypercube it lies in. A simplex is an n-dimensional triangle, and we can partition a hypercube into distinct simplices ([more details](https://en.wikipedia.org/wiki/Schl%C3%A4fli_orthoscheme)). We want to get the simplex that our input lies in, say our input is in hypercube with smallest coordinate `(i1, i2, i3, ..., in)`. We consider a hypercube at the origin with vertex `v1 = (0, 0, ..., 0)`. We sort our input by size, for example `[x3, x2, xn, ..., x1]`, then we can get the vertices of the simplex by taking the next smallest of our inputs and adding 1 to the coordinate it corresponds to. Our input ordering  would give `v2 = (0, 0, 1, ..., 0)`, `v3 = (0, 1, 1, ..., 0)`, `v4 = (0, 1, 1, ..., 1)`, and so on until we get the last one will all 1s, `vn+1 = (1, 1, 1, ..., 1)`. These vertices are then guarenteed to be for the simplex our point lies in within the hypercube. Finally for each simplex vertex we calculate the vector from the vertex to our input, for example for v3 we get `d3 = <x1 - i1 + 0, x2 - i2 + 1, x3 - i3 + 1, ..., xn - in + 0>`. We then take some randomness function (ie `f`) and input this vector `o3 = f(d3)`. The final result is given by `out = o1 + o2 + o3 + .. + on` 
+Try to keep the 2D example in mind and consider what this means in 3D as we go over simplex noise with an arbitrary number of dimensions. We take our space and partition it into a grid (honeycomb) of hypercubes (n-dimensional squares) with integer vertices. We take n reals as input `(x1, x2, ..., xn)` and work out which hypercube it lies in. A simplex is an n-dimensional triangle, and we can partition a hypercube into distinct simplices ([more details](https://en.wikipedia.org/wiki/Schl%C3%A4fli_orthoscheme)). We want to get the simplex that our input lies in, say our input is in hypercube with smallest coordinate `(i1, i2, i3, ..., in)`. We consider a hypercube at the origin with vertex `v1 = (0, 0, ..., 0)`. We sort our input by size, for example `[x3, x2, xn, ..., x1]`, then we can get the vertices of the simplex by taking the next smallest of our inputs and adding 1 to the coordinate it corresponds to. Our input ordering would give `v2 = (0, 0, 1, ..., 0)` (as x3 was the smallest coord), `v3 = (0, 1, 1, ..., 0)` (x2 next smallest), `v4 = (0, 1, 1, ..., 1)` (xn next smallest), and so on until we get the last one which must be all 1s, `vn+1 = (1, 1, 1, ..., 1)`. These vertices are then guarenteed to be for the simplex our point lies in within the hypercube. Finally for each simplex vertex we calculate the vector from the vertex to our input, for example for v3 we get `d3 = <x1 - i1 + 0, x2 - i2 + 1, x3 - i3 + 1, ..., xn - in + 0>`. We then take some randomness function (ie `f`) and input this vector `o3 = f(d3)`. The final result is given by `out = o1 + o2 + o3 + .. + on` 
 
 
 # Collisions with Surface Functions
@@ -267,7 +267,44 @@ Try to keep the 2D example in mind and consider what this means in 3D as we go o
 - [physics code file](https://github.com/NoamZeise/MeditativeMarble/blob/master/src/physics.cpp)
 - [surface fn collision](https://github.com/NoamZeise/MeditativeMarble/blob/master/src/world.cpp#L238)
 
-TODO
+In the code below we approximate the closest point on a surface given a point in 3d space.
+
+```
+struct fnArgs {float a; float b; };
+
+/// Approximates local minimum of f
+fnArgs localMinimum(float a, float b, std::function<float (float, float)> f) {
+    float h = 0.1f; // small change in input to f
+    float step = 0.1f; // step toward local minimum
+    const int ITERS = 10; // how many steps to take
+    for(int i = 0; i < ITERS; i++) {
+		// approximate del(f(a, b)) 
+		float ap = f(a + h, b); // positive change in f
+		float bp = f(a, b + h); 
+		float an = f(a - h, b); // negative change in f
+		float bn = f(a, b - h);
+		// gradient in a, b direction
+		float da = (ap - an)/(2*h); // divided by size of change
+		float db = (bp - bn)/(2*h);
+		// update a, b by a step in direction of least gradient
+		a -= step*da;
+		b -= step*db;
+    }
+    return {a, b};
+}
+
+/// Approximates nearest point to pos on fn 
+glm::vec3 nearestPoint(glm::vec3 pos, std::function<glm::vec3 (float, float)> fn) {
+    // dist between our input pos and the surface pos squared
+    std::function<float (float, float)> d2 = [&pos, &fn](float a, float b) {
+		glm::vec3 d = pos - fn(a, b);
+		return glm::dot(d, d);
+    };
+	// inital guess of closest point is point corresponding to a = x, b = y
+    fnArgs g = localMinimum(pos.x, pos.y, d2);
+    return fn(g.a, g.b);
+}
+```
 
 # Loading the World as the Player Moves
 

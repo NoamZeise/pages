@@ -1,9 +1,12 @@
-- name: 3D Physics and Procedural World Loading (Latest)
+- name: 3D Physics and Procedural World Loading (C++ / Vulkan / OpenGL)
   link: /gamejam/2023/12/16/Meditative-Marble.html
   img: /assets/img/posts/Meditative-Marble/title.png
 - name: Making a 3D Space Sim (C++ / Vulkan / OpenGL)
   link: /gamejam/2023/09/25/Space-Flight.html
   img: /assets/img/posts/SpaceFlight/title.png
+- name: Rendering Graphs Nicely (Common Lisp)
+  link: /demo/2023/08/14/Drawing-Functions.html
+  img: https://github.com/NoamZeise/complex-fn-anim/blob/master/demos/images/rot-sine-cylinders.png?raw=true
 - name: Complex Function Animation (Common Lisp)
   link: /demo/2023/03/27/Complex-Function-Animations.html
   img: /assets/img/posts/canim/recursive.gif

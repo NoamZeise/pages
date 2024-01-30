@@ -9,7 +9,16 @@ title: Test
 </div>
 
 <div class="container">
-{% for g in datalist %}
+  <!-- show latest post in first square -->
+    {% for post in site.posts limit:1 %}
+  <div class="item subtle-link">
+    <a href="{{ post.url }}">
+      <img src="{{ post.image }}">
+      <h3>{{ post.title }} (Latest)</h3>
+    </a>
+  </div>
+  {% endfor %}
+  {% for g in datalist %}
 <div class="item subtle-link">
 <a href="{{ g.link }}">
   <img src="{{ g.img }}">

@@ -51,7 +51,7 @@ step vector approach for scaling on the left, and the approach I used on the rig
 Each video is the same length and stop and start at the same time, but the one on the right seems
 to change much more evenly. The method I use works by ensuring the ratio of scale change to the
 current scale is identical between each consecutive frames. The derivation of the formula that
-gives this property is show below.
+gives this property is shown below.
 
 <img src="/assets/img/posts/canim/maths/scaling.png" style="outline-style: none; width: 90vmin;">
 
