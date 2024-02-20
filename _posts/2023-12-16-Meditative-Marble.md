@@ -4,7 +4,7 @@ title: Meditative Marble (Bigmode Jam 23)
 category: gamejam
 ---
 
-![Meditative Marble Title Image](/assets/img/posts/Meditative-Marble/title.png)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/pU02fDs-UJo?si=Cn56UndYAdpAfMaf" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 Roll a marble through a grassy landscape. A simulation of ball physics in a procedurally generating continuous world. I used this project to learn about on the fly 3D model generation, accurate 3D collisions, seamless swapping of models, 3rd person cameras, and noise functions.
 
