@@ -9,6 +9,7 @@ title: Test
 </div>
 
 <div class="container">
+  {% if page.have_latest %}
   <!-- show latest post in first square -->
     {% for post in site.posts limit:1 %}
   <div class="item subtle-link">
@@ -18,6 +19,7 @@ title: Test
     </a>
   </div>
   {% endfor %}
+  {% endif %}
   {% for g in datalist %}
 <div class="item subtle-link">
 <a href="{{ g.link }}">
