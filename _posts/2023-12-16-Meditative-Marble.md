@@ -66,7 +66,8 @@ Forward is just our position vector, as the target is at `(0, 0, 0)`. We can the
 
 Finally we use the position of the target to get the last column's values. The position of the camera is our position in local space times a distance value plus the position of the target. The distance value allows us to change the size of the sphere the camera is on. Putting it all together, the final view matrix can be built with the following code. 
 
-```
+
+```c++
     forward = localpos;
     vec3 worldpos = localpos * radius + target;
     left = normalize(cross(worldUp, forward));
@@ -87,6 +88,7 @@ Finally we use the position of the target to get the last column's values. The p
     view[3][2] = -dot(forward, worldpos);
 ```
 
+
 Now the only thing left is moving the camera around the sphere. With a third person camera one usually uses the input to manipulate it's position around a subject. This means we need to track 2d input to 3d rotations around the sphere's surface. As we have a fixed world up direction (ie no roll) we can simply track Y input to up and down motion and X input to sideways motion on the sphere. 
 
 Up and down motion is exactly rotation around the camera's side axis, side-to-side motion is rotation around the up axis. Quaternions can be built using a rotation axis and an angle, then we can conjugate our camera's position with that quaternion to rotate it around the sphere. For a given frame we get a 2D vector for the input direction, build a quaternion that encompasses rotation around the two axes by the input amount, then update the camera's position using the quaternion.
@@ -100,7 +102,7 @@ pos = q * pos * conjugate(q);
 
 Note that at extreme angles, when the camera is at the very top or bottom of the sphere, the cross product of forward and world up will be 0, which cannot be normalized, leading to some jittery behaviour. This means we must limit our angle to some cutoff value at the extremes. I do this before I update the position.
 
-```
+```c++
 float updot = dot(forward, worldUp); // == 1 if parallel, as these are unit vectors
 // if above lim and moving up, or below -lim and moving down, don't move that way
 if(updot > lim && input.y < 0 || -updot > lim && input.y > 0)
@@ -207,7 +209,7 @@ genSurface([](float x, float y){
 	</pre>
 	</div>
 	<div class="item">
-	<img src="/assets/img/posts/Meditative-Marble/sincos.png">
+		<img src="/assets/img/posts/Meditative-Marble/sincos.png">
 	</div>
 </div>
 <div class="container">
@@ -269,7 +271,7 @@ Try to keep the 2D example in mind and consider what this means in 3D as we go o
 
 In the code below we approximate the closest point on a surface given a point in 3d space.
 
-```
+```c++
 struct fnArgs {float a; float b; };
 
 /// Approximates local minimum of f

@@ -30,12 +30,20 @@ To begin I tried manually graphing x squared.
 The graph line is quite hazy, but otherwise it is clearly x squared. The code to generate something like this is shown below. To graph `f(x)`, we
 just need to get `abs(f(x) - y)` and scale it by some value, then use that as an intensity for a grayscale image. This gives a number closer to zero the closer that pixel is to the ideal graph line.
 
-```
-(canim:make-im "build/x-squared.png" 300 300 (canim:make-pos :x -1 :y -1 :scale 2)
-			:pixel-fn (lambda (x y scale)
-				    (let* ((intensity (* 100 (abs (- (expt x 2) y))))
-					   (colour (min (floor (* intensity 255)) 255)))
-				      (canim:make-colour colour colour colour 255))))
+```lisp
+(canim:make-im 
+ "build/x-squared.png" 
+ 300 300 
+ (canim:make-pos :x -1 :y -1 :scale 2)
+ :pixel-fn 
+ (lambda (x y scale)
+   (let* 
+       ((intensity
+	 (* 100 (abs (- (expt x 2) y))))
+        (colour
+	 (min (floor (* intensity 255)) 255)))
+     (canim:make-colour
+      colour colour colour 255))))
 ```
 
 With a little fiddling, making a better use of cutoffs and scaling, we can have a much sharper line.
@@ -81,16 +89,27 @@ To fix these thickness issues, I needed to modify the cutoff and scaling values 
 As you can see in the final image, the scaling is looking pretty good across the different functions. The function to calculate an appropriate cutoff value is shown below. Given the position we want to check, and a delta value (so that the line thickness can be changed manually), we return a cutoff value to use. The function also makes use of an accuracy value so that in cases where you would prefer faster image gen speed in exchange for less uniform lines, that can be done.
 
 The function works for a particular function `f(x, y)` by calculating `abs(f(x + d, y) - f(x - d, y))`, for the horizontal direction, and similarly for the other directions. This gives a value for how the function changes in a small area. taking the largest change acros all directions gives a value that is bigger the larger the change is. We can then use this as a cutoff value. It isn't a perfect solution, but it works well enough for the graphs that I have checked.
-```
-  (flet ((calc-cutoff (fn x y delta) ;; check how fn changes along horz, vert and diag
-	   (flet ((cutoff-fn (dx dy)
-		    (let ((delta  (/ delta (sqrt (+ (abs dx) (abs dy))))))
-		      (flet ((calc (dx dy)
-			       (funcall fn (+ x (* dx delta)) (+ y (* dy delta)))))
-			(abs (- (calc dx dy) (calc (* dx -1) (* dy -1))))))))
-	     (max (if (< accuracy 1) delta 0)
-	          (if (>= accuracy 1) (max (cutoff-fn 1 0) (cutoff-fn 0 1)) 0)
-		  (if (>= accuracy 2) (max (cutoff-fn 1 1) (cutoff-fn 1 -1)) 0)))))
+```lisp
+;; check how fn changes along horz, vert and diag
+(flet 
+ ((calc-cutoff
+   (fn x y delta)
+   (flet
+    ((cutoff-fn
+      (dx dy)
+      (let ((delta  (/ delta (sqrt (+ (abs dx) (abs dy))))))
+	(flet
+	 ((calc (dx dy)
+		(funcall fn
+			 (+ x (* dx delta))
+			 (+ y (* dy delta)))))
+	 (abs (- (calc dx dy) (calc (* dx -1) (* dy -1))))))))
+    (max (if (< accuracy 1)
+	     delta 0)
+	 (if (>= accuracy 1)
+	     (max (cutoff-fn 1 0) (cutoff-fn 0 1)) 0)
+	 (if (>= accuracy 2)
+	     (max (cutoff-fn 1 1) (cutoff-fn 1 -1)) 0)))))
 ```
 
 I also added a parameter to the graphing functions to allow the image to be inverted:
@@ -103,29 +122,43 @@ The graphing code is generalized so each type of graph goes through the same fun
 
 I also added a function that can help with animating these graphs. That function works by taking as an argument a function that accepts an animation progress and returns a list of graphing functions to plot for that frame. Here is an example animation of circles.
 
-```
+```lisp
 (defun gen-circle-anim (anim-progress)
-  (let ((fns (list)) (circle-count 10) (circle-size 1.45))
+  (let
+      ((fns (list))
+       (circle-count 10)
+       (circle-size 1.45))
     (dotimes (i circle-count)
-      (let* ((index i) ;; to not take a closure of i in closeness fn
-	     (offset (+ (- (* (/ 1 (/ circle-count 2))
-			      circle-size index)
-			   circle-size)
-			(* circle-size anim-progress))))
+      (let*
+	  ((index i) ;; to not take a closure of i in closeness fn
+	   (offset
+	    (+ (- (* (/ 1
+			(/ circle-count
+			   2))
+		     circle-size
+		     index)
+		  circle-size)
+	       (* circle-size
+		  anim-progress))))
 	(if (> offset 0) ;; don't show the cirles with 0 or less radius
-	    (setf fns (cons (canim:fn=c (lambda (x y) (+ (expt x 2) (expt y 2)))
-				  (expt offset 2)
-				  :thickness 4)
-			    fns)))))
+	    (setf
+	     fns
+	     (cons (canim:fn=c
+		    (lambda (x y)
+		      (+ (expt x 2)
+			 (expt y 2)))
+		    (expt offset 2)
+		    :thickness 4)
+		   fns)))))
     fns))
 
-(canim:make-anim "build/circles/" 100 100 100
-		 (canim:make-pos :scale 2 :x -1 :y -1)
-		 (canim:make-pos :scale 2 :x -1 :y -1)
-
-
-
-:pixel-meta-fn (canim:graph-anim #'gen-circle-anim))
+(canim:make-anim
+ "build/circles/"
+ 100 100 100
+ (canim:make-pos :scale 2 :x -1 :y -1)
+ (canim:make-pos :scale 2 :x -1 :y -1)		 		 		 
+ :pixel-meta-fn
+ (canim:graph-anim #'gen-circle-anim))
 ```
 
 ![circles animated](https://github.com/NoamZeise/complex-fn-anim/blob/f89a6d630f93a00c374b70f94fae5fdbdb1890b7/demos/videos/circles.gif?raw=true)

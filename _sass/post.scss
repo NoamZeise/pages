@@ -33,3 +33,17 @@
 .captioned img {
     margin-bottom: 0%
 }
+
+ // Code Snippets
+ pre {
+     white-space: pre-wrap;
+     font-family: 'IBM Plex Mono', monospace;
+     background-color: #f7fdf3;
+     
+     padding: 2em;
+     padding-left: 4em;
+     padding-right: 4em;
+
+     outline: 2px solid #2A2F2B;
+     border-radius: 0.5rem;
+ }
