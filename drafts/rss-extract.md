@@ -94,27 +94,35 @@ What is extracted is then passed to the second function one must define,
 which fills out the details of the article from the information extracted
 by the first function.
 
-Now we write these functions. Open a repl and load the `extract-rss.asd` file,
-then do `(ql:quickload :extract-rss)` to load the library.
+Now we write these functions. Open sly or slime and load the `extract-rss.asd` file,
+then do `(ql:quickload :extract-rss)` to load the library. 
+This makes it easy to test functions and try and extract the relevant info about a post.
+
 First node that the script with the info has an id `cart_data_script`. 
 This means we can get the script node we need into a variable. 
 `extract-rss` includes the [plump](https://github.com/Shinmera/plump) 
-library for traversing the dom.
+library for traversing the dom. Using that with some regex and string manipulation
+we can write a function that returns an array of article data with the following.
 
 ```lisp
-;; get the script node
-(defparameter *script-node* 
-	(plump:get-element-by-id 
-		(extract-rss:get-page-root
-		    "https://www.lexaloffle.com/bbs/?cat=8#sub=2") 
-	    "cart_data_script"))
-		
-;; print the script text
-(format t "~a~%" (plump:text *script-node*))
-
-;; extract the json array
-(defparameter *post-data* 
-	(cl-ppcre:scan-to-strings 
-		"pdat=\\[[^;]*;" 
-		(plump:text *script-node*)))
+(defun get-picotron-cart-posts (url)     
+  (let*
+     ;; get script holding post data
+     ((script
+	  (plump:get-element-by-id 
+	   (extract-rss:get-page-root
+	    "https://www.lexaloffle.com/bbs/?cat=8#sub=2") 
+	   "cart_data_script")) ;; id in dom
+	;; get post array from script text
+	 (array-text (cl-ppcre:scan-to-strings 
+		      "pdat=\\[[^;]*"
+		      (plump:text *script-node*))))
+  ;; split the array by newlines and select only
+  ;; ones that have a category 2 (ie cartridge)
+    (loop for s in 
+	  (uiop:split-string
+	   *post-data* 
+	   :separator uiop:+lf+) ; split newlines
+	  when (cl-ppcre:scan ",2,'" s) 
+	  collect s)))
 ```
