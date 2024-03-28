@@ -1,7 +1,6 @@
 ---
 layout: post
 title: Extracting RSS from webpages
-draft: true
 ---
 
 A program in common lisp that, by defining two small functions, 
@@ -98,31 +97,121 @@ Now we write these functions. Open sly or slime and load the `extract-rss.asd` f
 then do `(ql:quickload :extract-rss)` to load the library. 
 This makes it easy to test functions and try and extract the relevant info about a post.
 
+We make a new webpage instance to represent this new xml feed and fill it in with the
+details of the feed. For now the two functions we need are blank.
+
+```lisp
+(defparameter
+ *picotron-carts*
+ (make-instance
+  'extract-rss:webpage
+  :title "Picotron Cartridges"
+  :url "https://www.lexaloffle.com/bbs/?cat=8#sub=2"
+  :xml-file "picotron-carts"
+  :extract-article-nodes
+  (lambda (node) ()) ; dummy function
+  :make-article
+  (lambda (data) ()))) ; dummy function
+```
+
 First node that the script with the info has an id `cart_data_script`. 
 This means we can get the script node we need into a variable. 
 `extract-rss` includes the [plump](https://github.com/Shinmera/plump) 
-library for traversing the dom. Using that with some regex and string manipulation
-we can write a function that returns an array of article data with the following.
+library for traversing the dom. 
+
+To figure out how to parse the page to get what we want here are some
+helpful functions.
 
 ```lisp
-(defun get-picotron-cart-posts (url)     
-  (let*
-     ;; get script holding post data
-     ((script
-	  (plump:get-element-by-id 
-	   (extract-rss:get-page-root
-	    "https://www.lexaloffle.com/bbs/?cat=8#sub=2") 
-	   "cart_data_script")) ;; id in dom
-	;; get post array from script text
-	 (array-text (cl-ppcre:scan-to-strings 
-		      "pdat=\\[[^;]*"
-		      (plump:text *script-node*))))
-  ;; split the array by newlines and select only
-  ;; ones that have a category 2 (ie cartridge)
+;; We can get the webpage root with
+(defparameter *root* 
+  (extract-rss:get-page-root 
+    "https://www.lexaloffle.com/bbs/?cat=8#sub=2"
+
+;; the text for the script containing cart data
+(defparameter *script-data*
+  (plump:text
+    (plump:get-element-by-id root-node "cart_data_script")))
+```
+
+Using that with some regex and string manipulation
+we can write a function that returns an array of article data. 
+we replace the first dummy function with this.
+
+```lisp
+:extract-article-nodes
+(lambda (root-node)
+  (let* ((script-node
+	  (plump:get-element-by-id root-node "cart_data_script"))
+	 (raw-text
+	  (if script-node (plump:text script-node) ""))
+	 (start-array (cl-ppcre:scan "pdat=\\[" raw-text))
+	 (end-array (nth-value 1 (cl-ppcre:scan "\\];" raw-text)))
+	 (array-text (subseq raw-text start-array end-array)))
     (loop for s in 
 	  (uiop:split-string
-	   *post-data* 
-	   :separator uiop:+lf+) ; split newlines
-	  when (cl-ppcre:scan ",2,'" s) 
+	   array-text
+	   :separator uiop:+lf+)
+	  when (cl-ppcre:scan ",2,'" s)
 	  collect s)))
+```
+
+We can then use this function to help figure out how to write the next one
+
+```lisp
+;; get a list of the extracted article data
+;; from the function we just defined
+(extract-rss:get-article-nodes *picotron-carts*)
+```
+
+To parse I first wrote a function to take the input of an array and parse out the
+individual elements and return it. I won't print it here as it is long and simple.
+After that we can write the function we need to create an article given the text we 
+extracted for each article.
+
+```lisp 
+:make-article
+(lambda (text)
+  (let ((article
+	 (make-instance 'extract-rss:article))
+	(data
+	 ;; parse string into array
+	 ;; of strings for each element
+	 ;; in javascript array string
+	 (get-picotron-article-data text)))
+    (loop
+     for e in data and i from 0 do
+     ;; clean up string
+     (let ((dat (string-trim " '\"`" e)))
+       ;; get attribs we store in article class
+       (cond
+	((= i 1)
+	 (setf
+	  (extract-rss::link article)
+	  (format
+	   nil
+	   "https://www.lexaloffe.com/bbs/?tid=~a"
+	   dat)))
+	((= i 2)
+	 (setf (extract-rss::title article) dat))
+	((= i 3)
+	 (setf
+	  (extract-rss::image article)
+	  (format
+	   nil
+	   "https://www.lexaloffe.com~a"
+	   dat)))
+	((= i 8)
+	 (setf (extract-rss::author article) dat))
+	((= i 9)
+	 (setf (extract-rss::date article) dat))
+	((= i 18)
+	 (setf (extract-rss::category article) dat)))))
+    article))
+```
+
+And with that we can generate an rss feed xml file in the current directory with
+
+```lisp
+(extract-rss:extract-rss *picotron-carts*)
 ```
