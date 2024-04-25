@@ -4,7 +4,7 @@ title: Extracting RSS from webpages
 image: /assets/img/posts/thumbnails/extract-xml.png
 ---
 
-A program in Common Lisp that, by defining two small functions, 
+A program in Common Lisp that, by defining two functions, 
 one can extract the relevant features from a webpage and 
 get an RSS feed out of it. 
 There is also a script that will update the feeds and push them to
@@ -14,6 +14,30 @@ By running this as a cron job (say on a constantly running single board computer
 or through a CI pipeline (such as github actions), one can have their own 
 RSS feeds accesible from anywhere with an internet connection.
 One can then point their rss reader to these public git repositories to subscribe to the rss feeds
+
+```xml
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom">
+<link href="https://www.leagueoflegends.com/en-us/news/dev/" rel="self" type="application/atom+xml"/>
+<generator uri="https://github.com/NoamZeise/extract-rss">extract-rss</generator>
+<updated>2024-04-08T15:00:00.000Z</updated>
+<id>https://www.leagueoflegends.com/en-us/news/dev/</id>
+<title>League of Legends Dev Blog</title>
+
+<entry>
+<title type="html">/dev: Ranked Rewards in 2024</title>
+<link href="https://www.leagueoflegends.com//en-us/news/dev/dev-ranked-rewards-in-2024/"/>
+<id>https://www.leagueoflegends.com//en-us/news/dev/dev-ranked-rewards-in-2024/</id>
+<updated>2024-04-08T15:00:00.000Z</updated>
+<summary></summary>
+<category term="Dev"/>
+<author><name>CRUX Team, Riot Sakaar</name></author>
+<media:thumbnail xmlns:media="https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blte16971378f061abf/660f10b1dd5b9e4d51a8ac09/040824_Ranked_Rewards_Update_Article_Header.jpg?quality=80"/>
+</entry>
+
+<!-- ... -->
+
+</feed>
+```
 
 <!-- more -->
 
@@ -240,4 +264,186 @@ And with that we can generate an rss feed xml file in the current directory with
 
 ```lisp
 (extract-rss:extract-rss *picotron-carts*)
+```
+
+Here is the feed we generated in an rss reader:
+![Pictron RSS feed](/assets/img/posts/extract-rss/picotron-feed.jpg)
+
+and the raw rss xml, which you can subscribe to [here](https://raw.githubusercontent.com/NoamZeise/xml-feeds/master/picotron-carts.xml)
+
+```xml
+
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom">
+<link href="https://www.lexaloffle.com/bbs/?cat=8#sub=2" rel="self" type="application/atom+xml"/>
+<generator uri="https://github.com/NoamZeise/extract-rss">extract-rss</generator>
+<updated>2024-04-22 20:43:16</updated>
+<id>https://www.lexaloffle.com/bbs/?cat=8#sub=2</id>
+<title>Picotron Cartridges</title>
+
+<entry>
+<title type="html">Snowfall (demo)</title>
+<link href="https://www.lexaloffle.com/bbs/?tid=141503"/>
+<id>https://www.lexaloffle.com/bbs/?tid=141503</id>
+<updated>2024-04-22 20:43:16</updated>
+<summary></summary>
+<category term="[&quot;demos&quot;,&quot;screensavers&quot;,]"/>
+<author><name>josiebreck</name></author>
+<media:thumbnail xmlns:media="https://www.lexaloffle.com/bbs/thumbs/pico64_snowfall-1.png"/>
+</entry>
+
+<entry>
+<title type="html">flapperDuck</title>
+<link href="https://www.lexaloffle.com/bbs/?tid=141885"/>
+<id>https://www.lexaloffle.com/bbs/?tid=141885</id>
+<updated>2024-04-22 21:19:01</updated>
+<summary></summary>
+<category term="[&quot;bbs&quot;,&quot;picotron&quot;,&quot;cartridges&quot;,]"/>
+<author><name>playerMan</name></author>
+<media:thumbnail xmlns:media="https://www.lexaloffle.com/bbs/thumbs/pico64_flapperduck-0.png"/>
+</entry>
+
+<entry>
+<title type="html">Rat Maze 3D Screensaver v1.0</title>
+<link href="https://www.lexaloffle.com/bbs/?tid=141402"/>
+<id>https://www.lexaloffle.com/bbs/?tid=141402</id>
+<updated>2024-04-23 06:46:22</updated>
+<summary></summary>
+<category term="[&quot;screensaver&quot;,&quot;3d&quot;,]"/>
+<author><name>Snail_God</name></author>
+<media:thumbnail xmlns:media="https://www.lexaloffle.com/bbs/thumbs/pico64_rat_maze-5.png"/>
+</entry>
+
+<entry>
+<title type="html">Bells</title>
+<link href="https://www.lexaloffle.com/bbs/?tid=140919"/>
+<id>https://www.lexaloffle.com/bbs/?tid=140919</id>
+<updated>2024-04-23 16:00:17</updated>
+<summary></summary>
+<category term="[]"/>
+<author><name>zep</name></author>
+<media:thumbnail xmlns:media="https://www.lexaloffle.com/bbs/thumbs/pico64_bells-0.png"/>
+</entry>
+
+<entry>
+<title type="html">Charactron, a little character maker</title>
+<link href="https://www.lexaloffle.com/bbs/?tid=141851"/>
+<id>https://www.lexaloffle.com/bbs/?tid=141851</id>
+<updated>2024-04-23 21:01:54</updated>
+<summary></summary>
+<category term="[]"/>
+<author><name>berry_sauvage</name></author>
+<media:thumbnail xmlns:media="https://www.lexaloffle.com/bbs/thumbs/pico64_charactron-1.png"/>
+</entry>
+
+<entry>
+<title type="html">Conway&apos;s Game of Life</title>
+<link href="https://www.lexaloffle.com/bbs/?tid=141892"/>
+<id>https://www.lexaloffle.com/bbs/?tid=141892</id>
+<updated>2024-04-23 21:33:55</updated>
+<summary></summary>
+<category term="[]"/>
+<author><name>Soupster</name></author>
+<media:thumbnail xmlns:media="https://www.lexaloffle.com/bbs/thumbs/pico64_cgol-2.png"/>
+</entry>
+
+<entry>
+<title type="html">Lens</title>
+<link href="https://www.lexaloffle.com/bbs/?tid=141911"/>
+<id>https://www.lexaloffle.com/bbs/?tid=141911</id>
+<updated>2024-04-23 22:23:30</updated>
+<summary></summary>
+<category term="[&quot;tool&quot;,&quot;logging&quot;,]"/>
+<author><name>bitmat</name></author>
+<media:thumbnail xmlns:media="https://www.lexaloffle.com/bbs/thumbs/pico64_lens-3.png"/>
+</entry>
+
+<entry>
+<title type="html">ASTROYD</title>
+<link href="https://www.lexaloffle.com/bbs/?tid=141906"/>
+<id>https://www.lexaloffle.com/bbs/?tid=141906</id>
+<updated>2024-04-24 05:10:47</updated>
+<summary></summary>
+<category term="[]"/>
+<author><name>wanp</name></author>
+<media:thumbnail xmlns:media="https://www.lexaloffle.com/bbs/thumbs/pico64_astroyd-1.png"/>
+</entry>
+
+<entry>
+<title type="html">Font Utils</title>
+<link href="https://www.lexaloffle.com/bbs/?tid=141244"/>
+<id>https://www.lexaloffle.com/bbs/?tid=141244</id>
+<updated>2024-04-24 09:15:28</updated>
+<summary></summary>
+<category term="[]"/>
+<author><name>drakmaniso</name></author>
+<media:thumbnail xmlns:media="https://www.lexaloffle.com/bbs/thumbs/pico64_font_utils-0.png"/>
+</entry>
+
+<entry>
+<title type="html">Kawaiiculator</title>
+<link href="https://www.lexaloffle.com/bbs/?tid=141416"/>
+<id>https://www.lexaloffle.com/bbs/?tid=141416</id>
+<updated>2024-04-24 09:34:54</updated>
+<summary></summary>
+<category term="[&quot;calculator&quot;,&quot;picotron&quot;,&quot;cute&quot;,&quot;app&quot;,]"/>
+<author><name>profpatonildo</name></author>
+<media:thumbnail xmlns:media="https://www.lexaloffle.com/bbs/thumbs/pico64_kawaiiculator-0.png"/>
+</entry>
+
+<entry>
+<title type="html">pct-2 Fantasy Console in Picotron</title>
+<link href="https://www.lexaloffle.com/bbs/?tid=141821"/>
+<id>https://www.lexaloffle.com/bbs/?tid=141821</id>
+<updated>2024-04-24 11:25:17</updated>
+<summary></summary>
+<category term="[]"/>
+<author><name>auex</name></author>
+<media:thumbnail xmlns:media="https://www.lexaloffle.com/bbs/thumbs/pico64_pct2-1.png"/>
+</entry>
+
+<entry>
+<title type="html">VGFX (Vector Graphics Library and Editor)</title>
+<link href="https://www.lexaloffle.com/bbs/?tid=141774"/>
+<id>https://www.lexaloffle.com/bbs/?tid=141774</id>
+<updated>2024-04-24 17:57:38</updated>
+<summary></summary>
+<category term="[&quot;vector&quot;,&quot;art&quot;,&quot;editor&quot;,&quot;veditor&quot;,]"/>
+<author><name>SophieHoulden</name></author>
+<media:thumbnail xmlns:media="https://www.lexaloffle.com/bbs/thumbs/pico64_veditor-5.png"/>
+</entry>
+
+<entry>
+<title type="html">PICOPHONE 7 tools in 1</title>
+<link href="https://www.lexaloffle.com/bbs/?tid=141568"/>
+<id>https://www.lexaloffle.com/bbs/?tid=141568</id>
+<updated>2024-04-24 23:48:41</updated>
+<summary></summary>
+<category term="[&quot;utility&quot;,&quot;tools&quot;,]"/>
+<author><name>369369369</name></author>
+<media:thumbnail xmlns:media="https://www.lexaloffle.com/bbs/thumbs/pico64_phone-13.png"/>
+</entry>
+
+<entry>
+<title type="html">GORGON (deluxe)</title>
+<link href="https://www.lexaloffle.com/bbs/?tid=141948"/>
+<id>https://www.lexaloffle.com/bbs/?tid=141948</id>
+<updated>2024-04-25 16:45:06</updated>
+<summary></summary>
+<category term="[&quot;apple2&quot;,&quot;gorgon&quot;,&quot;defender&quot;,&quot;arcade&quot;,]"/>
+<author><name>BGelais</name></author>
+<media:thumbnail xmlns:media="https://www.lexaloffle.com/bbs/thumbs/pico64_gorgondel-0.png"/>
+</entry>
+
+<entry>
+<title type="html">pgui - a GUI library for Picotron! (Immediate Mode)</title>
+<link href="https://www.lexaloffle.com/bbs/?tid=141913"/>
+<id>https://www.lexaloffle.com/bbs/?tid=141913</id>
+<updated>2024-04-25 17:52:36</updated>
+<summary></summary>
+<category term="[&quot;gui&quot;,&quot;library&quot;,&quot;immediate&quot;,&quot;mode&quot;,]"/>
+<author><name>ssergiorodriguezz</name></author>
+<media:thumbnail xmlns:media="https://www.lexaloffle.com/bbs/thumbs/pico64_pgui-1.png"/>
+</entry>
+
+</feed>
 ```
