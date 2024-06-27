@@ -63,4 +63,22 @@ pixel size | bytes per pixels
  18 bits   | 3 / 1 6-xx-6-xx-6-xx
 ```
    
-I went with 16 bit colour by default as 
+I went with 16 bit colour by default
+
+
+reading from `/dev/fb0` one can get the video output, if set to
+`320x240` resolution in pi config.
+
+```
+# force hdmi active (as won't be plugged in)
+hdmi_force_hotplug=1
+# force DMT for hdmi (digital display)
+hdmi_group=2
+# use a custom mode
+hdmi_mode=87
+# custom mode 
+# w h fps aspect(4:3) margins interlace rb
+hdmi_cvt=320 240 60 1 0 0 0
+```
+
+I also got X11 working by adding an x11 conf file with:
