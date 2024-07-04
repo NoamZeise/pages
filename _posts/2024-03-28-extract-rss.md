@@ -15,6 +15,8 @@ or through a CI pipeline (such as github actions), one can have their own
 RSS feeds accesible from anywhere with an internet connection.
 One can then point their rss reader to these public git repositories to subscribe to the rss feeds
 
+<!-- more -->
+
 ```xml
 <?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom">
 <link href="https://www.leagueoflegends.com/en-us/news/dev/" rel="self" type="application/atom+xml"/>
@@ -38,8 +40,6 @@ One can then point their rss reader to these public git repositories to subscrib
 
 </feed>
 ```
-
-<!-- more -->
 
 [Source code on GitHub](https://github.com/NoamZeise/extract-rss.git)
 

@@ -1,43 +1,79 @@
 ---
 layout: post
-title: TFT Display
+title: A Mini Monitor for a Pi
 draft: true
 ---
 
-# Hardware
+[ video of display working ]
 
-I have a raspberry pi zero 2 w. This has the same processor as the pi 3,
-but only 500mb of ram.
+This post outlines how I used a small 2 inch display as a
+monitor for my pi. Where it can display tty terminals and 
+X desktops and applications as if it was a normal screen
+connected over hdmi.
 
-[ image of pi]
+My overall goal is to have a sort of handheld "console" that I 
+can connect a keyboard to and use as a normal computer.
+This post implements the display functionality needed to
+fulfill part of the goal.
 
-I'm using a 2 inch 240x320 ips tft display sold by adafruit driven by an ST7789 controller by Sitronix.
+I lay out the steps needed for interacting with the display over
+spi and the issues I encountered trying to use it like a monitor. 
+The end result is a system service that runs
+on startup, consuming a few mb of ram and ~1.5% of the CPU.
+It also respects the X display power management system to
+save on battery life by going to sleep with 0 brightness.
 
-[ image of tft display ]
+<!-- more -->
 
-The info on how to interact with the display, the commands and 
-formats it expects, can be found in [the display datasheet](https://www.buydisplay.com/download/ic/ST7789.pdf).
-Which was my source of information for writing the code which interacts with the display. 
+# Showcase 
 
 # Setup
 
-Communication with the display is done via spi, to set up on pi debian:
-- ensure spi drivers are loaded 
-by adding the following to your `boot/config.txt`
+Below I outline the journey of working out how to communicate with the display
+as well as showing you how you can set up your hardware in the same way.
+
+## Hardware
+
+I'm using a Raspberry pi zero 2 w
+This has the same processor as the pi 3, but only 500mb of ram.
+The software/setup should work with any pi.
+
+![image of the pi zero 2 w from the front](/assets/img/posts/tft-display/pi-front.jpg)
+
+I have a 2 inch 240x320 ips tft display sold by adafruit, driven by an ST7789 controller by Sitronix.
+
+![The tft display from the front](/assets/img/posts/tft-display/display.jpg)
+
+The info on how to interact with the display with commands and 
+data, is in [the display datasheet](https://www.buydisplay.com/download/ic/ST7789.pdf).
+Which was my source of information for writing the code which interacts with the display. 
+
+For both the pi and the display none of the pins came with headers presoldered, so to 
+make it easier to wire and prototype I recommend soldering on headers and using dupont wires
+for connecting the circuit together.
+
+## Setup
+
+![image of the pi zero 2 w from the back](/assets/img/posts/tft-display/pi.jpg)
+![image of the pi zero 2 w from the side](/assets/img/posts/tft-display/pi-side.jpg)
+![The tft display from the side](/assets/img/posts/tft-display/display-side.jpg)
+
+Before we begin wiring anything, make sure you can connect to your pi from another
+computer via ssh. This will mean we can fiddle with the display output without
+relying on seeing the pi's display directly.
+
+The display uses serial perpheral interface (spi) for communicating with the pi.
+This mode is not enabled by default, so we will need to load the spi drivers by chaning
+the pi's settings. Spi can be enabled by using the `raspi-config` command line tool. 
+We can also change the settings directly in `boot/config.txt`. 
+The following line must be added to that file:
 ```
 dtparam=spi=on
 ```
-- (optional) increase spi buffer size (default is 4096)
-by adding the following to your `boot/cmdline.txt` into the single line of settings
-```
-spidev.buffsiz=65536
-```
-reboot and check the buff size increased (`cat /sys/module/spidev/parameters/bufsiz`) you should get `65536`.
-Alternatively change the `DISPLAY_TRANSFER_BUFFER_SIZE` 
-in `pi_wiring_consts.h` to 4096
-
 The display uses 6 pins but can be wired with 4 minimum.
 - 3 pins for spi (mandatory)
+
+![The tft display from the back](/assets/img/posts/tft-display/display-back.jpg)
 
 plus 3 pins:
 - 22 backlight pwm(optional)
@@ -65,6 +101,20 @@ not the display controller.
 This means none of the ST7789 read commands can be used. Which is why I skip the MISO pin
 
 [ image of wiring setup ]
+
+
+
+
+
+
+- (optional) increase spi buffer size (default is 4096)
+by adding the following to your `boot/cmdline.txt` into the single line of settings
+```
+spidev.buffsiz=65536
+```
+reboot and check the buff size increased (`cat /sys/module/spidev/parameters/bufsiz`) you should get `65536`.
+Alternatively change the `DISPLAY_TRANSFER_BUFFER_SIZE` 
+in `pi_wiring_consts.h` to 4096
 
 ## Communicating With the Display
 
@@ -183,10 +233,12 @@ tty X is using with the command
 ```
 ps -e -o tty -o fname | grep Xorg
 ```
-And saves the number.
+And saves this number.
 
-While X is open the managaer thread checks the active tty at:
+While X is open the manager thread monitors the active tty with:
 ```
 /sys/class/tty/tty0/active
 ```
-If the active tty 
+If the active tty is the same as X11 is using, then we use the
+X11 screen drawing mode. 
+Otherwise we use the framebuffer drawing mode.
