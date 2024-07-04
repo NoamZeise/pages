@@ -34,12 +34,6 @@ as well as showing you how you can set up your hardware in the same way.
 
 ## Hardware
 
-I'm using a Raspberry pi zero 2 w
-This has the same processor as the pi 3, but only 500mb of ram.
-The software/setup should work with any pi.
-
-![image of the pi zero 2 w from the front](/assets/img/posts/tft-display/pi-front.jpg)
-
 I have a 2 inch 240x320 ips tft display sold by adafruit, driven by an ST7789 controller by Sitronix.
 
 ![The tft display from the front](/assets/img/posts/tft-display/display.jpg)
@@ -48,57 +42,85 @@ The info on how to interact with the display with commands and
 data, is in [the display datasheet](https://www.buydisplay.com/download/ic/ST7789.pdf).
 Which was my source of information for writing the code which interacts with the display. 
 
+For a computer, I'm using a Raspberry pi zero 2 w.
+This has the same processor as the pi 3, but only 500mb of ram.
+The software/setup should work with any pi.
+
+![image of the pi zero 2 w from the front](/assets/img/posts/tft-display/pi-front.jpg)
+
 For both the pi and the display none of the pins came with headers presoldered, so to 
 make it easier to wire and prototype I recommend soldering on headers and using dupont wires
 for connecting the circuit together.
-
-## Setup
 
 ![image of the pi zero 2 w from the back](/assets/img/posts/tft-display/pi.jpg)
 ![image of the pi zero 2 w from the side](/assets/img/posts/tft-display/pi-side.jpg)
 ![The tft display from the side](/assets/img/posts/tft-display/display-side.jpg)
 
+## Pi Setup
+
 Before we begin wiring anything, make sure you can connect to your pi from another
 computer via ssh. This will mean we can fiddle with the display output without
 relying on seeing the pi's display directly.
 
-The display uses serial perpheral interface (spi) for communicating with the pi.
-This mode is not enabled by default, so we will need to load the spi drivers by chaning
-the pi's settings. Spi can be enabled by using the `raspi-config` command line tool. 
+The display is controlled using serial perpheral interface (spi).
+On the pi spi drivers are not loaded by default, so we will need to change
+the settings. Spi can be enabled by using the `raspi-config` terminal tool.
 We can also change the settings directly in `boot/config.txt`. 
 The following line must be added to that file:
 ```
 dtparam=spi=on
 ```
-The display uses 6 pins but can be wired with 4 minimum.
-- 3 pins for spi (mandatory)
+
+### Wiring
+
+I wired the display with 8 wires, we have two wires for power,
+three for spi, and three for the data/command, backlight, and reset.
+
+Spi uses one pin for chip select, which tells the device when
+to listen to the data and clock lines (This allows multiple
+devices to share the same spi wires).
+It uses one pin for a clock, which synchronises communication,
+and two pins for back and forth communication (MOSI/MISO).
+It seems the adafruit display only uses the MISO pin for reading
+from the sd card on the board.
+This means none of the ST7789 read commands can be used,
+but it means we have one less wire to worry about.
 
 ![The tft display from the back](/assets/img/posts/tft-display/display-back.jpg)
 
-plus 3 pins:
-- 22 backlight pwm(optional)
-- 24 reset gpio (optional)
-- 25 data / command gpio
+The data/command wire is used in conjunction with spi
+to tell the display if the data being send is a command (low)
+or the data (high) associated with it.
 
-The gpio pins can be changed in `pi_wiring_consts.h`.
+There is a reset pin, that completely hardware resets the display.
+This is optional, as there is also a software reset command.
+
+Finally there is the backlight pin, which determines the brightness
+of the display. The backlight is either on (high) or off (low).
+Brightness levels can be controlled using pulse width modulation (pwm).
+This means the backlight is rapidly turned on and off to simulate
+different brightness levels. This is supported by the pi hardware.
+
+![The pi display from the top](/assets/img/posts/tft-display/pi-top.jpg)
 
 For a guide of raspberry pi pins check out https://pinout.xyz/
+
+I'm using spi0.0, and pwm0, as well as gpio 25 for data/command
+and gpio 24 for reset.
+Theses specifics can be changed in `pi_wiring_consts.h`.
 
 ```
 pi             | display
 --------------------------
 3v or 5v       | V in
 ground         | ground
-32 (gpio 12)   | backlight pwm
-18 (gpio 24)   | Reset
-18 (gpio 25)   | D/C
 19 (spi0 mosi) | MOSI
 23 (spi0 SCLK) | SCK
-24 (spi0 ce0)  | LED CS
+24 (spi0 ce0)  | CS
+22 (gpio 25)   | D/C
+32 (pwm0)      | backlight pwm
+18 (gpio 24)   | Reset
 ```
-Note that the adafruit board uses MISO for the sd card, 
-not the display controller.
-This means none of the ST7789 read commands can be used. Which is why I skip the MISO pin
 
 [ image of wiring setup ]
 
