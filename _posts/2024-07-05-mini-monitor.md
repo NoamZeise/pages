@@ -21,69 +21,54 @@ spi and the issues I encountered trying to use it like a monitor.
 The end result is a system service that runs
 on startup, consuming 2.5 mb of ram and ~2% of the CPU.
 It also respects the X display power management system (dpms) to
-save on battery life by going to sleep with 0 brightness.
+save on battery life by going to sleep and turning the backlight off.
 
 <!-- more -->
 
 <div class="container">
 <div class="item">
   <img src="/assets/img/posts/tft-display/x-screensaver.gif">
-  <h3></h3>
+  <p>an x screensaver</p>
 </div>
 <div class="item">
   <img src="/assets/img/posts/tft-display/using-emacs.gif">
-  <h3></h3>
+  <p>code editing</p>
 </div>
 <div class="item">
   <img src="/assets/img/posts/tft-display/browsing-web.gif">
-  <h3></h3>
+  <p>web browsing</p>
 </div>
 <div class="item">
   <img src="/assets/img/posts/tft-display/using-top.gif">
-  <h3></h3>
+  <p>using the terminal</p>
 </div>
 </div>
-# Setup
 
-Below I outline the journey of working out how to communicate with the display
-as well as showing you how you can set up your hardware in the same way.
+[Source code](https://github.com/NoamZeise/pi-spi-display/tree/master) for the display mirroring program.
 
-![picture of pi connected to power](/assets/img/posts/tft-display/pi-side.jpg)
+Below I outline the journey of how I created the mirroring program.
+At the end I also include instructions so you can set up your hardware in the same way.
 
 ## Hardware
 
-I have a 2 inch 240x320 ips tft display sold by adafruit, driven by an ST7789 controller by Sitronix.
+I have a 2 inch 240x320 ips tft display sold by adafruit, driven by an ST7789 controller by Sitronix. It cost around £20 when I bought it.
 
 ![The tft display from the front](/assets/img/posts/tft-display/display.jpg)
 
 The info on how to interact with the display with commands and 
 data, is in [the display datasheet](https://www.buydisplay.com/download/ic/ST7789.pdf).
-Which was my source of information for writing the code which interacts with the display. 
+Which was my source of information for writing the code which interacts with the display.
+Adafruit also has some docs, but they are unspecific and don't say very much.
 
-For a computer, I'm using a Raspberry pi zero 2 w.
+For a computer, I'm using a Raspberry pi zero 2 w. It costs around £15.
 This has the same processor as the pi 3, but only 500mb of ram.
 The software/setup should work with any pi.
 
 ![image of the pi zero 2 w from the front](/assets/img/posts/tft-display/pi-front.jpg)
 
-For both the pi and the display none of the pins came with headers presoldered, so to 
+None of the pins came with headers presoldered for the pi and the display, so to 
 make it easier to wire and prototype I recommend soldering on headers and using dupont wires
 for connecting the circuit together.
-
-## Pi Setup
-
-Before we begin wiring anything, make sure you can connect to your pi from another
-computer via ssh. This will mean we can fiddle with the display output without
-relying on seeing the pi's display directly.
-
-The display is controlled using serial peripheral interface (spi).
-On the pi spi drivers are not loaded by default, so we will need to change
-the settings. Spi can be enabled by using the `raspi-config` terminal tool.
-We can also change the settings directly in `boot/config.txt`. 
-The following line must be added to that file:
-```
-dtparam=spi=on
-```
 
 ### Wiring
 
@@ -117,63 +102,24 @@ different brightness levels. This is supported by the pi hardware.
 
 ![The pi display from the top](/assets/img/posts/tft-display/pi-top.jpg)
 
-For a guide of raspberry pi pins check out [pinout.xyz](https://pinout.xyz/)
-
-I'm using spi0.0, and pwm0, as well as gpio 25 for data/command
-and gpio 24 for reset.
-Theses specifics can be changed in `pi_wiring_consts.h`.
-
-```
-pi             | display
---------------------------
-3v or 5v       | V in
-ground         | ground
-19 (spi0 mosi) | MOSI
-23 (spi0 SCLK) | SCK
-24 (spi0 ce0)  | CS
-22 (gpio 25)   | D/C
-32 (pwm0)      | backlight pwm
-18 (gpio 24)   | Reset
-```
-
-Here are photos of the default wiring setup.
-
-![display wiring](/assets/img/posts/tft-display/tft-wiring.jpg)
-
-![pi wiring](/assets/img/posts/tft-display/pi-wiring.jpg)
-
-
-- (optional) Increase spi buffer size (default is 4096)
-by adding the following to your `boot/cmdline.txt` into the single line of settings
-```
-spidev.buffsiz=65536
-```
-reboot and check that buff size increased, `cat /sys/module/spidev/parameters/bufsiz` should give `65536`.
-
-- Alternatively change the `DISPLAY_TRANSFER_BUFFER_SIZE` in `pi_wiring_consts.h` to 4096
-
-You'll also need to install [WiringPi](https://github.com/WiringPi/WiringPi) 
-for a nice wrapper around the pi's hardware interfaces.
-
 ## Communicating With the Display
 
 The display has a list of commands that it accepts, and arguments that can be passed
 with those commands. 
-Each command is a byte and some commands take any number of arguments. 
-To send a command with data, the data/command pin is pulled low,
+Each command is a byte. Some commands take any number of arguments. 
+To communicate with the display the data/command pin is pulled low,
 a bytes is sent for the command, then the data/command pin is pulled
-high and the data for that command is sent.
+high and the argument data is sent.
 
-For example the command to set the column address that data write commands
-will use takes 5 bytes.
+For example the command to set the column address takes 5 bytes.
 
 ![column address set command](/assets/img/posts/tft-display/column-set-command.png)
 
 Where the command has a hex value of `2A`, and the start and end address are
 two bytes each.
 
-Before drawing can commence, the display needs to be taken out of sleep mode,
-display mode must be enabled, the column and row addresses must be set. 
+Before drawing can commence, the display needs to be taken out of sleep mode;
+display mode must be enabled; and the column and row addresses must be set. 
 Finally a draw command followed by the colour data will make colour appear
 on the display. I experimented a while trying to get the monitor to show something.
 
@@ -188,7 +134,7 @@ How an image is show can be mirrored and flipped and rotated along any direction
 The format of the colour data sent to the display can also be modified,
 such as the data's endianness and colour order, as well as the colour depth.
 
-It supports 12, 16 and 18 bit colour data.
+The display supports 12, 16 and 18 bit colour data.
 
 ```
 pixel size | r-g-b bits
@@ -283,22 +229,9 @@ be made to the pi's settings.
 By default the pi will only use the framebuffer when a monitor
 is plugged in. To get over this we set force hotplug to 1.
 We also set the resolution to `320x240` to match the tft.
-In the pi config file `/boot/config.txt` I added the following.
 
-```
-# force hdmi active
-hdmi_force_hotplug=1
-# force DMT for hdmi (digital display mode)
-hdmi_group=2
-# use a custom mode
-hdmi_mode=87
-# custom mode 
-# https://forums.raspberrypi.com/viewtopic.php?f=29&t=24679
-hdmi_cvt=320 240 60 1 0 0 0
-```
-
-Then I made a loop which copies the framebuffer data to an array, 
-then sends the data straight to the display.
+Then I made a loop which copies the framebuffer data to an array
+and sends it to the display.
 
 ```
 memcpy(screen_data, framebuffer_mmap, BUFF_SIZE);
@@ -318,31 +251,11 @@ desktop environment.
 
 With X we can't use the framebuffer directly,
 we must request an image of the display each frame with xlib,
-then copy it to the tft. This requires installing two libraries:
+then copy it to the tft. Unfortunately X uses a different default resolution and bit depth
+when there is no monitor plugged in, so one needs to add
+a manual config to X11 that forces the correct settings.
 
-- `libx11-dev` - for interfacing with X11
-- `libxext-dev` - for checking dpms to put the display to sleep
-
-Unfortunately X uses a different default resolution and bit depth
-when there is no monitor plugged in.
-To make X use the right settings I had to add a manual config file at:
-
-`/etc/X11/10-monitor.conf`
-
-with the following contents:
-
-```
-Section "Screen"
-	Identifier "tft"
-	Device "card0"
-	DefaultDepth 16
-	SubSection "Display"
-		Modes "320x240"
-	EndSubSection
-EndSection
-```
-
-And so here is a graphics demo running with Xorg.
+With everything set up correctly, here is a graphics demo running in X.
 
 ![wobbly graph lines graphics demo](/assets/img/posts/tft-display/x-ss-2.gif)
 
@@ -448,10 +361,111 @@ if(setjmp(x_err_env)) {
 
 Then the manager thread can try to reconnect to X if it is still open.
 
-### Installing the mirroring program
+# Setup Instructions
 
-Wire everything as indicated in the wiring section, set up the pi 
-as indicated throughout. Make sure you have gcc and make.
+The following are instructions to follow if you have the nessecary hardware
+and want to use the display mirroring program.
+
+![picture of pi connected to power](/assets/img/posts/tft-display/pi-side.jpg)
+
+### Wiring
+
+For a guide of raspberry pi pins check out [pinout.xyz](https://pinout.xyz/)
+
+I'm using spi0.0, and pwm0, as well as gpio 25 for data/command
+and gpio 24 for reset.
+Theses specifics can be changed in `pi_wiring_consts.h`.
+
+```
+pi             | display
+--------------------------
+3v or 5v       | V in
+ground         | ground
+19 (spi0 mosi) | MOSI
+23 (spi0 SCLK) | SCK
+24 (spi0 ce0)  | CS
+22 (gpio 25)   | D/C
+32 (pwm0)      | backlight pwm
+18 (gpio 24)   | Reset
+```
+
+Here are photos of the default wiring setup.
+
+![display wiring](/assets/img/posts/tft-display/tft-wiring.jpg)
+
+![pi wiring](/assets/img/posts/tft-display/pi-wiring.jpg)
+
+
+- (optional) Increase spi buffer size (default is 4096)
+by adding the following to your `boot/cmdline.txt` into the single line of settings
+```
+spidev.buffsiz=65536
+```
+reboot and check that buff size increased, `cat /sys/module/spidev/parameters/bufsiz` should give `65536`.
+
+- Alternatively change the `DISPLAY_TRANSFER_BUFFER_SIZE` in `pi_wiring_consts.h` to 4096
+
+You'll also need to install [WiringPi](https://github.com/WiringPi/WiringPi) 
+for a nice wrapper around the pi's hardware interfaces.
+
+### Enable Spi
+
+Before we begin wiring anything, make sure you can connect to your pi from another
+computer via ssh. This will mean we can fiddle with the display output without
+relying on seeing the pi's display directly.
+
+The display is controlled using serial peripheral interface (spi).
+On the pi spi drivers are not loaded by default, so we will need to change
+the settings. Spi can be enabled by using the `raspi-config` terminal tool.
+We can also change the settings directly in `boot/config.txt`. 
+The following line must be added to that file:
+```
+dtparam=spi=on
+```
+
+### Set Framebuffer Size
+
+In the pi config file `/boot/config.txt` I added the following.
+
+```
+# force hdmi active
+hdmi_force_hotplug=1
+# force DMT for hdmi (digital display mode)
+hdmi_group=2
+# use a custom mode
+hdmi_mode=87
+# custom mode 
+# https://forums.raspberrypi.com/viewtopic.php?f=29&t=24679
+hdmi_cvt=320 240 60 1 0 0 0
+```
+
+### Set X Display Size
+
+You'll need to install two libraries:
+
+- `libx11-dev` - for interfacing with X11
+- `libxext-dev` - for checking dpms to put the display to sleep
+
+To make X use the right display settings, add a manual config file at:
+
+`/etc/X11/10-monitor.conf`
+
+with the following contents:
+
+```
+Section "Screen"
+	Identifier "tft"
+	Device "card0"
+	DefaultDepth 16
+	SubSection "Display"
+		Modes "320x240"
+	EndSubSection
+EndSection
+```
+
+### Install as system service
+
+Make sure you have gcc and make.
 Clone the [git repo for the program](https://github.com/NoamZeise/pi-spi-display.git)
 and in the root directory of the repo run
 ```
