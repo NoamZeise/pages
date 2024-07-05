@@ -153,7 +153,7 @@ so that I could more easily write programs that used the display and encapsulate
 it's state into a nice wrapper with some sanity checks.
 
 One thing the library does is to break into chunks the data sent to the display.
-As mentioned before the spi device has a max buffer of 65536 bytes, so
+The spi device has a max buffer of 65536 bytes (default is 4096), so
 any writes to the buffer greater than that are quietly discarded.
 The screen is 320x240, so a write the size of the whole screen would
 exceed the spi buffer size, therefore chunking the sent data is essential.
