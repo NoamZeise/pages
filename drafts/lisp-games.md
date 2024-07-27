@@ -5,16 +5,24 @@ category: Demo
 draft: true
 ---
 
-I'm working on a light graphics library in common lisp and have made 
-various examples to test features. 
+I'm working on a graphics library in common lisp and have made 
+various examples to test features as I add them.
 I present a collection of these demos and their source code.
 
-<!-- more -->
+The library is designed to simplify the use of opengl,
+but still requires the user to use opengl directly.
+It also implements linear algebra functions and
+lets you pass matrix and vector data to shaders.
 
+<!-- more -->
 
 # Spinning Square
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/2GTn9IAMN3k?si=BMVG5k4tusJUWiXD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+This demo is used to show the creation and loading of a 2d
+texture to the gpu. The texture is applied to a quad. 
+The example also uses multisampling.
 
 <details>
 <summary> source code for this example </summary>
@@ -167,6 +175,8 @@ void main() {
 # 3D Waves
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/TmYnBcqdzwE?si=AMYwcXk7-Oaje-jX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+This demo uses a 3d camera a 3d cubes with instance rendering.
 
 <details>
 <summary> source code for this example </summary>
@@ -337,3 +347,7 @@ heres a screenshot for a better picture.
 ![cube wave screenshot](/assets/img/posts/gficl-demos/cube-wave.png)
 
 # Post Processing
+
+
+This demo uses a framebuffer texture as a render target,
+which is then rendered onto the final screen backbuffer.
