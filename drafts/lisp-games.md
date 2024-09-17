@@ -5,18 +5,17 @@ category: Demo
 draft: true
 ---
 
-I'm working on a graphics library in common lisp and have made 
+I'm working on a common lisp graphics library and have built 
 various examples to test features as I add them.
 I present a collection of these demos and their source code.
 
-The library is designed to simplify the use of opengl,
-but still requires the user to use opengl directly.
+The library is designed to simplify some parts of opengl.
 It also implements linear algebra functions and
 lets you pass matrix and vector data to shaders.
 
 <!-- more -->
 
-[Library Source Code](https://github.com/NoamZeise/gficl)
+[Repo for the graphics library](https://github.com/NoamZeise/gficl)
 
 # Spinning Square
 
