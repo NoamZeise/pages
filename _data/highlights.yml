@@ -1,3 +1,6 @@
+- name: A Mini Monitor for a Pi (C / Linux / X11)
+  link: /2024/07/05/mini-monitor.html
+  img: /assets/img/posts/thumbnails/tft-display.png
 - name: 3D Physics and Procedural World Loading (C++ / Vulkan / OpenGL)
   link: /gamejam/2023/12/16/Meditative-Marble.html
   img: /assets/img/posts/Meditative-Marble/title.png

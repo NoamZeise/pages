@@ -2,20 +2,78 @@
 layout: post
 title: Real Time Graphics Demos in Lisp
 category: Demo
-draft: true
+image: /assets/img/posts/thumbnails/gficl-demos.png
 ---
 
-I'm working on a common lisp graphics library and have built 
-various examples to test features as I add them.
-I present a collection of these demos and their source code.
+I'm working on a graphics library for common lisp and have built some short example programs to test features as they are added.
+I present a collection of these demos and their source code below.
 
-The library is designed to simplify some parts of opengl.
-It also implements linear algebra functions and
-lets you pass matrix and vector data to shaders.
+The library is designed to simplify some parts of opengl by wrapping common resources (textures, framebuffers, shaders ...) in a class that makes creating, using, and freeing opengl resources easier and more consistent.
+The library also supplies linear algebra types (vectors, matrices, quaternions) and common functions for them. 
+Matrix and vector data can be passed to shaders easily.
 
 <!-- more -->
 
-[Repo for the graphics library](https://github.com/NoamZeise/gficl)
+[Source code for the library on GitHub](https://github.com/NoamZeise/gficl)
+
+# Minimal Triangle
+
+![Triangle Example Screenshot](/assets/img/posts/gficl-demos/triangle.png)
+
+<details>
+<summary> source code for this example </summary>
+<pre class="highlight"> <code>
+(in-package :gficl-examples/minimum)
+
+(defparameter *vert* "
+#version 330
+layout (location = 0) in vec2 vertex;
+
+void main() {
+  gl_Position = vec4(vertex, 0, 1);
+}")
+(defparameter *frag* "
+#version 330
+out vec4 colour;
+
+void main() {
+  colour = vec4(
+    gl_FragCoord.x / 500, 
+    gl_FragCoord.y / 300, 
+    1, 1);
+}")
+
+(defun run ()
+  (gficl:with-window (:title "minimum")
+    (let 
+      ;; setup resources	 
+      ((shader (gficl:make-shader *vert* *frag*))
+       (data (gficl:make-vertex-data
+         (gficl:make-vertex-form 
+           (list (gficl:make-vertex-slot 2 :float)))
+          '(((0 0.9)) ((-0.9 -0.9)) ((0.9 -0.9))))))
+		  
+      (gficl:bind-gl shader)
+      ;; main loop	  
+      (loop until (gficl:closedp)
+        ;; update
+	    do (gficl:with-render ()
+		 (gl:clear :color-buffer)
+		 (gficl:draw-vertex-data data))
+        ;; draw
+	    do (gficl:with-update ()
+		 (gficl:map-keys-pressed 
+           (:escape (glfw:set-window-should-close)))))
+		   
+      ;; cleanup resources
+      (gficl:delete-gl shader)
+      (gficl:delete-gl data))))
+</code></pre></details>
+
+This gives the most basic usage of the library and shows a general update/draw loop.
+The program compiles a shader from vertex and fragment code and creates vertex data from hardcoded points.
+
+`with-window` wraps the function in a glfw window context. `delete-gl` is used to delete any opengl resource created with `make-xxx`. `bind-gl` can be used on any resource with which it makes sense, ie shaders, framebuffers, vertex data, textures. 
 
 # Spinning Square
 
@@ -170,9 +228,8 @@ void main() {
 </code></pre></details>
 
 This demo is used to show the creation and loading of a 2d
-texture to the gpu. The texture is applied to a quad. 
-The example also uses multisampling. 
-For this demo I added textures and matricies.
+texture to the gpu. The texture is then applied to a quad.
+It also showcases matrices and a multisampled framebuffer.
 
 # 3D Waves
 
@@ -341,9 +398,10 @@ void main() {
    (cleanup)))
 </code></pre></details>
 
-This demo uses a 3d camera a 3d cubes with instance rendering. 
+This demo uses a 3d camera with perspective projection, and instance rendered cubes. 
 For this demo I expanded matrix functionality and implemented
-a perspective projection matrix function. 
+a perspective projection matrix function.
+The cube field undulates using a series of trig functions with time as it parameter. 
 
 Youtube compresses this demo badly, 
 heres a screenshot for a better picture.
@@ -593,6 +651,8 @@ The final pass adds a posterisation and edge detection effect,
 as well as a dot effect. It also boosts the saturation and brightness.
 For this demo I added framebuffer texture targets.
 
+The post process buffer uses dummy vertex data, the shader renders a single triangle using the vertex_id to calculate the position and uv coords.
+
 <div class="container">
 <div class="item">
   <img src="/assets/img/posts/gficl-demos/pp-base.png">
@@ -791,7 +851,9 @@ void main() {
 </code></pre></details>
 
 This example loads a wavefront model using a library,
-and renders it using gooch shading with an outline effect.
+and renders it using gooch shading with an outline effect based on surfae normal direction.
 For this example I added the ability to invert and transpose matrices.
 This is because surface normals need to be transformed 
 by the transpose of the inverse of the model matrix to avoid deformation.
+
+Gooch shading is a simple rendering method for technical illustraction. The paper introducing the technique can be found [here](pre-window-fn).
