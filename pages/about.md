@@ -5,7 +5,7 @@ permalink: /about/
 ---
 This is a blog where I put anything I work on, or anything I've learnt and might need to remember again in the future.
 
-I'm an undergraduate student studying Maths and Computer Science.
+I'm a Mathematics student, specifically of functional analysis, operator algebras.
 I enjoy programming and usually focus on the areas of graphics, games, and game engines. 
 
 This website is built with the static site generator [jekyll](https://jekyllrb.com/) and hosted on
